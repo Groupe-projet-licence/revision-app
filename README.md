@@ -1,66 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Voici ton texte correctement formaté avec des sauts de ligne et une bonne lisibilité :
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+CAHIER DE CHARGES D'UNE APPLICATION DE CRÉATION DE FICHES DE RÉVISION
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+1 - PAGE DE TITRE :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Titre du projet : Application de création de fiches de révision
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Porteur du projet : WebTitans
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Date de réalisation : 16 avril 2025
 
-## Laravel Sponsors
+Version du document : 1.0
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+2 - CONTEXTE ET PRÉSENTATION DU PROJET :
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+En milieu scolaire et académique, on constate que les apprenants n'arrivent pas souvent à réviser efficacement les leçons.
+Cette application vient donc résoudre ce problème en permettant à ceux-ci de se créer des fiches de révision qu'ils pourront consulter et sur lesquelles ils pourront s’évaluer grâce à des quiz associés.
 
-## Code of Conduct
+Cette application est réalisée dans le cadre de l’UV projet, une des UV de fin de cycle licence en informatique ;
+et elle cible essentiellement les étudiants universitaires.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3 - OBJECTIFS :
 
-## License
+A. Objectif général :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Permettre aux étudiants de mieux organiser leurs révisions à travers la création de fiches de révision.
+
+B. Objectifs spécifiques :
+
+Permettre la création de fiches de révision et des quiz pour étudier et s’évaluer soi-même.
+
+Permettre un suivi des performances.
+
+Proposer une interface intuitive permettant la création des fiches.
+
+Permettre une consultation rapide des fiches.
+
+
+
+---
+
+4 - DESCRIPTION DES UTILISATEURS CIBLES :
+
+Cibles principales : étudiants universitaires
+
+Niveau technique : application accessible sans aucune formation
+
+
+
+---
+
+5 - FONCTIONNALITÉS :
+
+Cette application devra offrir les fonctionnalités suivantes :
+
+Créer une fiche : les utilisateurs doivent y ajouter du texte, des images et des couleurs.
+
+Gérer une fiche : possibilité de mettre à jour les fiches et de les supprimer.
+
+Mode révision : les différentes fiches doivent pouvoir être affichées rapidement, et on doit pouvoir naviguer entre elles rapidement, de manière à ne pas casser l’élan de l’apprenant.
+
+Révision intelligente : l’application doit proposer quelques fiches qui doivent être révisées en utilisant la technique de la répétition espacée.
+
+Créer un quiz : il va s’agir d’un questionnaire lié à une fiche de révision.
+
+Réalisation des évaluations : les apprenants doivent pouvoir passer un quiz enregistré et obtenir une correction automatique à la fin.
+
+Création de flashcards : doivent permettre une révision rapide de certaines notions.
+
+Suivi de performance : affichage d’un graphe présentant les derniers quiz passés et les notes obtenues.
+
+Tableau de bord : une page qui affiche toutes les fiches, des quiz ou des graphiques en fonction de l’onglet sélectionné dans un menu.
+
+Catégorisation des fiches : possibilité de ranger les fiches par matière ou dans des dossiers.
+
+Partage des fiches : possibilité de générer des liens vers des fiches, afin d’inviter des camarades de la plateforme à les explorer.
+
+Personnaliser l’apparence : choix du thème sombre/clair, de la police, etc.
+
+
+
+---
+
+6 - EXIGENCES NON-FONCTIONNELLES :
+
+Sécurité : Implémentation d’un système d’inscription et d’authentification.
+
+Responsive design : affichage de l’application sur ordinateur, tablette ou mobile.
+
+Performance : temps de réponse des API < 1 seconde
+
+
+
+---
+
+7 - CONTRAINTES TECHNIQUES :
+
+Backend : Laravel 10.x
+
+Frontend : React.js (Quill.js et Chart.js)
+
+Authentification : Laravel Breeze
+
+Base de données : MySQL
+
+Hébergement : InfinityFree / serveur local
+
+Gestionnaire de versions : Git
+
+
+
+---
+
+8 - PLANIFICATION ET LIVRABLES :
+
+(Cette section reste à compléter si tu veux que je t’aide à rédiger le planning, les jalons, ou les versions à livrer.)
+
+
+---
+
+Souhaite-tu que je mette ce texte en format .docx ou .pdf aussi ?
+
