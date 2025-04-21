@@ -1,8 +1,3 @@
-Voici ton texte correctement formaté avec des sauts de ligne et une bonne lisibilité :
-
-
----
-
 CAHIER DE CHARGES D'UNE APPLICATION DE CRÉATION DE FICHES DE RÉVISION
 
 
@@ -126,11 +121,4 @@ Gestionnaire de versions : Git
 ---
 
 8 - PLANIFICATION ET LIVRABLES :
-
-(Cette section reste à compléter si tu veux que je t’aide à rédiger le planning, les jalons, ou les versions à livrer.)
-
-
----
-
-Souhaite-tu que je mette ce texte en format .docx ou .pdf aussi ?
 
