@@ -131,13 +131,13 @@ Enregistrer et générer une clé pour l’application en utilisant la commande 
 
 php artisan key:generate
 
-2️⃣ Lancer les migrations avec :
+2️⃣ Installer les dépendances PHP en exécutant :
+
+composer install 
+
+3️⃣ Allumer Xampp puis lancer les migrations avec :
 
 php artisan migrate
-
-3️⃣ Installer les dépendances PHP en exécutant :
-
-composer install
 
 4️⃣ Lancer le serveur de Laravel avec la commande :
 
