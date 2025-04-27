@@ -122,3 +122,37 @@ Gestionnaire de versions : Git
 
 8 - PLANIFICATION ET LIVRABLES :
 
+---
+
+GUIDE D’UTILISATION :
+
+1️⃣ Il faut tout d’abord créer un fichier **.env** et y coller le contenu du fichier **.env.example**.  
+Enregistrer et générer une clé pour l’application en utilisant la commande :
+
+php artisan key:generate
+
+2️⃣ Lancer les migrations avec :
+
+php artisan migrate
+
+3️⃣ Installer les dépendances PHP en exécutant :
+
+composer install
+
+4️⃣ Lancer le serveur de Laravel avec la commande :
+
+php artisan serve
+
+Ou alors :
+
+php -S localhost:8000 -t public
+
+5️⃣ Installer les dépendances de React en utilisant :
+
+npm install
+
+Puis lancer le serveur Vite avec :
+
+npm run dev
+
+6️⃣ Il ne reste plus qu’à vous rendre à l’adresse http://localhost:8000 dans le navigateur pour voir la page d’accueil de l’application s’afficher.
