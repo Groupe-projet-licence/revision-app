@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->id();
-            $table->string('answer_text');
-            $table->boolean('is_correct')->default(false);//Par dfaut on suppose que la reponse est fausse
-            $table->foreignId('question_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+    Schema::create('answers', function (Blueprint $table) {
+    $table->id();
+    $table->longText('answer_text');
+    $table->boolean('is_correct')->default(false);  // Par défaut on suppose que la réponse est fausse
+    $table->foreignId('question_id')->constrained()->onDelete('cascade');  // Clé étrangère pour question_id
+    $table->timestamps();
+});
     }
 
     /**
