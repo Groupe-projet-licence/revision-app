@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Sheet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,13 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         // \App\Models\User::factory(10)->create();
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             "name"=>"darlin",
             "email"=> "donfackdarlin@gmail.com",
             "password"=> Hash::make("670748873")
         ]);
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             "name"=>"rochelin",
             "email"=> "anoumedemrochelin6@gmail.com",
             "password"=> Hash::make("698112522")
@@ -35,5 +37,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            CategorySeeder::class,
+            QuestionSeeder::class,
+            AnswerSeeder::class,
+            QuizSeeder::class,
+            HistorySeeder::class,
+        ]);
+
+
     }
+
+
 }

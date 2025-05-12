@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Controllers\admin\SheetController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\HistoryController;
+use App\Models\Quiz;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,11 +41,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Les diferentes Routes du QUIZ A manipuler avec precaution @Darlin
-Route::get('/quiz/history', [QuizController::class, 'showHistory'])->name('quiz.history');
-Route::get('/categories', [QuizController::class, 'showCategories'])->name('quiz.categories');
-Route::get('/quiz/{categoryId}', [QuizController::class, 'showQuestions'])->name('quiz.questions');
-Route::post('/quiz/select', [QuizController::class, 'submitAnswers'])->name('quiz.submit');
+
+//Les diferentes Routes du QUIZ la manipulation des differente tables
+Route::resource('categories', CategoryController::class);
+Route::resource('questions', QuestionController::class);
+Route::resource('answers', AnswerController::class);
+Route::resource('histories', HistoryController::class);
+Route::resource('quizzes', QuizController::class);
+
+
+
+Route::get('/test-quizzes', function () {
+    return Quiz::with(['questions.answers'])->get();
+});
+
 
 
 
