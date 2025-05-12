@@ -124,22 +124,29 @@ Gestionnaire de versions : Git
 
 ---
 
-GUIDE D’UTILISATION :
+**GUIDE D’UTILISATION :**
 
-1️⃣ Il faut tout d’abord créer un fichier **.env** et y coller le contenu du fichier **.env.example**.  
-Enregistrer et générer une clé pour l’application en utilisant la commande :
+1️⃣ Il faut tout d’abord créer un fichier **.env** à la racine du projet, y coller le contenu du fichier **.env.example** et enregistrer. 
+
+2️⃣ **Installer les dépendances PHP en exécutant :**
+
+composer install
+
+Puis générer une clé pour l’application en utilisant la commande :
 
 php artisan key:generate
 
-2️⃣ Installer les dépendances PHP en exécutant :
 
-composer install 
-
-3️⃣ Allumer Xampp puis lancer les migrations avec :
+3️⃣ **Lancer les migrations et les seeders avec :**
 
 php artisan migrate
 
-4️⃣ Lancer le serveur de Laravel avec la commande :
+puis 
+
+php artisan migrate:fresh --seed
+
+
+4️⃣ **Lancer le serveur de Laravel avec la commande** :
 
 php artisan serve
 
@@ -147,7 +154,7 @@ Ou alors :
 
 php -S localhost:8000 -t public
 
-5️⃣ Installer les dépendances de React en utilisant :
+5️⃣ **Installer les dépendances de React en utilisant :**
 
 npm install
 
@@ -156,3 +163,5 @@ Puis lancer le serveur Vite avec :
 npm run dev
 
 6️⃣ Il ne reste plus qu’à vous rendre à l’adresse http://localhost:8000 dans le navigateur pour voir la page d’accueil de l’application s’afficher.
+
+**NB:** les étapes en gras devront etre systématiquement realisées à chaque mise a jour d'une branche local !

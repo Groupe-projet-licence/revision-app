@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sheet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,46 +25,10 @@ class DatabaseSeeder extends Seeder
             "email"=> "anoumedemrochelin6@gmail.com",
             "password"=> Hash::make("698112522")
         ]);
-        \App\Models\User::factory()->create([
-            "name"=>"wafo",
-            "email"=> "aroldwafo50@gmail.com",
-            "password"=> Hash::make("676351663")
-        ]);
-        \App\Models\User::factory()->create([
-            "name"=>"alicia",
-            "email"=> "ematalicia5@gmail.com",
-            "password"=> Hash::make("653654468")
-        ]);
-        \App\Models\User::factory()->create([
-            "name"=>"elisabeth",
-            "email"=> "kennepewoelisabeth223@gmail.com",
-            "password"=> Hash::make("654992997")
-        ]);
-        \App\Models\User::factory()->create([
-            "name"=>"elie",
-            "email"=> "fotsoelie52@gmail.com",
-            "password"=> Hash::make("657945736")
-        ]); 
-        \App\Models\User::factory()->create([
-            "name"=>"ange",
-            "email"=> "angekengne651@gmail.com",
-            "password"=> Hash::make("651261713")
-        ]);
-        \App\Models\User::factory()->create([
-            "name"=>"jason",
-            "email"=> "Atemjason11@gmail.com",
-            "password"=> Hash::make("652725764")
-        ]);
-        \App\Models\User::factory()->create([
-            "name"=>"john",
-            "email"=> "kuetchejohn19@gmail.com",
-            "password"=> Hash::make("675372019")
-        ]);
-        \App\Models\User::factory()->create([
-            "name"=>"patricia",
-            "email"=> "patricia@gmail.com",
-            "password"=> Hash::make("651641499")
-        ]);
+       
+
+        Sheet::factory()->count(3)->create(['user_id'=>1]);
+        Sheet::factory()->count(3)->create(['user_id'=>2]);
 
 
         // \App\Models\User::factory()->create([

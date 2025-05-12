@@ -36,3 +36,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+/*--------------------------------------------------------------------------------------------- 
+                                Routes liées aux fiches de l'apprenant
+-----------------------------------------------------------------------------------------------*/
+
+Route::resource('sheets',SheetController::class)->middleware('auth');
