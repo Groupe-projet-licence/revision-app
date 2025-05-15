@@ -164,4 +164,14 @@ npm run dev
 
 6️⃣ Il ne reste plus qu’à vous rendre à l’adresse http://localhost:8000 dans le navigateur pour voir la page d’accueil de l’application s’afficher.
 
-**NB:** les étapes en gras devront etre systématiquement realisées à chaque mise a jour d'une branche local !
+**NB:** 
+- les étapes en gras devront etre systématiquement realisées à chaque mise a jour d'une branche local !
+- N'oublier pas de créer une nouvelle branche sur laquelle vous allez travailler. Le nom de cette branche doit commencer par feature/ ou bien amelioration/.
+- Dans le cas ou le fichier **postcss.config.js** serait vide (lorsque les interfaces s'affichent bizzarement) veuillez ajouter dans ce fichier les lignes de codes suivantes: 
+    export default {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {},
+        },
+    };
+
