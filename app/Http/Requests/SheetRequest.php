@@ -27,4 +27,9 @@ class SheetRequest extends FormRequest
             'content'=> ['required','string','min:4']
         ];
     }
+    protected function prepareForValidation(){
+        return $this->merge([
+            'description'=> trim($this->input('description')) ? trim($this->input('description')) : 'Sheet without description' 
+        ]);
+    }
 }

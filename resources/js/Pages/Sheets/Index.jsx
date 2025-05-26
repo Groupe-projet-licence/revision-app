@@ -7,9 +7,15 @@ import Card from "../../Components/Card";
  */
 export default function Index({ sheets, flash }) {
     const [messageSuccess, setMessageSuccess] = useState(flash.success);
+    console.log(flash?.success);
     useEffect(() => {
-        const timer = setTimeout(() => setMessageSuccess(null), 3000);
-        return () => clearTimeout(timer)
+        if (flash?.success) {
+            const timer = setTimeout(() => {
+                setMessageSuccess(null)
+                window.location.reload();
+            }, 3000);
+            return () => clearTimeout(timer)
+        }
     }, []);
     return <div className="container my-5">
         {messageSuccess && <div className="alert alert-info flash-messge-success">{messageSuccess}</div>}

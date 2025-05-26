@@ -4,8 +4,9 @@
  * 
  */
 
+import ShowContentQuill from "@/Components/ShowContentQuill";
+
 
 export default function Show({ sheet }) {
-    return <div className="rounded-3 container"
-        dangerouslySetInnerHTML={{ __html: sheet.content }} />
+    return <ShowContentQuill>{sheet.content} </ShowContentQuill>
 }
