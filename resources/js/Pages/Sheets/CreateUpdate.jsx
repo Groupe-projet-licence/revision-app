@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import QuillEditor from '../../Components/QuillEditor';
+import AuthLayout from '@/Layouts/AuthLayouts';
 
 export default function CreateUpdate({ sheet }) {
     const { data, setData, post, put, processing, errors } = useForm({
@@ -29,8 +30,8 @@ export default function CreateUpdate({ sheet }) {
         setData('content', value)
 
         nbCharacterRemainig.current = 2000 - countCharacater(value).length
-       
-        if (LongParagraph.current= hasLongParagraph(value)) {
+
+        if (LongParagraph.current = hasLongParagraph(value)) {
             setFlashMsg('Please reduce your paragraphs!!')
         } else {
             setFlashMsg('')
@@ -52,8 +53,9 @@ export default function CreateUpdate({ sheet }) {
         return paragraphs.some(p => countWords(p) > 100);
     };
 
-    return (
-        <div className='container mt-3'>
+    return (<AuthLayout>
+
+        <div>
             <form onSubmit={handleSubmit} className='vstack gap-3'>
                 {FlashMsg && <div className="alert alert-danger">{FlashMsg}</div>}
                 <div className="form-group">
@@ -81,11 +83,12 @@ export default function CreateUpdate({ sheet }) {
                 <div className='text-center'>
                     <button type="submit"
                         className='btn btn-primary'
-                        disabled={processing || nbCharacterRemainig.current < 0 || LongParagraph.current }>
+                        disabled={processing || nbCharacterRemainig.current < 0 || LongParagraph.current}>
                         {nbCharacterRemainig.current} | Enregistrer
                     </button>
                 </div>
             </form>
         </div>
+    </AuthLayout>
     );
 }

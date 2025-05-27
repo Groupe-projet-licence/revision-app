@@ -64,4 +64,15 @@ require __DIR__.'/auth.php';
                                 Routes liées aux fiches de l'apprenant
 -----------------------------------------------------------------------------------------------*/
 
-Route::resource('sheets',SheetController::class)->middleware('auth');
+Route::resource('sheets',controller: SheetController::class)->middleware('auth');
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', fn () => Inertia::render('Accueil'));
+    Route::get('/compte', fn () => Inertia::render('Compte'));
+    Route::get('/quizz', fn () => Inertia::render('Quizz'));
+    Route::get('/revision', fn () => Inertia::render('Revision'));
+    Route::get('/historique', fn () => Inertia::render('Historique'));
+    Route::get('/parametres', fn () => Inertia::render('Parametres'));
+});

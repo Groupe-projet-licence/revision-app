@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../../Components/Card";
+import AuthLayout from "@/Layouts/AuthLayouts";
 
 /**
  * Affichage liste de fiches
@@ -17,13 +18,15 @@ export default function Index({ sheets, flash }) {
             return () => clearTimeout(timer)
         }
     }, []);
-    return <div className="container my-5">
-        {messageSuccess && <div className="alert alert-info flash-messge-success">{messageSuccess}</div>}
-        <div className="row">
-            {sheets.map(sheet => (
-                <Card data={sheet} key={sheet.id} />
-            ))}
+    return <AuthLayout>
+        <div>
+            {messageSuccess && <div className="alert alert-info flash-messge-success">{messageSuccess}</div>}
+            <div className="row">
+                {sheets.map(sheet => (
+                    <Card data={sheet} key={sheet.id} />
+                ))}
 
+            </div>
         </div>
-    </div>
+    </AuthLayout>
 }

@@ -1,7 +1,9 @@
 import './bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../css/app.css';
 import 'react-quill/dist/quill.snow.css'; /* Importez le thème snow (ou un autre thème)  */
+    
 
 
 import { createRoot } from 'react-dom/client';
