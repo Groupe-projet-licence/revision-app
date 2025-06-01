@@ -25,7 +25,7 @@ use App\Models\Quiz;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        'canRegister' => Route::has('register'), 
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -64,12 +64,13 @@ require __DIR__.'/auth.php';
                                 Routes liées aux fiches de l'apprenant
 -----------------------------------------------------------------------------------------------*/
 
+Route::get('sheets/revision',[SheetController::class,'showSheetsToReviewed'])->name('sheets.revision');
 Route::resource('sheets',controller: SheetController::class)->middleware('auth');
 
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', fn () => Inertia::render('Accueil'));
+    //Route::get('/', fn () => Inertia::render('Accueil'));
     Route::get('/compte', fn () => Inertia::render('Compte'));
     Route::get('/quizz', fn () => Inertia::render('Quizz'));
     Route::get('/revision', fn () => Inertia::render('Revision'));

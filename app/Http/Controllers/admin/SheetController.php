@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SheetRequest;
 use App\Models\Sheet;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,14 +18,14 @@ class SheetController extends Controller
     public function index()
     {
         return Inertia::render('Sheets/Index', [
-            'sheets' => Sheet::latest()->where('user_id',Auth::user()->id)->get()
+            'sheets' => Sheet::latest()->where('user_id', Auth::user()->id)->get()
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-   
+
     public function create()
     {
         return Inertia::render('Sheets/CreateUpdate');
@@ -35,11 +36,11 @@ class SheetController extends Controller
      */
     public function store(SheetRequest $request)
     {
-        $sheet= new Sheet();
+        $sheet = new Sheet();
         $sheet->fill($request->validated());
-        $sheet->user_id=Auth::user()->id;
+        $sheet->user_id = Auth::user()->id;
         $sheet->save();
-        return redirect()->route('sheets.index')->with('success','Sheet succefully added!');
+        return redirect()->route('sheets.index')->with('success', 'Sheet succefully added!');
     }
 
     /**
@@ -47,11 +48,33 @@ class SheetController extends Controller
      */
     public function show(Sheet $sheet)
     {
-        if($sheet->user_id != Auth::user()->id){
+        if ($sheet->user_id != Auth::user()->id) {
             abort(403);
         }
-        return Inertia::render('Sheets/Show',[
-            'sheet'=> $sheet
+        $isReviewedToDay = false;
+        if ($sheet->last_opened_at) {
+            $isReviewedToDay = Carbon::parse($sheet->last_opened_at)->isToday();
+        }
+        if (!$isReviewedToDay) {
+            $sheet->last_opened_at = now();
+            switch ($sheet->revision_count) {
+                case 0:
+                    $sheet->next_revision_at = now()->addDays(1);
+                    break;
+                case 1:
+                    $sheet->next_revision_at = now()->addDays(3);
+                    break;
+                case 2:
+                    $sheet->next_revision_at = now()->addDays(7);
+                    break;
+                default:
+                    $sheet->next_revision_at = now()->addDays(14);
+            }
+            $sheet->revision_count++;
+            $sheet->save();
+        }
+        return Inertia::render('Sheets/Show', [
+            'sheet' => $sheet
         ]);
     }
 
@@ -60,11 +83,13 @@ class SheetController extends Controller
      */
     public function edit(Sheet $sheet)
     {
-        if($sheet->user_id != Auth::user()->id){
+
+        if ($sheet->user_id != Auth::user()->id) {
             abort(403);
         }
-        return Inertia::render('Sheets/CreateUpdate',[
-            'sheet'=>$sheet
+
+        return Inertia::render('Sheets/CreateUpdate', [
+            'sheet' => $sheet
         ]);
     }
 
@@ -74,7 +99,7 @@ class SheetController extends Controller
     public function update(SheetRequest $request, Sheet $sheet)
     {
         $sheet->update($request->validated());
-        return redirect()->route('sheets.index')->with('success','Sheet succefully updated!');
+        return redirect()->route('sheets.index')->with('success', 'Sheet succefully updated!');
 
     }
 
@@ -85,5 +110,15 @@ class SheetController extends Controller
     {
         $sheet->delete();
         return redirect()->route('sheets.index')->with('success', 'Sheet succefully deleted');
+    }
+    public function showSheetsToReviewed()
+    {
+        $sheets = Sheet::Where('user_id', Auth()->id())
+            ->where('next_revision_at', '<=', now())
+            ->orderBy('next_revision_at', 'asc')->get();
+        return Inertia::render('Sheets/showSheetsToReviewed', [
+            'sheets' => $sheets,
+            
+        ]);
     }
 }

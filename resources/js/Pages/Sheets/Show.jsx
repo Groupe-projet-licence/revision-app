@@ -5,8 +5,13 @@
  */
 
 import ShowContentQuill from "@/Components/ShowContentQuill";
+import AuthLayouts from "@/Layouts/AuthLayouts";
 
 
 export default function Show({ sheet }) {
-    return <ShowContentQuill>{sheet.content} </ShowContentQuill>
+    return <AuthLayouts>
+        <div>
+            <ShowContentQuill>{sheet.content} </ShowContentQuill>
+        </div>
+    </AuthLayouts>
 }

@@ -28,9 +28,12 @@ export default function Card({ data }) {
             </div>
             <div className="text-end">
                 <hr />
+                <Link href={route('sheets.edit', data.id)}
+                    className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold"
+                    style={{ fontSize: '0.9em' }}>Edit</Link>
                 <Link href={route('sheets.show', data.id)}
-                    className="btn btn-outline-primary m-2 fw-bold"
-                    style={{ fontSize: '0.9em' }}>Voir</Link>
+                    className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold"
+                    style={{ fontSize: '0.9em'  }}>Review</Link>
             </div>
         </div>
     </div >

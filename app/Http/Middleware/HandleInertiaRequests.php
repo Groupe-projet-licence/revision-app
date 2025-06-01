@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Sheet;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -34,10 +35,13 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'flash'=>[
-                'success'=> $request->session()->pull('success'),
-            ]
-            
+            'flash' => [
+                'success' => $request->session()->pull('success'),
+            ],
+            'revisionCount' => Sheet::Where('user_id', Auth()->id())
+                ->where('next_revision_at', '<=', now())
+                ->orderBy('next_revision_at', 'asc')->count()
+
         ];
     }
 }
