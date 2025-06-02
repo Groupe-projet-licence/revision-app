@@ -22,8 +22,8 @@ class SheetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=> ['required','string','min:7'],
-            'description'=> ['nullable','string'],
+            'title'=> ['required','string','min:7','max:40'],
+            'description'=> ['nullable','string','max:110'],
             'content'=> ['required','string','min:4']
         ];
     }

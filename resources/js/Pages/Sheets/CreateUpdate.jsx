@@ -79,7 +79,13 @@ export default function CreateUpdate({ sheet }) {
                         onChange={(e) => setData('description', e.target.value)} />
                     {errors.description && <span className="text-danger">{errors.description}</span>}
                 </div>
-                <QuillEditor value={valueQuillRef.current} onChange={handleChange} error={errors.content} />
+                <div className="big-quill big-loader">
+
+                    <QuillEditor
+                        value={valueQuillRef.current}
+                        onChange={handleChange}
+                        error={errors.content} />
+                </div>
                 <div className='text-center'>
                     <button type="submit"
                         className='btn btn-primary'

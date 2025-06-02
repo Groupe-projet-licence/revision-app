@@ -30,8 +30,7 @@ const QuillEditor = ({ error, ...props }) => {
     return (
         <div>
             <Suspense fallback={
-                <div className='d-flex justify-content-center align-items-center'
-                    style={{ height: '300px' }}>
+                <div className='loader'>
                     <div className='spinner-border text-primary' role='status'>
                         <span className="sr-only">Chargement de l'editeur...</span>
                     </div>
