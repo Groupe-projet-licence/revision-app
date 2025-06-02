@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('sheets', function (Blueprint $table) {
             $table->timestamp('last_opened_at')->nullable();
-            $table->timestamp('next_revision_at')->default(now()->addDay());
+            $table->timestamp('next_revision_at')->default(now()->addDays());
             $table->integer('revision_count')->default(0);
         });
     }
