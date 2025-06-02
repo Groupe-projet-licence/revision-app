@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->longText('content');
+            $table->timestamp('last_opened_at')->nullable();
+            $table->timestamp('next_revision_at')->default(now()->addDays());
+            $table->integer('revision_count')->default(0);
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();

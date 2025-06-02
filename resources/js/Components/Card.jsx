@@ -1,14 +1,17 @@
 /**
  * Affichage d'une carte presentant une fiche de revision
- * @param {title:string, description:string, content:string} data 
+ * @param {title:string, description:string, content:string,last_opened_at:string} data 
  */
 import { Link, router } from '@inertiajs/react'
 export default function Card({ data }) {
+    const last_review= data.last_opened_at
 
     return <div key={data.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4">
         <div className="mycard d-flex flex-column  justify-content-between"
-            style={{ aspectRatio: 3 / 1.9, 
-            borderRadius:'9px' }}>
+            style={{
+                aspectRatio: 3 / 1.9,
+                borderRadius: '9px'
+            }}>
             <div>
                 <div className='m-2'>
                     <div
@@ -36,14 +39,20 @@ export default function Card({ data }) {
                     )}
                 </div>
             </div>
-            <div className="text-end">
-                <hr />
-                <Link href={route('sheets.edit', data.id)}
-                    className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold"
-                    style={{ fontSize: '0.9em' }}>Edit</Link>
-                <Link href={route('sheets.show', data.id)}
-                    className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold"
-                    style={{ fontSize: '0.9em'  }}>Review</Link>
+            <div className="">
+                <div className='mx-2'>
+                   {last_review ? `Last Review ${last_review}`: 'Never review'} 
+                </div>
+
+                <div className="text-end">
+                    <hr />
+                    <Link href={route('sheets.edit', data.id)}
+                        className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold"
+                        style={{ fontSize: '0.9em' }}>Edit</Link>
+                    <Link href={route('sheets.show', data.id)}
+                        className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold"
+                        style={{ fontSize: '0.9em' }}>Review</Link>
+                </div>
             </div>
         </div>
     </div >
