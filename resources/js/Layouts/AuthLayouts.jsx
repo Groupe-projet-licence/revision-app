@@ -110,7 +110,7 @@ function SidebarLinks() {
         </Link>
       </li>
       <li className="nav-item mb-2">
-        <Link href="/quizz" className={`nav-link ${isActive('/quizz') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+        <Link href="/quizzes" className={`nav-link ${window.location.pathname.includes('/quizzes') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-journal-text me-2"></i> My quiz
         </Link>
       </li>

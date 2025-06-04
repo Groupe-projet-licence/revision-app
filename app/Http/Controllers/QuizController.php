@@ -6,6 +6,8 @@ use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class QuizController extends Controller
 {
