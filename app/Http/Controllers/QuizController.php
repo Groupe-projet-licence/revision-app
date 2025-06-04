@@ -24,6 +24,11 @@ class QuizController extends Controller
         return view('quizzes.create', compact('categories', 'questions'));
     }
 
+    public function create()
+    {
+        return Inertia::render('Quizzes/QuizzesCreate');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
