@@ -17,6 +17,11 @@ class QuizController extends Controller
     ]);;
     }
 
+    public function create()
+    {
+        return Inertia::render('Quizzes/QuizzesCreate');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
