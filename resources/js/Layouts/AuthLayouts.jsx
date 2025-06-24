@@ -1,3 +1,130 @@
+// import { useState } from 'react';
+// import ApplicationLogo from '@/Components/ApplicationLogo';
+// import Dropdown from '@/Components/Dropdown';
+// import NavLink from '@/Components/NavLink';
+// import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+// import { Link } from '@inertiajs/react';
+
+// export default function AuthLayouts({ user, header, children }) {
+//     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
+//     return (
+//         <div className="min-h-screen bg-gray-100">
+//             <nav className="bg-white border-b border-gray-100">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//                     <div className="flex justify-between h-16">
+//                         <div className="flex">
+//                             <div className="shrink-0 flex items-center">
+//                                 <Link href="/">
+//                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+//                                 </Link>
+//                             </div>
+
+//                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+//                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+//                                     Dashboard
+//                                 </NavLink>
+//                             </div>
+//                         </div>
+
+//                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+//                             <div className="ms-3 relative">
+//                                 <Dropdown>
+//                                     <Dropdown.Trigger>
+//                                         <span className="inline-flex rounded-md">
+//                                             <button
+//                                                 type="button"
+//                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+//                                             >
+//                                                 {user.name}
+
+//                                                 <svg
+//                                                     className="ms-2 -me-0.5 h-4 w-4"
+//                                                     xmlns="http://www.w3.org/2000/svg"
+//                                                     viewBox="0 0 20 20"
+//                                                     fill="currentColor"
+//                                                 >
+//                                                     <path
+//                                                         fillRule="evenodd"
+//                                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+//                                                         clipRule="evenodd"
+//                                                     />
+//                                                 </svg>
+//                                             </button>
+//                                         </span>
+//                                     </Dropdown.Trigger>
+
+//                                     <Dropdown.Content>
+//                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+//                                         <Dropdown.Link href={route('logout')} method="post" as="button">
+//                                             Log Out
+//                                         </Dropdown.Link>
+//                                     </Dropdown.Content>
+//                                 </Dropdown>
+//                             </div>
+//                         </div>
+
+//                         <div className="-me-2 flex items-center sm:hidden">
+//                             <button
+//                                 onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
+//                                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+//                             >
+//                                 <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+//                                     <path
+//                                         className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+//                                         strokeLinecap="round"
+//                                         strokeLinejoin="round"
+//                                         strokeWidth="2"
+//                                         d="M4 6h16M4 12h16M4 18h16"
+//                                     />
+//                                     <path
+//                                         className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+//                                         strokeLinecap="round"
+//                                         strokeLinejoin="round"
+//                                         strokeWidth="2"
+//                                         d="M6 18L18 6M6 6l12 12"
+//                                     />
+//                                 </svg>
+//                             </button>
+//                         </div>
+//                     </div>
+//                 </div>
+
+//                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
+//                     <div className="pt-2 pb-3 space-y-1">
+//                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+//                             Dashboard
+//                         </ResponsiveNavLink>
+//                     </div>
+
+//                     <div className="pt-4 pb-1 border-t border-gray-200">
+//                         <div className="px-4">
+//                             <div className="font-medium text-base text-gray-800">{user.name}</div>
+//                             <div className="font-medium text-sm text-gray-500">{user.email}</div>
+//                         </div>
+
+//                         <div className="mt-3 space-y-1">
+//                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+//                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
+//                                 Log Out
+//                             </ResponsiveNavLink>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </nav>
+
+//             {header && (
+//                 <header className="bg-white shadow">
+//                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+//                 </header>
+//             )}
+
+//             <main>{children}</main>
+//         </div>
+//     );
+// }
+
+
 import { useRevision } from '@/Contexts/RevisionProvider';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
@@ -28,7 +155,7 @@ export default function AuthLayouts({ children }) {
             value= {searchKeyword}
             onChange={ (e) => setSearchKeyword(e.target.value)}
           />
-          <div className="position-relative">
+          <div className="position-relative ms-auto">
             <button
               className="btn btn-light text-dark"
               onClick={() => setShowDropdown(!showDropdown)}
@@ -36,7 +163,8 @@ export default function AuthLayouts({ children }) {
               {auth.user.name}
             </button>
             {showDropdown && (
-              <div className="dropdown-menu dropdown-menu-end show mt-2">
+              <div className="dropdown-menu dropdown-menu-end show" 
+              style={{ position: 'absolute',  top: 45,right:-10 }}>
                 <Link
                   href="/logout"
                   method="post"
@@ -60,13 +188,13 @@ export default function AuthLayouts({ children }) {
 
         {/* Sidebar Mobile Dropdown */}
         {showMobileMenu && (
-          <div className="bg-white border-end p-3 d-block d-md-none" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '85%' }}>
+          <div className="bg-white border-end p-3 d-block d-md-none" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '60vw' }}>
             <SidebarLinks />
           </div>
         )}
 
         {/* Main Content */}
-        <main className="p-4 flex-grow-1 overflow-auto">
+        <main className="p-3 flex-grow-1 overflow-auto p-reduce">
           {/* Mobile search bar (only shown on small screen) */}
           <div className="mb-3 d-md-none">
             <input
@@ -94,13 +222,14 @@ function SidebarLinks() {
 
   return (
     <ul className="nav flex-column text-uppercase fw-bold">
-      <li className="nav-item mb-2">
+
+      {/* <li className="nav-item mb-2">
         <Link href="/" className={`nav-link ${isActive('/') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-house me-2"></i> Home
         </Link>
-      </li>
+      </li> */}
       <li className="nav-item mb-2">
-        <Link href="/compte" className={`nav-link ${isActive('/compte') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+        <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-person me-2"></i> My account
         </Link>
       </li>
@@ -117,7 +246,7 @@ function SidebarLinks() {
       <li className="nav-item mb-2">
         <Link href="/sheets/revision" className={`nav-link ${isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-book me-2">
-          </i>Review{revisionCount > 0 && <sup><span className="badge bg-danger ms-2">{revisionCount}</span></sup>}
+          </i>Revision {revisionCount > 0 && <sup><span className="badge bg-danger ms-2">{revisionCount}</span></sup>}
         </Link>
       </li>
       <li className="nav-item mb-2">
@@ -125,11 +254,11 @@ function SidebarLinks() {
           <i className="bi bi-clock-history me-2"></i> My History
         </Link>
       </li>
-      <li className="nav-item">
-        <Link href="/parametres" className={`nav-link ${isActive('/parametres') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+      {/* <li className="nav-item">
+        <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-gear me-2"></i> Settings
         </Link>
-      </li>
+      </li> */}
     </ul>
   );
 }

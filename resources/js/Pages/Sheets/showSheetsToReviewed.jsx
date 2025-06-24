@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import Card from "../../Components/Card";
-import AuthLayout from "@/Layouts/AuthLayouts";
+import AuthLayout from "@/Layouts/AuthLayouts1";
 
 /**
  * Affichage liste de fiches
@@ -26,7 +26,7 @@ export default function showSheetsToReviewed({ sheets, flash }) {
                 sheets.length === 0 ?
                     <h1>Aucune fiche à reviser pour le moment!!</h1>
                     :
-                    <div className="row">
+                    <div className="container-grid-css-card">
                         {sheets.map(sheet => (
                             <Card data={sheet} key={sheet.id} />
                         ))}

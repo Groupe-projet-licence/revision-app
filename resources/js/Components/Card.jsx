@@ -4,28 +4,38 @@
  */
 import { Link, router } from '@inertiajs/react'
 export default function Card({ data }) {
-    const last_review= data.last_opened_at
+    const last_review = data.last_opened_at
+    const showEditButton = !window.location.pathname.includes('sheets/revision')
 
-    return <div key={data.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4">
-        <div className="mycard d-flex flex-column  justify-content-between"
+    return <div key={data.id} className="row-13">
+        <div className="mycard d-flex flex-column "
             style={{
-                aspectRatio: 3 / 1.9,
-                borderRadius: '9px'
+                borderRadius: '15px'
             }}>
-            <div>
-                <div className='m-2'>
-                    <div
-                        style={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            fontWeight: '500',
-
-                        }}>
-                        {data.title}
+            <div className="d-flex flex-column  justify-content-between gap-2"  style={{
+                 aspectRatio: 3 / 1.3,
+            }}>
+                <div className='d-flex align-items-center p-2'>
+                    <div className="mx-2" style={{fontSize:"2.2em"}}>
+                        <i className="bi bi-journal-bookmark text-secondary"></i>
                     </div>
-                    <div style={{ fontSize: '0.9em' }}>
-                        {data.description}
+                    <div className='m-2'>
+                        <div
+                            style={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                fontWeight: '600',
+
+                            }}>
+                            {data.title}
+                        </div>
+                        <div class="small-text">
+                            {data.description}
+                        </div>
+                    </div>
+                    <div className="three-dots">
+                        <i className="bi bi-three-dots text-secondary"></i>
                     </div>
                     {/* Catégorie */}
                     {data.category ? (
@@ -38,21 +48,21 @@ export default function Card({ data }) {
                         </div>
                     )}
                 </div>
-            </div>
-            <div className="">
-                <div className='mx-2'>
-                   {last_review ? `Last Review ${last_review}`: 'Never review'} 
+                <div className='px-2 pb-2 small-text'>
+                    {last_review ? `Last revision: ${last_review}` : 'Never revised'}
                 </div>
 
-                <div className="text-end">
-                    <hr />
-                    <Link href={route('sheets.edit', data.id)}
-                        className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold"
-                        style={{ fontSize: '0.9em' }}>Edit</Link>
-                    <Link href={route('sheets.show', data.id)}
-                        className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold"
-                        style={{ fontSize: '0.9em' }}>Review</Link>
-                </div>
+
+            </div>
+            <div className="text-end">
+                <hr />
+                {showEditButton &&
+                <Link href={route('sheets.edit', data.id)}
+                    className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold"
+                    style={{ fontSize: '0.9em' }}>Edit</Link>}
+                <Link href={route('sheets.show', data.id)}
+                    className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold"
+                    style={{ fontSize: '0.9em' }}>Review</Link>
             </div>
         </div>
     </div >
