@@ -5,7 +5,7 @@
  */
 
 import ShowContentQuill from "@/Components/ShowContentQuill";
-import AuthLayouts from "@/Layouts/AuthLayouts";
+import AuthLayouts from "@/Layouts/AuthLayouts1";
 
 
 export default function Show({ sheet }) {

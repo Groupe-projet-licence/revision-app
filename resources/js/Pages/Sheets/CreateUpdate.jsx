@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import QuillEditor from '../../Components/QuillEditor';
-import AuthLayout from '@/Layouts/AuthLayouts';
+import AuthLayout from '@/Layouts/AuthLayouts1';
 
 export default function CreateUpdate({ sheet, categories }) {
     const { data, setData, post, put, processing, errors } = useForm({

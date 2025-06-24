@@ -1,5 +1,5 @@
 import QuillEditor from "@/Components/QuillEditor";
-import AuthLayouts from "@/Layouts/AuthLayouts";
+import AuthLayouts from "@/Layouts/AuthLayouts1";
 import { Link } from "@inertiajs/react";
 
 export default function QuizzesIndex() {

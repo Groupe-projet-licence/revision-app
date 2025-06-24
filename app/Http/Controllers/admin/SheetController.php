@@ -23,17 +23,16 @@ class SheetController extends Controller
         if($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-
+        foreach ($query as &$sheet) {
+            $sheet->last_opened_at = substr($sheet->last_opened_at, 0, 10);
+        }
+            
         return Inertia::render('Sheets/Index', [
             'sheets' => $query->latest()->get(),
             'categories' => Category::orderBy('subject')->get(),
             'selectedCategory' => $request->category_id,
         ]);
         
-        /*return Inertia::render('Sheets/Index', [
-            'sheets' => Sheet::with('category') //Chargement relation
-                ->latest()->where('user_id', Auth::user()->id)->get()
-        ]);*/
     }
 
     /**
@@ -133,9 +132,12 @@ class SheetController extends Controller
         $sheets = Sheet::Where('user_id', Auth()->id())
             ->where('next_revision_at', '<=', now())
             ->orderBy('next_revision_at', 'asc')->get();
+        foreach ($sheets as &$sheet) {
+            $sheet->last_opened_at = substr($sheet->last_opened_at, 0, 10);
+        }
         return Inertia::render('Sheets/showSheetsToReviewed', [
             'sheets' => $sheets,
-            
+
         ]);
     }
 }

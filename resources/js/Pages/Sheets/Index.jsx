@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../../Components/Card";
-import AuthLayout from "@/Layouts/AuthLayouts";
+import AuthLayout from "@/Layouts/AuthLayouts1";
 import { Link } from "@inertiajs/react";
 
 /**

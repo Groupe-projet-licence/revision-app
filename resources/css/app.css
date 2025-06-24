@@ -1,6 +1,15 @@
+/* --------------------------------------------------------------
+Style géneral 
+-----------------------------------------------------------------*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media screen and (max-width:500px) {
+    .p-reduce {
+        padding: 10px !important;
+    }
+}
 
 * {
     box-sizing: border-box;
@@ -11,18 +20,18 @@
 -----------------------------------------------------------------*/
 .big-quill .ql-toolbar {
     border-radius: 8px 8px 0 0;
-    border-top:rgb(126, 126, 126) 1px solid !important; 
-    border-left:rgb(126, 126, 126) 1px solid !important; 
-    border-right:rgb(126, 126, 126) 1px solid !important; 
+    border-top: rgb(126, 126, 126) 1px solid !important;
+    border-left: rgb(126, 126, 126) 1px solid !important;
+    border-right: rgb(126, 126, 126) 1px solid !important;
 }
 
 .big-quill .ql-container {
     border-radius: 0 0 8px 8px;
     min-height: 300px;
-    border-bottom:rgb(126, 126, 126) 1px solid !important; 
-    border-left:rgb(126, 126, 126) 1px solid !important; 
-    border-right:rgb(126, 126, 126) 1px solid !important; 
- 
+    border-bottom: rgb(126, 126, 126) 1px solid !important;
+    border-left: rgb(126, 126, 126) 1px solid !important;
+    border-right: rgb(126, 126, 126) 1px solid !important;
+
 }
 
 .ql-snow .ql-editor pre {
@@ -53,6 +62,36 @@
     border: none;
 }
 
+.container-grid-css-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    grid-gap: 20px;
+}
+
 .mycard {
     box-shadow: 0 0 4px #918f8f;
+    max-width:400px;
+}
+
+.small-text {
+    font-size: 0.9em;
+}
+.three-dots{
+     font-size:1.2em;
+     align-self: flex-start;
+     justify-self: flex-end;
+     justify-self: flex-end;
+     flex:1 1 0 ;
+     text-align: end;
+}
+
+@media screen and (min-width:372px) and (max-width:572px) {
+    .mycard {
+        max-width: 400px;
+    }
+}
+@media screen and (min-width:1000px) {
+    .container-grid-css-card {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
 }
