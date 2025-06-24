@@ -1,10 +1,7 @@
 import QuillEditor from "@/Components/QuillEditor";
-import AuthLayouts from "@/Layouts/AuthLayouts1";
 
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import QuillEditor from '@/Components/QuillEditor'; // Votre composant personnalisé
 import AuthLayouts from '@/Layouts/AuthLayouts';
 import { useForm } from '@inertiajs/react';
 
