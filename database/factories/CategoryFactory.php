@@ -16,6 +16,8 @@ class CategoryFactory extends Factory
     {
         return [
             'subject' => $this->faker->word(),
+            //Partie Modifier
+            'level' => $this->faker->numberBetween(1,8),
         ];
     }
 }

@@ -24,7 +24,8 @@ class SheetRequest extends FormRequest
         return [
             'title'=> ['required','string','min:7'],
             'description'=> ['nullable','string'],
-            'content'=> ['required','string','min:4']
+            'content'=> ['required','string','min:4'],
+            'category_id' => 'required | exists:categories,id',
         ];
     }
     protected function prepareForValidation(){

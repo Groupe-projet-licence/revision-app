@@ -2,24 +2,38 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\SheetRequest;
-use App\Models\Sheet;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Sheet;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Requests\SheetRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SheetController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Sheet::with('category')->where('user_id', Auth::id());
+
+        if($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
         return Inertia::render('Sheets/Index', [
-            'sheets' => Sheet::latest()->where('user_id', Auth::user()->id)->get()
+            'sheets' => $query->latest()->get(),
+            'categories' => Category::orderBy('subject')->get(),
+            'selectedCategory' => $request->category_id,
         ]);
+        
+        /*return Inertia::render('Sheets/Index', [
+            'sheets' => Sheet::with('category') //Chargement relation
+                ->latest()->where('user_id', Auth::user()->id)->get()
+        ]);*/
     }
 
     /**
@@ -28,7 +42,9 @@ class SheetController extends Controller
 
     public function create()
     {
-        return Inertia::render('Sheets/CreateUpdate');
+        return Inertia::render('Sheets/CreateUpdate', [
+            'categories' => Category::orderBy('subject')->get()
+        ]);
     }
 
     /**
@@ -89,7 +105,8 @@ class SheetController extends Controller
         }
 
         return Inertia::render('Sheets/CreateUpdate', [
-            'sheet' => $sheet
+            'sheet' => $sheet,
+            'categories' => Category::orderBy('subject')->get()
         ]);
     }
 
