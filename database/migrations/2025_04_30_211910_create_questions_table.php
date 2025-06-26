@@ -8,8 +8,8 @@ return new class extends Migration {
     public function up(): void {
     Schema::create('questions', function (Blueprint $table) {
     $table->id();
-    $table->string('question_text');
-    $table->foreignId('category_id')->constrained()->onDelete('cascade');
+    $table->longText('question_text');
+   // $table->foreignId('category_id')->constrained()->onDelete('cascade');
     $table->enum('type', ['single', 'multiple']);
     $table->timestamps();
 });
