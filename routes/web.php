@@ -25,13 +25,9 @@ use App\Http\Controllers\QuizSubmissionController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Welcome');
 });
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -50,8 +46,13 @@ Route::get('/quizzes/library', [QuizController::class, 'library'])->name('quizze
 Route::resource('categories', CategoryController::class);
 Route::resource('questions', QuestionController::class);
 Route::resource('answers', AnswerController::class);
-Route::resource('histories', HistoryController::class);
 Route::resource('quizzes', QuizController::class);
+
+
+Route::middleware(['auth'])->group(function () {
+Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
+Route::get('/histories/{history}', [HistoryController::class, 'result'])->name('histories.result');
+});
 
 
 
@@ -88,6 +89,9 @@ Route::get('sheets/revision',[SheetController::class,'showSheetsToReviewed'])->n
 Route::resource('sheets',controller: SheetController::class)->middleware('auth');
 
 
+Route::get('history/historique',[HistoryController::class,'index'])->name('history.historique');
+
+
 
 Route::middleware(['auth'])->group(function () {
     //Route::get('/', fn () => Inertia::render('Accueil'));
@@ -96,15 +100,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/revision', fn () => Inertia::render('Revision'));
     Route::get('/historique', fn () => Inertia::render('Historique'));
     Route::get('/parametres', fn () => Inertia::render('Parametres'));
-});
-
-
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/evaluations', [HistoryController::class ,'index'])->name('histories.index');
-    Route::get('/evaluations/{quiz}/start', [HistoryController::class ,'start'])->name('histories.start');
-    Route::post('/evaluations/{quiz}/submit', [HistoryController::class ,'submit'])->name('histories.submit');
-    Route::get('/evaluations/result/{history}', [HistoryController::class ,'result'])->name('histories.result');
 });
 
 

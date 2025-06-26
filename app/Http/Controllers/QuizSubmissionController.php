@@ -14,50 +14,66 @@ class QuizSubmissionController extends Controller
 {
     public function show(Quiz $quiz)
     {
-        $quiz->load(['questions.options']);
+        $quiz->load(['questions.answers']);
         return Inertia::render('Quiz/Evaluate', [ 'quiz' => $quiz ]);
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'quiz_id' => 'required|exists:quizzes,id',
-            'answers' => 'required|array',
+ public function store(Request $request)
+{
+$data = $request->validate([
+'quiz_id' => 'required|exists:quizzes,id',
+'answers' => 'required|array',
+]);
+
+
+$submission = QuizSubmission::create([
+    'user_id' => Auth::id(),
+    'quiz_id' => $data['quiz_id'],
+]);
+
+$total = 0;
+$obtained = 0;
+
+foreach ($data['answers'] as $questionId => $selectedIds) {
+    $question = Question::with('answers')->find($questionId);
+    $correctAnswers = $question->answers->where('is_correct', true);
+    $allCorrectIds = $correctAnswers->pluck('id')->toArray();
+    $selectedIds = is_array($selectedIds) ? $selectedIds : [$selectedIds];
+
+    $total += count($allCorrectIds);
+
+    foreach ($selectedIds as $answerId) {
+        SubmissionAnswer::create([
+            'quiz_submission_id' => $submission->id,
+            'question_id' => $questionId,
+            'answer_id' => $answerId,
         ]);
+    }
 
-        $submission = QuizSubmission::create([
-            'user_id' => Auth::id(),
-            'quiz_id' => $data['quiz_id'],
-        ]);
+    // Score partiel basé sur les bonnes réponses choisies
+    $correctSelected = collect($selectedIds)->intersect($allCorrectIds)->count();
+    $incorrectSelected = collect($selectedIds)->diff($allCorrectIds)->count();
 
-        $score = 0;
-        foreach ($data['answers'] as $questionId => $selectedOptionIds) {
-            $question = Question::find($questionId);
-            $correctOptionIds = $question->options()->where('is_correct', true)->pluck('id')->sort()->values();
-            $selected = collect($selectedOptionIds)->sort()->values();
+    // Pénalité si réponses fausses
+    $partial = max($correctSelected - $incorrectSelected, 0);
+    $obtained += $partial;
+}
 
-            if ($selected->toArray() === $correctOptionIds->toArray()) {
-                $score++;
-            }
+// Calcul du pourcentage
+$percentage = $total > 0 ? round(($obtained / $total) * 100, 2) : 0;
 
-            foreach ($selectedOptionIds as $optionId) {
-                SubmissionAnswer::create([
-                    'quiz_submission_id' => $submission->id,
-                    'question_id' => $questionId,
-                    'option_id' => $optionId
+$submission->update(['score' => $percentage]);
+
+return redirect()->route('quiz.result', $submission->id);
+}
+
+public function result($id){
+     $submission = QuizSubmission::with([ 'answers.answer','answers.question.answers' // toutes les réponses pour la question
+                ])->findOrFail($id);
+                return Inertia::render('Quiz/Result', [
+                    'submission' => $submission,
                 ]);
-            }
         }
-
-        $submission->update(['score' => $score]);
-        return redirect()->route('quiz.result', $submission->id);
-    }
-
-    public function result($id)
-    {
-        $submission = QuizSubmission::with(['answers.option', 'answers.question'])->findOrFail($id);
-        return Inertia::render('Quiz/Result', [ 'submission' => $submission ]);
-    }
 }
 
 

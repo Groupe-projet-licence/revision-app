@@ -26,6 +26,12 @@ class DatabaseSeeder extends Seeder
             "password" => Hash::make("670748873")
         ]);
 
+         $user1=User::factory()->create([
+            "name" => "rochelin",
+            "email" => "anoumedemrochelin6@gmail.com",
+            "password" => Hash::make("698112522")
+        ]);
+
         Sheet::factory()->count(3)->create(['user_id' => 1]);
 
         $user1->quizzes()->createMany([
@@ -38,6 +44,8 @@ class DatabaseSeeder extends Seeder
             ['question_text' => "Qu'est ce que Laravel", 'type' => 'single'],
             ['question_text' => "Que peut-on faire avec Laravel", 'type' => 'multiple'],
             ['question_text' => "Quels sont les élements semblable a Laravel", 'type' => 'multiple'],
+            ['question_text' => "Pourquoi laravel utilise le moteur de template Blade", 'type' => 'single'],
+            ['question_text' => "Quel fichier d'un projet laravel est utilise pour gerer les variables de configuration specifiques a l'environnement ", 'type' => 'single'],
         ]);
 
         Question::find(1)->answers()->createMany([
@@ -57,20 +65,28 @@ class DatabaseSeeder extends Seeder
             ['answer_text' => 'React', 'is_correct' => false],
         ]);
 
+         Question::find(4)->answers()->createMany([
+            ['answer_text' => 'Pour simplifier la programmation', 'is_correct' => false],
+            ['answer_text' => 'Comme modele', 'is_correct' => false],
+            ['answer_text' => 'Pour faciliter la creation des controlleurs', 'is_correct' => false],
+             ['answer_text' => 'Pour la vue dans le MVC', 'is_correct' => true],
+        ]);
+
+         Question::find(5)->answers()->createMany([
+            ['answer_text' => '.env.example', 'is_correct' => false],
+            ['answer_text' => '.env.local', 'is_correct' => false],
+            ['answer_text' => '.env', 'is_correct' => true],
+             ['answer_text' => '.config', 'is_correct' => false],
+        ]);
+
+
+
         Question::factory(2)->create(["quiz_id" => 2]);
 
         Answer::factory(4)->create(['question_id' => 4]);
         Answer::factory(3)->create(['question_id' => 5]);
 
 
-        User::factory()->create([
-            "name" => "rochelin",
-            "email" => "anoumedemrochelin6@gmail.com",
-            "password" => Hash::make("698112522")
-        ]);
-
-
-        Sheet::factory()->count(3)->create(['user_id' => 2]);
 
         \App\Models\User::factory(5)->create();
         \App\Models\Quiz::factory(3)->create();

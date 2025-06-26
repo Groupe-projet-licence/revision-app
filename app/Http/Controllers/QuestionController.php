@@ -8,16 +8,17 @@ use Inertia\Inertia;
 
 class QuestionController extends Controller
 {
-    public function index()
-{
-    $questions = Question::with('answers', 'category')->latest()->get();
-    return view('questions.index', compact('questions'));
-}
+    public function index(){
+        $questions = Question::with('quizzes')->get();
+        return Inertia::render('Questions/Index', [
+            'questions' => $questions
+        ]);
+    }
 
 
     public function create()
     {
-        return Inertia::render('Quizzes/QuestionCreate');
+        return Inertia::render('Questions/QuestionCreate');
     }
 
     public function store(Request $request)
@@ -25,7 +26,7 @@ class QuestionController extends Controller
         $request->merge([
             'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text
         ]);
-        
+
         $validated = $request->validate([
             'question_text' => 'required|string',
             'type' => 'required|in:single,multiple',

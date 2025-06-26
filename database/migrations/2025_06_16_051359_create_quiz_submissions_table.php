@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('quiz_submission_id')->constrained('quiz_submissions')->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
-            $table->foreignId('option_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('answer_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
