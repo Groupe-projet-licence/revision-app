@@ -22,42 +22,35 @@ class QuestionController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'question_text' => 'required|string|max:255',
-        'type' => 'required|in:single,multiple',
-        'category_id' => 'required|exists:categories,id',
-        'answers' => 'required|array|min:1',
-        'answers.*.answer_text' => 'required|string',
-        'answers.*.is_correct' => 'required|boolean',
-    ]);
-
-    // Création de la question
-    $question = Question::create([
-        'question_text' => $validated['question_text'],
-        'type' => $validated['type'],
-        'category_id' => $validated['category_id'],
-    ]);
-
-    // Ajout des réponses associées à la question
-    foreach ($validated['answers'] as $answerData) {
-        $question->answers()->create([
-            'answer_text' => $answerData['answer_text'],
-            'is_correct' => $answerData['is_correct'],
+    {
+        $request->merge([
+            'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text
         ]);
+        
+        $validated = $request->validate([
+            'question_text' => 'required|string',
+            'type' => 'required|in:single,multiple',
+            'answers' => 'required|array|min:2',
+            'answers.*.answer_text' => 'required|string',
+            'answers.*.is_correct' => 'required|boolean',
+        ]);
+
+        $question = Question::create([
+            'question_text' => $validated['question_text'],
+            'type' => $validated['type'],
+        ]);
+
+        foreach ($validated['answers'] as $answer) {
+            $question->answers()->create($answer);
+        }
+        return redirect()->back()->with('success', 'Question ajoutée.');
     }
 
-    return redirect()->route('questions.index')->with('success', 'Question enregistrée avec succès.');
-}
-
-
-
-
     public function show()
-{
-    $questions = Question::all(); // ou filtrer selon besoin
-    return view('questions.show', compact('questions'));
-}
+    {
+        $questions = Question::all(); // ou filtrer selon besoin
+        return view('questions.show', compact('questions'));
+    }
 
     public function edit($id)
     {
