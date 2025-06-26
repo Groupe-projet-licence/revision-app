@@ -5,6 +5,7 @@ import { useState } from 'react';
 export default function AuthLayouts({ children }) {
   const { auth } = usePage().props;
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
@@ -24,6 +25,8 @@ export default function AuthLayouts({ children }) {
             type="text"
             className="form-control mx-3 d-none d-md-block w-50"
             placeholder="Rechercher..."
+            value= {searchKeyword}
+            onChange={ (e) => setSearchKeyword(e.target.value)}
           />
           <div className="position-relative">
             <button
@@ -70,10 +73,12 @@ export default function AuthLayouts({ children }) {
               type="text"
               className="form-control"
               placeholder="Search..."
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
             />
           </div>
-
-          {children}
+          
+          {typeof children === 'function' ? children(searchKeyword) : children}
         </main>
       </div>
     </div>

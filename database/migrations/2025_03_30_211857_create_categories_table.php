@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('subject');
+            //Partie modifier
+            $table->tinyInteger('level');//Exemple de niveau 1 a 8
             $table->timestamps();
         });
     }

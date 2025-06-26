@@ -24,6 +24,16 @@ export default function Card({ data }) {
                     <div style={{ fontSize: '0.9em' }}>
                         {data.description}
                     </div>
+                    {/* Catégorie */}
+                    {data.category ? (
+                        <div style={{ fontSize: '0.75em', color: '#666' }}>
+                        📚 {data.category.subject} — Niveau {data.category.level}
+                        </div>
+                    ) : (
+                        <div style={{ fontSize: '0.75em', color: '#666' }}>
+                        Autre
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="text-end">

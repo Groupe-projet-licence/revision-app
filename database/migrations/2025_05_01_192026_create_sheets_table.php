@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->longText('content');
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

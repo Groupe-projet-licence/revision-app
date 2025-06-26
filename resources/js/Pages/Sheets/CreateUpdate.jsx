@@ -3,11 +3,13 @@ import { useForm } from '@inertiajs/react';
 import QuillEditor from '../../Components/QuillEditor';
 import AuthLayout from '@/Layouts/AuthLayouts';
 
-export default function CreateUpdate({ sheet }) {
+export default function CreateUpdate({ sheet, categories }) {
     const { data, setData, post, put, processing, errors } = useForm({
         title: sheet ? sheet.title : '',
         description: sheet ? sheet.description : '',
         content: sheet ? sheet.content : '',
+        //modifier
+        category_id: sheet ? sheet.category_id : '',
     });
     const [FlashMsg, setFlashMsg] = useState('')
     const nbCharacterRemainig = useRef(2000)
@@ -78,6 +80,15 @@ export default function CreateUpdate({ sheet }) {
                         value={data.description}
                         onChange={(e) => setData('description', e.target.value)} />
                     {errors.description && <span className="text-danger">{errors.description}</span>}
+                </div>
+                <div className="form-group">
+                    <select value={data.category_id} onChange={ (e) => setData('category_id', e.target.value)} className={errors.category_id ? 'is-invalid form-select rounded-2' : 'form-select rounded-2'}>
+                        <option value="">Choisir une categorie</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>{cat.subject} - Niveau {cat.level}</option>
+                        ))}
+                    </select>
+                    {errors.category_id && <span className="text-danger">{errors.category_id}</span>}
                 </div>
                 <QuillEditor value={valueQuillRef.current} onChange={handleChange} error={errors.content} />
                 <div className='text-center'>
