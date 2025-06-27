@@ -1,37 +1,35 @@
-@extends('layouts.app')
+@extends('layouts.app1')
+
 
 @section('content')
 <div class="container">
-    <h2>Historique des Quiz</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Utilisateur</th>
-                <th>Quiz</th>
-                <th>Score</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($histories as $history)
+    <h2>Historique des évaluations</h2>
+
+    @if($histories->count() > 0)
+        <table class="table table-bordered mt-4">
+            <thead>
                 <tr>
-                    <td>{{ $history->id }}</td>
-                    <td>{{ $history->user->name }}</td>
-                    <td>{{ $history->quiz->title }}</td>
-                    <td>{{ $history->score }}</td>
-                    <td>{{ $history->created_at->format('d/m/Y H:i') }}</td>
-                    <td>
-                        <a href="{{ route('histories.show', $history->id) }}" class="btn btn-info btn-sm">Voir</a>
-                        <form action="{{ route('histories.destroy', $history->id) }}" method="POST" class="d-inline">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                        </form>
-                    </td>
+                    <th>Quiz</th>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Action</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($histories as $history)
+                    <tr>
+                        <td>{{ $history->quiz->title }}</td>
+                        <td>{{ $history->created_at->format('d/m/Y H:i') }}</td>
+                        <td>{{ $history->score }} / 100</td>
+                        <td>
+                            <a href="{{ route('histories.result', $history->id) }}" class="btn btn-primary btn-sm">Voir le résultat</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>Aucun historique trouvé pour le moment.</p>
+    @endif
 </div>
 @endsection

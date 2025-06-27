@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\QuizSubmissionController;
 use App\Models\Quiz;
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ use App\Models\Quiz;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'), 
+        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -51,6 +52,22 @@ Route::resource('quizzes', QuizController::class);
 
 
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/quizzes/{quiz}/quiz/evaluate', [QuizSubmissionController::class, 'show'])->name('quiz.evaluate');
+    Route::post('/quizzes/{quiz}/submit', [QuizSubmissionController::class, 'store'])->name('quiz.submit');
+    Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
+
+});
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('quizzes', QuizController::class);
+});
+
+
+
 Route::get('/test-quizzes', function () {
     return Quiz::with(['questions.answers'])->get();
 });
@@ -60,7 +77,7 @@ Route::get('/test-quizzes', function () {
 
 require __DIR__.'/auth.php';
 
-/*--------------------------------------------------------------------------------------------- 
+/*---------------------------------------------------------------------------------------------
                                 Routes liées aux fiches de l'apprenant
 -----------------------------------------------------------------------------------------------*/
 
@@ -77,3 +94,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/historique', fn () => Inertia::render('Historique'));
     Route::get('/parametres', fn () => Inertia::render('Parametres'));
 });
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/evaluations', [HistoryController::class ,'index'])->name('histories.index');
+    Route::get('/evaluations/{quiz}/start', [HistoryController::class ,'start'])->name('histories.start');
+    Route::post('/evaluations/{quiz}/submit', [HistoryController::class ,'submit'])->name('histories.submit');
+    Route::get('/evaluations/result/{history}', [HistoryController::class ,'result'])->name('histories.result');
+});
+
+
+
+

@@ -2,52 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\History;
+use App\Models\Quiz;
+use App\Models\Question;
+use App\Models\Answer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
 {
     public function index()
     {
-        return History::with('question')->latest()->get();
+        $histories = History::where('user_id', Auth::id())->with('quiz')->get();
+        return view('histories.index', compact('histories'));
     }
 
-    public function store(Request $request)
+    public function start(Quiz $quiz)
     {
-        $validated = $request->validate([
-            'question_id' => 'required|exists:questions,id',
-            'user_answers' => 'required|array',
-            'user_answers.*' => 'integer|exists:answers,id',
-            'is_correct' => 'required|boolean',
+        $history = History::create([
+            'user_id' => Auth::id(),
+            'quiz_id' => $quiz->id,
+            'start_time' => now(),
         ]);
 
-        return History::create($validated);
+        return view('histories.start', compact('quiz', 'history'));
     }
 
-    public function show($id)
+    public function submit(Request $request, Quiz $quiz)
     {
-        return History::with('question')->findOrFail($id);
-    }
+        $questions = $quiz->questions;
+        $correct = 0;
+        $correction = [];
 
-    public function update(Request $request, $id)
-    {
-        $history = History::findOrFail($id);
+        foreach ($questions as $question) {
+            $userAnswer = $request->input('question_' . $question->id);
+            $correctAnswers = $question->answers->where('is_correct', true)->pluck('id')->toArray();
 
-        $validated = $request->validate([
-            'question_id' => 'required|exists:questions,id',
-            'user_answers' => 'required|array',
-            'user_answers.*' => 'integer|exists:answers,id',
-            'is_correct' => 'required|boolean',
+            if ($question->type === 'single') {
+                if (in_array($userAnswer, $correctAnswers)) {
+                    $correct++;
+                    $correction[$question->id] = 'correct';
+                } else {
+                    $correction[$question->id] = 'incorrect';
+                }
+            } elseif ($question->type === 'multiple') {
+                $userAnswers = $userAnswer ?? [];
+                sort($userAnswers);
+                sort($correctAnswers);
+                if ($userAnswers == $correctAnswers) {
+                    $correct++;
+                    $correction[$question->id] = 'correct';
+                } else {
+                    $correction[$question->id] = 'incorrect';
+                }
+            }
+        }
+
+        $score = round(($correct / count($questions)) * 100);
+
+        $history = History::find($request->input('history_id'));
+        $history->update([
+            'end_time' => now(),
+            'score' => $score,
+            'correction' => json_encode($correction),
         ]);
 
-        $history->update($validated);
-        return $history;
+        return redirect()->route('histories.result', $history->id);
     }
 
-    public function destroy($id)
+    public function result(History $history)
     {
-        $history = History::findOrFail($id);
-        $history->delete();
-        return response()->json(['message' => 'Historique supprimé avec succès']);
+        return view('histories.result', compact('history'));
     }
 }

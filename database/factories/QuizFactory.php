@@ -2,30 +2,24 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Question;
-use App\Models\Quiz;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Quiz>
- */
 class QuizFactory extends Factory
 {
-    protected $model = Quiz::class;
-
+    /**
+     * Define the model's default state.
+     */
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'title' => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(),
+            'start_time' => now(),
+            'end_time' => now()->addHours(2),
+            'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(), // 🔒 Sécurité
         ];
     }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (Quiz $quiz) {
-            $questions = Question::inRandomOrder()->limit(3)->pluck('id');
-            $quiz->questions()->sync($questions);
-        });
-    }
 }
+
+

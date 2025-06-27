@@ -8,10 +8,11 @@ use App\Models\Category;
 class QuestionController extends Controller
 {
     public function index()
-    {
-        $questions = Question::with('category')->get();
-        return view('questions.index', compact('questions'));
-    }
+{
+    $questions = Question::with('answers', 'category')->latest()->get();
+    return view('questions.index', compact('questions'));
+}
+
 
     public function create()
     {
@@ -23,24 +24,34 @@ class QuestionController extends Controller
     public function store(Request $request)
 {
     $validated = $request->validate([
-        'question_text' => 'required|string',
+        'question_text' => 'required|string|max:255',
         'type' => 'required|in:single,multiple',
+        'category_id' => 'required|exists:categories,id',
         'answers' => 'required|array|min:1',
-        'answers.*.answers_text' => 'required|string',
+        'answers.*.answer_text' => 'required|string',
         'answers.*.is_correct' => 'required|boolean',
     ]);
 
+    // Création de la question
     $question = Question::create([
-        'content' => $validated['question'],
+        'question_text' => $validated['question_text'],
         'type' => $validated['type'],
+        'category_id' => $validated['category_id'],
     ]);
 
-    foreach ($validated['options'] as $answer) {
-        $question->answers()->create($answer);
+    // Ajout des réponses associées à la question
+    foreach ($validated['answers'] as $answerData) {
+        $question->answers()->create([
+            'answer_text' => $answerData['answer_text'],
+            'is_correct' => $answerData['is_correct'],
+        ]);
     }
 
-    return redirect()->back()->with('success', 'Question ajoutée.');
+    return redirect()->route('questions.index')->with('success', 'Question enregistrée avec succès.');
 }
+
+
+
 
     public function show()
 {
