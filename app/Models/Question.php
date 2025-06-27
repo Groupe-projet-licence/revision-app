@@ -22,4 +22,15 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function quizzes()
+    {
+    return $this->belongsToMany(Quiz::class, 'question_quiz');
+    }
+
+    public function options()
+    {
+    return $this->hasMany(\App\Models\Option::class);
+    }
+
 }

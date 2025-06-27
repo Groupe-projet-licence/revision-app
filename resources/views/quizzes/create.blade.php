@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app1')
 
 @section('content')
 <div class="container">
@@ -15,6 +15,16 @@
             <textarea class="form-control" name="description" rows="3" required></textarea>
         </div>
 
+        <div class="mb-3">
+            <label for="start_time" class="form-label">Date de début</label>
+            <input type="datetime-local" name="start_time" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="end_time" class="form-label">Date de fin</label>
+            <input type="datetime-local" name="end_time" class="form-control">
+        </div>
+
         <div class="form-group mb-3">
             <label for="category_id">Catégorie</label>
             <select name="category_id" class="form-control" required>
@@ -25,16 +35,15 @@
             </select>
         </div>
 
+
         <div class="form-group mb-3">
             <label for="questions">Sélectionner les questions</label>
             <select name="questions[]" class="form-control" multiple required>
-                @foreach($questions as $question)
-                    <option value="{{ $question->id }}">{{ $question->label }}</option>
-                @endforeach
+                 @foreach($questions as $question)
+                 <option value="{{ $question->id }}">{{ $question->label }}</option>
+                 @endforeach
             </select>
         </div>
-
         <button type="submit" class="btn btn-success">Créer</button>
-    </form>
-</div>
+     </form>
 @endsection

@@ -29,7 +29,8 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Enregistrer</button>
-    </form>
-</div>
+
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+        </form>
+     </div>
 @endsection

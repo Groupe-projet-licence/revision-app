@@ -4,6 +4,9 @@
 <div class="container">
     <h2>Liste des Questions</h2>
     <a href="{{ route('questions.create') }}" class="btn btn-primary mb-3">Ajouter une Question</a>
+     @if($questions->isEmpty())
+        <p>Aucune question trouvée.</p>
+    @else
 
     <table class="table table-bordered">
         <thead>

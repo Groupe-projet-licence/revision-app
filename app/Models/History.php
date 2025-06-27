@@ -9,13 +9,26 @@ class History extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['question_id', 'user_answers', 'is_correct'];
-
-    protected $casts = [
-        'user_answers' => 'array', //Pour decoder le JSON automatiquement
+    protected $fillable = [
+        'user_id',
+        'quiz_id',
+        'start_time',
+        'end_time',
+        'score',
+        'correction'
     ];
 
-    public function question(){
-        return $this->belongsTo(Question::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
+     public function answers()
+    {
+        return $this->belongsToMany(Answer::class ,'answer_history');
     }
 }

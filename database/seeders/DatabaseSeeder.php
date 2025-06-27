@@ -27,10 +27,15 @@ class DatabaseSeeder extends Seeder
             "email"=> "anoumedemrochelin6@gmail.com",
             "password"=> Hash::make("698112522")
         ]);
-       
+
 
         Sheet::factory()->count(3)->create(['user_id'=>1]);
         Sheet::factory()->count(3)->create(['user_id'=>2]);
+
+        \App\Models\User::factory(5)->create();
+        \App\Models\Quiz::factory(3)->create();
+        \App\Models\Category::factory(5)->create();
+        \App\Models\Quiz::factory(10)->create();
 
 
         // \App\Models\User::factory()->create([

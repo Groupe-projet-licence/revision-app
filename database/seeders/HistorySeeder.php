@@ -9,6 +9,7 @@ class HistorySeeder extends Seeder
 {
     public function run(): void
     {
-        History::factory(30)->create(); // Génère 30 historiques
+        History::factory()->count(10)->create();
     }
 }
+
