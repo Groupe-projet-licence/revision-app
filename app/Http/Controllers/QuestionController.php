@@ -22,29 +22,26 @@ class QuestionController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->merge([
-            'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text
-        ]);
-        
-        $validated = $request->validate([
-            'question_text' => 'required|string',
-            'type' => 'required|in:single,multiple',
-            'answers' => 'required|array|min:2',
-            'answers.*.answer_text' => 'required|string',
-            'answers.*.is_correct' => 'required|boolean',
-        ]);
+{
+    $validated = $request->validate([
+        'question_text' => 'required|string',
+        'type' => 'required|in:single,multiple',
+        'answers' => 'required|array|min:1',
+        'answers.*.answers_text' => 'required|string',
+        'answers.*.is_correct' => 'required|boolean',
+    ]);
 
-        $question = Question::create([
-            'question_text' => $validated['question_text'],
-            'type' => $validated['type'],
-        ]);
+    $question = Question::create([
+        'content' => $validated['question'],
+        'type' => $validated['type'],
+    ]);
 
-        foreach ($validated['answers'] as $answer) {
-            $question->answers()->create($answer);
-        }
-        return redirect()->back()->with('success', 'Question ajoutée.');
+    foreach ($validated['options'] as $answer) {
+        $question->answers()->create($answer);
     }
+
+    return redirect()->back()->with('success', 'Question ajoutée.');
+}
 
     public function show()
     {

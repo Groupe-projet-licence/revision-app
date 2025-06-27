@@ -14,10 +14,9 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            'question_text' => $this->faker->sentence,
-            //'quiz_id' => Quiz::factory(),
+            'question_text' => $this->faker->sentence(),
+            'category_id' => Category::factory(),
             'type' => $this->faker->randomElement(['single', 'multiple']),
-            //'category_id' => Category::inRandomOrder()->first()?->id ?? Category::factory(), // si aucune catégorie
         ];
     }
 }
