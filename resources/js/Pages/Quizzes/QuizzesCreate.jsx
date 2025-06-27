@@ -42,7 +42,7 @@ function QuizzesIndex() {
   errorRef.current = Object.keys(errors).some((key) => {
     return /^answers\.\d+\.answer_text$/.test(key)
   }) ? 'Erreur' : '';
-  console.log('errorRef.current '+errorRef.current);
+  console.log('errorRef.current ' + errorRef.current);
 
 
   return (
@@ -98,11 +98,12 @@ function QuizzesIndex() {
                   }
                 />
               )}
-
-              <QuillEditor
-                value={text.current}
-                onChange={handleOptions}
-                error={errorRef.current} />
+              <div className="small-quill flex-grow-1">
+                <QuillEditor
+                  value={text.current}
+                  onChange={handleOptions}
+                  error={errorRef.current} />
+              </div>
 
             </div>
           )

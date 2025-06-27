@@ -82,7 +82,7 @@ export default function CreateUpdate({ sheet, categories }) {
                     {errors.description && <span className="text-danger">{errors.description}</span>}
                 </div>
                 <div className="form-group">
-                    <select value={data.category_id} onChange={ (e) => setData('category_id', e.target.value)} className={errors.category_id ? 'is-invalid form-select rounded-2' : 'form-select rounded-2'}>
+                    <select value={data.category_id} onChange={(e) => setData('category_id', e.target.value)} className={errors.category_id ? 'is-invalid form-select rounded-2' : 'form-select rounded-2'}>
                         <option value="">Choisir une categorie</option>
                         {categories.map((cat) => (
                             <option key={cat.id} value={cat.id}>{cat.subject} - Niveau {cat.level}</option>
@@ -90,7 +90,9 @@ export default function CreateUpdate({ sheet, categories }) {
                     </select>
                     {errors.category_id && <span className="text-danger">{errors.category_id}</span>}
                 </div>
-                <QuillEditor value={valueQuillRef.current} onChange={handleChange} error={errors.content} />
+                <div className="big-quill big-loader">
+                    <QuillEditor value={valueQuillRef.current} onChange={handleChange} error={errors.content} />
+                </div>
                 <div className='text-center'>
                     <button type="submit"
                         className='btn btn-primary'

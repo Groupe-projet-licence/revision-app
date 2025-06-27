@@ -23,12 +23,14 @@ class SheetController extends Controller
         if($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-        foreach ($query as &$sheet) {
+        $sheets= $query->latest()->get();
+        foreach ($sheets as &$sheet) {
             $sheet->last_opened_at = substr($sheet->last_opened_at, 0, 10);
         }
-            
+        
+        //dd($query->get());
         return Inertia::render('Sheets/Index', [
-            'sheets' => $query->latest()->get(),
+            'sheets' => $sheets,
             'categories' => Category::orderBy('subject')->get(),
             'selectedCategory' => $request->category_id,
         ]);

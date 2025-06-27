@@ -37,6 +37,10 @@ export default function Card({ data }) {
                     <div className="three-dots">
                         <i className="bi bi-three-dots text-secondary"></i>
                     </div>
+                </div>
+                <div className='px-2 pb-2 small-text d-flex justify-content-between align-items-center'>
+                    {last_review ? `Last revision: ${last_review}` : 'Never revised'}
+
                     {/* Catégorie */}
                     {data.category ? (
                         <div style={{ fontSize: '0.75em', color: '#666' }}>
@@ -47,9 +51,7 @@ export default function Card({ data }) {
                         Autre
                         </div>
                     )}
-                </div>
-                <div className='px-2 pb-2 small-text'>
-                    {last_review ? `Last revision: ${last_review}` : 'Never revised'}
+
                 </div>
 
 

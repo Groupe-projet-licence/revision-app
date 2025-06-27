@@ -15,9 +15,9 @@ class QuestionFactory extends Factory
     {
         return [
             'question_text' => $this->faker->sentence,
-            'quiz_id' => Quiz::factory(),
+            //'quiz_id' => Quiz::factory(),
             'type' => $this->faker->randomElement(['single', 'multiple']),
-            'category_id' => Category::inRandomOrder()->first()?->id ?? Category::factory(), // si aucune catégorie
+            //'category_id' => Category::inRandomOrder()->first()?->id ?? Category::factory(), // si aucune catégorie
         ];
     }
 }
