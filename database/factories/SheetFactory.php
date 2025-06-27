@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,8 @@ class SheetFactory extends Factory
         return [
             "title"=>fake()->sentence(2),
             "description"=>fake()->optional()->sentence(10),
-            "content"=>fake()->paragraph(5)
+            "content"=>fake()->paragraph(5),
+            'category_id'=>Category::factory()
         ];
     }
 }

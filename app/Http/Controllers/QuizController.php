@@ -14,19 +14,23 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::with('category')->get();
-        return view('quizzes.index', compact('quizzes'));
+
+        return Inertia::render('Quizzes/QuizzesIndex', compact('quizzes'));
     }
+
+    // public function create()
+    // {
+    //     $categories = Category::all();
+    //     $questions = Question::all();
+    //     return view('quizzes.create', compact('categories', 'questions'));
+    // }
 
     public function create()
     {
-        $categories = Category::all();
-        $questions = Question::all();
-        return view('quizzes.create', compact('categories', 'questions'));
-    }
-
-    public function create()
-    {
-        return Inertia::render('Quizzes/QuizzesCreate');
+        return Inertia::render('Quizzes/QuizzesCreate',[
+            'categories'=>Category::all(),
+            'questions'=>Question::all()
+        ]);
     }
 
     public function store(Request $request)
