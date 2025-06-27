@@ -8,12 +8,21 @@ use Inertia\Inertia;
 
 class QuestionController extends Controller
 {
+<<<<<<< HEAD
     public function index(){
         $questions = Question::with('quizzes')->get();
         return Inertia::render('Questions/Index', [
             'questions' => $questions
         ]);
     }
+=======
+    public function index()
+{
+    $questions = Question::with('answers', 'category')->latest()->get();
+    return view('questions.index', compact('questions'));
+}
+
+>>>>>>> 5717658 (passer un quiz)
 
 
     public function create()
@@ -22,6 +31,7 @@ class QuestionController extends Controller
     }
 
     public function store(Request $request)
+<<<<<<< HEAD
     {
         $request->merge([
             'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text
@@ -51,6 +61,44 @@ class QuestionController extends Controller
     //     $questions = Question::all(); // ou filtrer selon besoin
     //     return view('questions.show', compact('questions'));
     // }
+=======
+{
+    $validated = $request->validate([
+        'question_text' => 'required|string|max:255',
+        'type' => 'required|in:single,multiple',
+        'category_id' => 'required|exists:categories,id',
+        'answers' => 'required|array|min:1',
+        'answers.*.answer_text' => 'required|string',
+        'answers.*.is_correct' => 'required|boolean',
+    ]);
+
+    // Création de la question
+    $question = Question::create([
+        'question_text' => $validated['question_text'],
+        'type' => $validated['type'],
+        'category_id' => $validated['category_id'],
+    ]);
+
+    // Ajout des réponses associées à la question
+    foreach ($validated['answers'] as $answerData) {
+        $question->answers()->create([
+            'answer_text' => $answerData['answer_text'],
+            'is_correct' => $answerData['is_correct'],
+        ]);
+    }
+
+    return redirect()->route('questions.index')->with('success', 'Question enregistrée avec succès.');
+}
+
+
+
+
+    public function show()
+{
+    $questions = Question::all(); // ou filtrer selon besoin
+    return view('questions.show', compact('questions'));
+}
+>>>>>>> 5717658 (passer un quiz)
 
     public function edit($id)
     {

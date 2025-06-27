@@ -19,7 +19,11 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('quiz_submission_id')->constrained('quiz_submissions')->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
+<<<<<<< HEAD
             $table->foreignId('answer_id')->nullable()->constrained()->onDelete('cascade');
+=======
+            $table->foreignId('option_id')->nullable()->constrained()->onDelete('cascade');
+>>>>>>> 5717658 (passer un quiz)
             $table->timestamps();
         });
     }

@@ -25,9 +25,19 @@ class Question extends Model
 
     public function quizzes()
     {
+<<<<<<< HEAD
     return $this->belongsTo(Quiz::class);
     }
 
 
+=======
+    return $this->belongsToMany(Quiz::class, 'question_quiz');
+    }
+
+    public function options()
+    {
+    return $this->hasMany(\App\Models\Option::class);
+    }
+>>>>>>> 5717658 (passer un quiz)
 
 }

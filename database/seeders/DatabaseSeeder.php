@@ -25,6 +25,15 @@ class DatabaseSeeder extends Seeder
             "email" => "donfackdarlin@gmail.com",
             "password" => Hash::make("670748873")
         ]);
+<<<<<<< HEAD
+=======
+        User::factory()->create([
+            "name"=>"rochelin",
+            "email"=> "anoumedemrochelin6@gmail.com",
+            "password"=> Hash::make("698112522")
+        ]);
+
+>>>>>>> 5717658 (passer un quiz)
 
          $user1=User::factory()->create([
             "name" => "rochelin",
@@ -87,6 +96,11 @@ class DatabaseSeeder extends Seeder
         Answer::factory(3)->create(['question_id' => 5]);
 
 
+
+        \App\Models\User::factory(5)->create();
+        \App\Models\Quiz::factory(3)->create();
+        \App\Models\Category::factory(5)->create();
+        \App\Models\Quiz::factory(10)->create();
 
         \App\Models\User::factory(5)->create();
         \App\Models\Quiz::factory(3)->create();

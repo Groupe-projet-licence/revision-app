@@ -10,9 +10,16 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuestionController;
+<<<<<<< HEAD
 use App\Http\Controllers\RoleUserController;
 use App\Http\Controllers\admin\SheetController;
 use App\Http\Controllers\QuizSubmissionController;
+=======
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\QuizSubmissionController;
+use App\Models\Quiz;
+>>>>>>> 5717658 (passer un quiz)
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +32,16 @@ use App\Http\Controllers\QuizSubmissionController;
 */
 
 Route::get('/', function () {
+<<<<<<< HEAD
     return Inertia::render('Welcome');
+=======
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+>>>>>>> 5717658 (passer un quiz)
 });
 
 
@@ -52,6 +68,22 @@ Route::resource('quizzes', QuizController::class);
 Route::middleware(['auth'])->group(function () {
 Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
 Route::get('/histories/{history}', [HistoryController::class, 'result'])->name('histories.result');
+});
+
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/quizzes/{quiz}/quiz/evaluate', [QuizSubmissionController::class, 'show'])->name('quiz.evaluate');
+    Route::post('/quizzes/{quiz}/submit', [QuizSubmissionController::class, 'store'])->name('quiz.submit');
+    Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
+
+});
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('quizzes', QuizController::class);
 });
 
 
@@ -103,6 +135,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+<<<<<<< HEAD
 //Routes pour la gestions des roles des utilisateurs
 Route::middleware(['auth'])->prefix('admin')->group(function() {
     Route::get('/users', [RoleUserController::class, 'index'])->name('admin.users.index');
@@ -110,3 +143,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function() {
 });
 
 
+=======
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/evaluations', [HistoryController::class ,'index'])->name('histories.index');
+    Route::get('/evaluations/{quiz}/start', [HistoryController::class ,'start'])->name('histories.start');
+    Route::post('/evaluations/{quiz}/submit', [HistoryController::class ,'submit'])->name('histories.submit');
+    Route::get('/evaluations/result/{history}', [HistoryController::class ,'result'])->name('histories.result');
+});
+
+
+
+
+>>>>>>> 5717658 (passer un quiz)
