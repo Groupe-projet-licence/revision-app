@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useRef } from 'react';
 
 const QuillEditor = ({ error, ...props }) => {
     const ReactQuill = lazy(() => import('react-quill'));
@@ -27,8 +27,19 @@ const QuillEditor = ({ error, ...props }) => {
         'link', 'image', 'color', 'code-block', 'align'
     ];
 
+    const editorRef = useRef(null);
+
+    const handleFocus = () => {
+        editorRef.current.classList.add('focused');
+    };
+
+    const handleBlur = () => {
+        editorRef.current.classList.remove('focused');
+    };
+
+
     return (
-        <div>
+        <div ref={editorRef} className={`masking-quill ${error && 'quill-error'}`}>
             <Suspense fallback={
                 <div className='loader'>
                     <div className='spinner-border text-primary' role='status'>
@@ -39,9 +50,10 @@ const QuillEditor = ({ error, ...props }) => {
                     {...props}
                     modules={modules}
                     formats={formats}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     theme="snow"
                 />
-                {error && <div className="text-danger">{error}</div>}
             </Suspense>
         </div>
     );

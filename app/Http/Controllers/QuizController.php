@@ -35,13 +35,13 @@ class QuizController extends Controller
     //     return view('quizzes.create', compact('categories', 'questions'));
     // }
 
-    public function create()
-    {
-        return Inertia::render('Quizzes/Questions/QuestionsIndex', [
-            'categories' => Category::all(),
-            'questions' => Question::all()
-        ]);
-    }
+    // public function create()
+    // {
+    //     return Inertia::render('Quizzes/Questions/QuestionsIndex', [
+    //         'categories' => Category::all(),
+    //         'questions' => Question::all()
+    //     ]);
+    // }
 
     public function store(Request $request)
     {
@@ -97,7 +97,7 @@ class QuizController extends Controller
 
     public function show(Quiz $quiz)
     {
-        dd($quiz->load('questions.answers'));
+        $quiz->load('questions.answers');
         return Inertia::render('Quizzes/ShowQuiz', compact('quiz'));
     }
 }

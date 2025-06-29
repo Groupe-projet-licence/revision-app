@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Category;
+use Inertia\Inertia;
 
 class QuestionController extends Controller
 {
@@ -16,9 +17,7 @@ class QuestionController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        $types = ['single', 'multiple']; // Type ENUM direct
-        return view('questions.create', compact('categories', 'types'));
+        return Inertia::render('Quizzes/QuestionCreate');
     }
 
     public function store(Request $request)
@@ -46,11 +45,11 @@ class QuestionController extends Controller
         return redirect()->back()->with('success', 'Question ajoutée.');
     }
 
-    public function show()
-    {
-        $questions = Question::all(); // ou filtrer selon besoin
-        return view('questions.show', compact('questions'));
-    }
+    // public function show()
+    // {
+    //     $questions = Question::all(); // ou filtrer selon besoin
+    //     return view('questions.show', compact('questions'));
+    // }
 
     public function edit($id)
     {
