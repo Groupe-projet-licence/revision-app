@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import Card from "../../Components/Card";
-import AuthLayout from "@/Layouts/AuthLayouts1";
+import AuthLayout from "@/Layouts/AuthLayouts";
 
 /**
  * Affichage liste de fiches

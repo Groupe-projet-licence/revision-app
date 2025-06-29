@@ -1,12 +1,12 @@
 import QuillEditor from "@/Components/QuillEditor";
 
 
-import { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import AuthLayouts from '@/Layouts/AuthLayouts';
 import { useForm } from '@inertiajs/react';
 
 
-function QuizzesIndex() {
+function QuizzesIndex () {
 
   // Pour la gestion des etats et l'envoie des donnees cote backend
   const { data, setData, post, processing, errors } = useForm({
@@ -22,19 +22,45 @@ function QuizzesIndex() {
   };
 
   const addOption = () => {
-    setData('answers', [...data.answers, { answer_text: '', is_correct: false }])
+    if (data.answers.length < 8) {
+      setData('answers', [...data.answers, { answer_text: '', is_correct: false }])
+    }
   };
 
+  const removeOption = (index) => {
+    if (data.answers.length > 2) {
+      // Supprimer la ref
+      console.log(answersRefs.current);
+      answersRefs.current.splice(index, 1);
+      // Supprimer l'option
+      const newOptions = data.answers.filter((_, i) => i !== index);
+      setData('answers', newOptions);
+      console.log(answersRefs.current);
+    }
+  };
+
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     post(route('questions.store'));
   };
-
+  
   // Pour la memorisation du QuillEditor pour le texte de la question
   const questionTextRef = useRef(data.question_text);
   const handleChangeQuestionText = useCallback((value) => {
     setData('question_text', value)
   }, [])
+  
+  const handleOptions = useCallback((index, value) => {
+    const newOptions = [...data.answers];
+    newOptions[index]['answer_text'] = value;
+    setData('answers', newOptions);
+  }, [])
+  const handleOptionsText = useCallback((value) => handleOptions(index, value), []);
+  
+  // Pour la memorisation des QuillEditor pour les options de la question
+  const answersRefs = useRef([])
 
   // Pour la gestion des erreurs sur les QuillEditor pour les options de la question
   const errorRef = useRef('');
@@ -42,7 +68,6 @@ function QuizzesIndex() {
   errorRef.current = Object.keys(errors).some((key) => {
     return /^answers\.\d+\.answer_text$/.test(key)
   }) ? 'Erreur' : '';
-  console.log('errorRef.current ' + errorRef.current);
 
 
   return (
@@ -55,7 +80,8 @@ function QuizzesIndex() {
           <QuillEditor
             value={questionTextRef.current}
             onChange={handleChangeQuestionText}
-            error={errors.question_text} />
+            error={errors.question_text}
+          />
         </div>
 
         <div className="form-check form-switch">
@@ -65,12 +91,12 @@ function QuizzesIndex() {
 
         {data.answers.map((option, index) => {
 
-          const text = useRef(data.answers[index].answer_text);
-          const handleOptions = useCallback((value) => {
-            const newOptions = [...data.answers];
-            newOptions[index]['answer_text'] = value;
-            setData('answers', newOptions);
-          }, [])
+          //const text = useRef(data.answers[index].answer_text);
+          if (!answersRefs.current[index]) {
+            answersRefs.current[index] = React.createRef();
+          }
+
+
 
           return (
             <div key={index} className="form-group hstack gap-3 mb-3" >
@@ -100,10 +126,19 @@ function QuizzesIndex() {
               )}
               <div className="small-quill flex-grow-1">
                 <QuillEditor
-                  value={text.current}
-                  onChange={handleOptions}
+                  value={answersRefs.current[index].answer_text}
+                  onChange={handleOptionsText}
                   error={errorRef.current} />
               </div>
+              <button
+                type="button"
+                className="fs-5"
+                onClick={() => removeOption(index)}
+                disabled={data.answers.length <= 2}
+              >
+                <div style={{fontSize:'25 px'}}>×</div>
+                
+              </button>
 
             </div>
           )

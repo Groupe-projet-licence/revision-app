@@ -134,13 +134,16 @@ export default function AuthLayouts({ children }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  console.log('showMobileMenu: ' + showMobileMenu);
+  console.log('showDropdown: ' + showDropdown);
+
 
   return (
     <div className="d-flex flex-column vh-100">
       {/* Top Navbar (visible always) */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <button
-          className="navbar-toggler"
+          className="navbar-toggler button-menu"
           type="button"
           onClick={() => setShowMobileMenu(!showMobileMenu)}
         >
@@ -150,10 +153,11 @@ export default function AuthLayouts({ children }) {
         <div className="d-flex flex-grow-1 align-items-center justify-content-between">
           <input
             type="text"
-            className="form-control mx-3 d-none d-md-block w-50"
-            placeholder="Rechercher..."
-            value= {searchKeyword}
-            onChange={ (e) => setSearchKeyword(e.target.value)}
+            style={{borderRadius:'5px', width:'400px'}}
+            className="form-control mx-4 d-none d-md-block"
+            placeholder="Search..."
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
           />
           <div className="position-relative ms-auto">
             <button
@@ -163,8 +167,8 @@ export default function AuthLayouts({ children }) {
               {auth.user.name}
             </button>
             {showDropdown && (
-              <div className="dropdown-menu dropdown-menu-end show" 
-              style={{ position: 'absolute',  top: 45,right:-10 }}>
+              <div className="dropdown-menu dropdown-menu-end show"
+                style={{ position: 'absolute', top: 45, right: -10 }}>
                 <Link
                   href="/logout"
                   method="post"
@@ -182,8 +186,8 @@ export default function AuthLayouts({ children }) {
       {/* Sidebar (mobile = dropdown, desktop = fixed) */}
       <div className="d-flex flex-grow-1" style={{ position: 'relative' }}>
         {/* Sidebar Desktop */}
-        <nav className="bg-white border-end p-3 d-none d-md-block" style={{ minWidth: '250px' }}>
-          <SidebarLinks />
+        <nav className={`bg-white border-end p-3 d-none d-md-block grow-side-bar ${!showMobileMenu && "reduce-side-bar"}`}>
+          <SidebarLinks reduceSideBar={showMobileMenu} />
         </nav>
 
         {/* Sidebar Mobile Dropdown */}
@@ -200,13 +204,14 @@ export default function AuthLayouts({ children }) {
             <input
               type="text"
               className="form-control"
+              style={{borderRadius:'5px'}}
               placeholder="Search..."
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
             />
           </div>
-          
-          {typeof children === 'function' ? children(searchKeyword) : children}
+
+          {children}
         </main>
       </div>
     </div>
@@ -214,7 +219,7 @@ export default function AuthLayouts({ children }) {
 }
 
 // Sidebar Links Component
-function SidebarLinks() {
+function SidebarLinks({ reduceSideBar = true }) {
   const { revisionCount } = useRevision()
   const isActive = (url) => {
     return url === window.location.pathname
@@ -230,30 +235,31 @@ function SidebarLinks() {
       </li> */}
       <li className="nav-item mb-2">
         <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-person me-2"></i> My account
+          <i className="bi bi-person me-2"></i>{reduceSideBar && 'My account'}
         </Link>
-      </li>
+        </li>
+      
       <li className="nav-item mb-2">
         <Link href="/sheets" className={`nav-link ${window.location.pathname.includes('/sheets') && !isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-folder2-open me-2"></i> My sheets
+          <i className="bi bi-folder2-open me-2"></i>{reduceSideBar && 'My sheets'}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/quizzes" className={`nav-link ${window.location.pathname.includes('/quizzes') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-journal-text me-2"></i> My quiz
+          <i className="bi bi-journal-text me-2"></i>{reduceSideBar && 'My quiz'}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/sheets/revision" className={`nav-link ${isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-book me-2">
-          </i>Revision {revisionCount > 0 && <sup><span className="badge bg-danger ms-2">{revisionCount}</span></sup>}
+          <i className="bi bi-book me-2"></i>{reduceSideBar && 'Revision'}
+          {revisionCount > 0 && <sup><span className={`badge bg-danger ${!reduceSideBar && "badge-revision"}`}>{revisionCount}</span></sup>}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/historique" className={`nav-link ${isActive('/historique') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-clock-history me-2"></i> My History
+          <i className="bi bi-clock-history me-2"></i>{reduceSideBar && 'My History'}
         </Link>
-      </li>
+      </li> 
       {/* <li className="nav-item">
         <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-gear me-2"></i> Settings
