@@ -142,19 +142,19 @@ export default function AuthLayouts({ children }) {
     <div className="d-flex flex-column vh-100">
       {/* Top Navbar (visible always) */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
-        <button
-          className="navbar-toggler button-menu"
-          type="button"
-          onClick={() => setShowMobileMenu(!showMobileMenu)}
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
 
         <div className="d-flex flex-grow-1 align-items-center justify-content-between">
+          <button
+            className="navbar-toggler button-menu"
+            type="button"
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
           <input
             type="text"
-            style={{borderRadius:'5px', width:'400px'}}
-            className="form-control mx-4 d-none d-md-block"
+            style={{ borderRadius: '5px', width: '400px' }}
+            className="form-control mx-4 d-none d-md-block my-auto"
             placeholder="Search..."
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
@@ -204,7 +204,7 @@ export default function AuthLayouts({ children }) {
             <input
               type="text"
               className="form-control"
-              style={{borderRadius:'5px'}}
+              style={{ borderRadius: '5px' }}
               placeholder="Search..."
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
@@ -226,7 +226,7 @@ function SidebarLinks({ reduceSideBar = true }) {
   }
 
   return (
-    <ul className="nav flex-column text-uppercase fw-bold">
+    <ul className={`nav flex-column text-uppercase fw-bold ${!reduceSideBar && "reduce-margin-icon-side-bar-ul"}`}>
 
       {/* <li className="nav-item mb-2">
         <Link href="/" className={`nav-link ${isActive('/') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
@@ -235,31 +235,31 @@ function SidebarLinks({ reduceSideBar = true }) {
       </li> */}
       <li className="nav-item mb-2">
         <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-person me-2"></i>{reduceSideBar && 'My account'}
+          <i className="bi bi-person me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My account'}
         </Link>
-        </li>
-      
+      </li>
+
       <li className="nav-item mb-2">
         <Link href="/sheets" className={`nav-link ${window.location.pathname.includes('/sheets') && !isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-folder2-open me-2"></i>{reduceSideBar && 'My sheets'}
+          <i className="bi bi-folder2-open me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My sheets'}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/quizzes" className={`nav-link ${window.location.pathname.includes('/quizzes') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-journal-text me-2"></i>{reduceSideBar && 'My quiz'}
+          <i className="bi bi-journal-text me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My quiz'}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/sheets/revision" className={`nav-link ${isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-book me-2"></i>{reduceSideBar && 'Revision'}
-          {revisionCount > 0 && <sup><span className={`badge bg-danger ${!reduceSideBar && "badge-revision"}`}>{revisionCount}</span></sup>}
+          <i className="bi bi-book me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'Revision'}
+          {revisionCount > 0 && <sup className='position-relative'><span className={`badge bg-danger ${!reduceSideBar && "badge-revision"}`}>{revisionCount}</span></sup>}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/historique" className={`nav-link ${isActive('/historique') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-clock-history me-2"></i>{reduceSideBar && 'My History'}
+          <i className="bi bi-clock-history me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My History'}
         </Link>
-      </li> 
+      </li>
       {/* <li className="nav-item">
         <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-gear me-2"></i> Settings

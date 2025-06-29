@@ -27,15 +27,15 @@ const CreateSujetModal = ({ isOpen, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h5>Créer un sujet</h5>
-
+        <h1 className="fw-bold d-flex justify-content-between mb-4" >Create your topic <i className="bi bi-pencil text-secondary"></i></h1>
+        
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label">Nom du sujet</label>
+            <label className="form-label">Name</label>
             <input
               type="text"
               className="form-control"
-              placeholder="Nommez votre sujet"
+              placeholder="Name your topic"
               value={data.title}
               onChange={(e) => setData("title", e.target.value)}
               required
@@ -48,7 +48,7 @@ const CreateSujetModal = ({ isOpen, onClose }) => {
             <textarea
               className="form-control"
               style={{ minHeight: "150px" }} // ⬅️ plus grand textarea
-              placeholder="Écrivez votre description (max. 250 caractères)"
+              placeholder="Write here your description (max. 250 characters)"
               maxLength={250}
               value={data.description}
               onChange={(e) => setData("description", e.target.value)}

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CreateSujetModal from "@/Components/CreateSujetModal";
-import AuthLayouts from "@/Layouts/AuthLayouts1";
 import QuillEditor from "@/Components/QuillEditor";
 import AuthLayouts from "@/Layouts/AuthLayouts";
 import { Link } from "@inertiajs/react";

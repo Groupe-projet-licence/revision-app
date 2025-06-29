@@ -9,19 +9,29 @@ Style géneral
 * {
     box-sizing: border-box;
 }
-.badge-revision{
-  margin-left: -17px;
+
+.badge-revision {
+    margin-left: -17px;
 }
-.grow-side-bar{
-     min-width: 250px;
+
+.grow-side-bar {
+    min-width: 250px;
 }
-.reduce-side-bar{
+
+.reduce-side-bar {
     min-width: 0;
-    width: 69px !important; 
-    padding: 0.25em  !important;
+    max-width: 69px !important;
+    padding: 0.25em !important;
 }
-.reduce-side-bar .badge-revision{
-  margin-left: -17px;
+
+.reduce-side-bar .badge-revision {
+    position: absolute;
+    top: -5px;
+    right: -7px;
+}
+
+.reduce-margin-icon-side-bar-ul .reduce-margin-icon-side-bar {
+    margin: 0 !important;
 }
 
 @media screen and (max-width:500px) {
@@ -29,6 +39,7 @@ Style géneral
         padding: 10px !important;
     }
 }
+
 @media screen and (min-width:1px) {
     .button-menu {
         display: block !important;
@@ -54,6 +65,7 @@ Style géneral
     border-right: rgb(126, 126, 126) 1px solid !important;
 
 }
+
 .small-quill .ql-toolbar {
     border-radius: 8px 8px 0 0;
     border-top: rgb(126, 126, 126) 1px solid !important;
@@ -106,19 +118,20 @@ Style géneral
 
 .mycard {
     box-shadow: 0 0 4px #918f8f;
-    max-width:400px;
+    max-width: 400px;
 }
 
 .small-text {
     font-size: 0.9em;
 }
-.three-dots{
-     font-size:1.2em;
-     align-self: flex-start;
-     justify-self: flex-end;
-     justify-self: flex-end;
-     flex:1 1 0 ;
-     text-align: end;
+
+.three-dots {
+    font-size: 1.2em;
+    align-self: flex-start;
+    justify-self: flex-end;
+    justify-self: flex-end;
+    flex: 1 1 0;
+    text-align: end;
 }
 
 @media screen and (min-width:372px) and (max-width:572px) {
@@ -126,8 +139,9 @@ Style géneral
         max-width: 400px;
     }
 }
+
 @media screen and (min-width:1000px) {
     .container-grid-css-card {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
 }
