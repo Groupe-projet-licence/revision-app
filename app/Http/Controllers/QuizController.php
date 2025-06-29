@@ -19,13 +19,13 @@ class QuizController extends Controller
 
         return Inertia::render('Quizzes/QuizzesIndex', [
             'myQuizzes' => $myQuizzes,
-            'otherQuizzes'=> $otherQuizzes
+            'otherQuizzes' => $otherQuizzes
         ]);
-       /*$quizzes = Quiz::with('category')->get();
+        /*$quizzes = Quiz::with('category')->get();
 
-        return Inertia::render('Quizzes/QuizzesIndex', [
-            'quizzes' => $quizzes
-        ]);*/
+         return Inertia::render('Quizzes/QuizzesIndex', [
+             'quizzes' => $quizzes
+         ]);*/
     }
 
     // public function create()
@@ -35,33 +35,29 @@ class QuizController extends Controller
     //     return view('quizzes.create', compact('categories', 'questions'));
     // }
 
-    public function library(){
-        $quiz = Quiz::with('user')->where('user_id', '!=', Auth::id())->latest()->get();
-        return Inertia::render('Quizzes/Library', [
-            'quiz' => $quiz
-        ]);
-    }
-
     public function create()
     {
-        return Inertia::render('Quizzes/Questions/QuestionsIndex',[
-            'categories'=>Category::all(),
-            'questions'=>Question::all()
+        return Inertia::render('Quizzes/Questions/QuestionsIndex', [
+            'categories' => Category::all(),
+            'questions' => Question::all()
         ]);
     }
 
     public function store(Request $request)
     {
+        $request->merge([
+            'description' => $request->input('description') == '' ? 'Topic without description' : $request->input('description')
+        ]);
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'required|string|max:100',
+            'description' => 'nullable|string|max:100',
         ]);
 
         $quiz = Quiz::create([
             'title' => $request->title,
             'description' => $request->description,
+            'user_id' => Auth::id()
         ]);
-        dd($quiz);  
 
         return redirect()->route('quizzes.index')->with('success', 'Quiz créé avec succès.');
     }
@@ -75,39 +71,33 @@ class QuizController extends Controller
 
     public function update(Request $request, Quiz $quiz)
     {
+        $request->merge([
+            'description' => $request->input('description') == '' ? 'Topic without description' : $request->input('description')
+        ]);
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'start_time' => 'nullable|date',
-            'end_time' => 'nullable|date|after_or_equal:start_time',
-            'category_id' => 'required|exists:categories,id',
-            'questions' => 'required|array',
-            'questions.*' => 'exists:questions,id',
+            //'questions' => 'required|array',
+            //'questions.*' => 'exists:questions,id',
         ]);
 
         $quiz->update([
             'title' => $request->title,
             'description' => $request->description,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'category_id' => $request->category_id,
         ]);
-
-        $quiz->questions()->sync($request->questions);
 
         return redirect()->route('quizzes.index')->with('success', 'Quiz mis à jour avec succès.');
     }
 
     public function destroy(Quiz $quiz)
     {
-        //$quiz->questions()->detach(); // détacher les relations avant suppression
         $quiz->delete();
         return redirect()->route('quizzes.index')->with('success', 'Quiz supprimé avec succès.');
     }
 
     public function show(Quiz $quiz)
     {
-        $quiz->load('questions.answers');
-        return view('quizzes.show', compact('quiz'));
+        dd($quiz->load('questions.answers'));
+        return Inertia::render('Quizzes/ShowQuiz', compact('quiz'));
     }
 }

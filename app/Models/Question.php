@@ -11,7 +11,7 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['question_text', 'category_id', 'type'];
+    protected $fillable = ['question_text', 'quiz_id', 'type'];
 
     public function category()
     {

@@ -19,7 +19,7 @@ Style géneral
 }
 
 .reduce-side-bar {
-    min-width: 0;
+    min-width: 57px;
     max-width: 69px !important;
     padding: 0.25em !important;
 }

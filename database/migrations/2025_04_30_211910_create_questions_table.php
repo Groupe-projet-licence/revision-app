@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Quiz;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,8 +10,8 @@ return new class extends Migration {
     Schema::create('questions', function (Blueprint $table) {
     $table->id();
     $table->longText('question_text');
-   // $table->foreignId('category_id')->constrained()->onDelete('cascade');
     $table->enum('type', ['single', 'multiple']);
+    $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
     $table->timestamps();
 });
     }

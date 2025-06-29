@@ -48,7 +48,7 @@ const CreateSujetModal = ({ isOpen, onClose }) => {
             <textarea
               className="form-control"
               style={{ minHeight: "150px" }} // ⬅️ plus grand textarea
-              placeholder="Write here your description (max. 250 characters)"
+              placeholder="Write here your description (max. 100 characters)"
               maxLength={250}
               value={data.description}
               onChange={(e) => setData("description", e.target.value)}

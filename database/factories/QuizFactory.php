@@ -14,8 +14,8 @@ class QuizFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(),
+            'title' => $this->faker->sentence(3,true),
+            'description' => $this->faker->sentences(3,true),
             'user_id'=>User::factory(),
         ];
     }

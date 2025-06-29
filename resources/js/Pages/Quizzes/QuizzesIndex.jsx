@@ -9,7 +9,7 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
   const [activeTab, setActiveTab] = useState("my"); // 'my' ou 'library'
   //const [quizzes, setQuizzes] = useState([]);
   const [showSujetModal, setShowSujetModal] = useState(false);
- // QuizzesIndex
+  // QuizzesIndex
 
   useEffect(() => {
     if (messageSuccess) {
@@ -41,13 +41,13 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
             <Link href={route('quizzes.edit', quiz.id)}
               className="btn btn-sm btn-outline-primary my-2 mx-1 fw-bold"
               style={{ fontSize: '0.9em' }}>
-              Modifier
+              Edit
             </Link>
           )}
           <Link href={route('quizzes.show', quiz.id)}
             className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
             style={{ fontSize: '0.9em' }}>
-            Réviser
+            View
           </Link>
         </div>
       </div>
@@ -59,16 +59,16 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
       <div>
         {messageSuccess && <div className="alert alert-info">{messageSuccess}</div>}
         <div className="text-end">
-        <button className="btn btn-primary mb-4" onClick={() => setShowSujetModal(true)}>
-          <span className="fs-5">+</span> New quizz
-        </button>
-      </div>
+          <button className="btn btn-primary mb-4" onClick={() => setShowSujetModal(true)}>
+            <span className="fs-5">+</span> New quizz
+          </button>
+        </div>
 
-      {/* MODALE DE CRÉATION DE SUJET */}
-      <CreateSujetModal
-        isOpen={showSujetModal}
-        onClose={() => setShowSujetModal(false)}
-      />
+        {/* MODALE DE CRÉATION DE SUJET */}
+        <CreateSujetModal
+          isOpen={showSujetModal}
+          onClose={() => setShowSujetModal(false)}
+        />
 
         {/* Boutons de filtre */}
         <div className="d-flex justify-content-center mb-4 gap-3">
@@ -76,7 +76,7 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
             className={`btn ${activeTab === 'my' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}
             onClick={() => setActiveTab('my')}
           >
-             My topics {/*<span className="badge">{myQuizzes}</span>  */}
+            My topics {/*<span className="badge">{myQuizzes}</span>  */}
           </button>
           <button
             className={`btn ${activeTab === 'library' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}

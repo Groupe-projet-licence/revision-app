@@ -48,11 +48,12 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
             {messageSuccess}
           </div>
         )}
+        <div className="d-md-flex justify-content-between align-items-center mb-4">
 
-        {/* 🎯 Filtre par catégorie */}
-        <div className="row mb-3">
-          <div className="col-md-4">
+          {/* 🎯 Filtre par catégorie */}
+          <div className="col-md-4 ">
             <select
+              style={{ borderRadius: '5px',minWidth:'250px' }}
               className="form-select"
               value={selectedCategory || ""}
               onChange={(e) => {
@@ -61,21 +62,21 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
                 window.location.href = route("sheets.index") + url;
               }}
             >
-              <option value="">Toutes les catégories</option>
+              <option value="">All categories</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
-                  {cat.subject} - Niveau {cat.level}
+                  {cat.subject} - Level {cat.level}
                 </option>
               ))}
             </select>
           </div>
-        </div>
 
-        {/* ➕ Bouton de création */}
-        <div className="text-end">
-          <Link className="btn btn-primary mb-4" href="/sheets/create">
-            <span className="fs-5">+</span> New sheet
-          </Link>
+          {/* ➕ Bouton de création */}
+          <div className="text-end mt-1">
+            <Link className="btn btn-primary btn-sm" href="/sheets/create">
+              <span className="fs-5">+</span> New sheet
+            </Link>
+          </div>
         </div>
 
         {/* 📋 Liste des fiches */}
