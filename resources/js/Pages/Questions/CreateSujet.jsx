@@ -27,7 +27,7 @@ const CreateSujet = () => {
       <form onSubmit={handleSubmit} className="sujet-form">
         <h2>Créer un sujet</h2>
 
-        <label>Nom *</label>
+        <label>Nom :</label>
         <input
           type="text"
           placeholder="Nommez votre sujet"
