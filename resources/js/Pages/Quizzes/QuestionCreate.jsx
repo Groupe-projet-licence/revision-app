@@ -6,7 +6,7 @@ import AuthLayouts from '@/Layouts/AuthLayouts';
 import { useForm } from '@inertiajs/react';
 
 
-function QuizzesIndex () {
+export default function QuestionCreate() {
 
   // Pour la gestion des etats et l'envoie des donnees cote backend
   const { data, setData, post, processing, errors } = useForm({
@@ -39,28 +39,29 @@ function QuizzesIndex () {
     }
   };
 
-  
-  
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     post(route('questions.store'));
   };
-  
+
   // Pour la memorisation du QuillEditor pour le texte de la question
   const questionTextRef = useRef(data.question_text);
   const handleChangeQuestionText = useCallback((value) => {
     setData('question_text', value)
   }, [])
-  
+
   const handleOptions = useCallback((index, value) => {
     const newOptions = [...data.answers];
     newOptions[index]['answer_text'] = value;
     setData('answers', newOptions);
   }, [])
   const handleOptionsText = useCallback((value) => handleOptions(index, value), []);
-  
+
   // Pour la memorisation des QuillEditor pour les options de la question
   const answersRefs = useRef([])
+  const PlaceHolderOption = useRef("Option ")
 
   // Pour la gestion des erreurs sur les QuillEditor pour les options de la question
   const errorRef = useRef('');
@@ -81,6 +82,7 @@ function QuizzesIndex () {
             value={questionTextRef.current}
             onChange={handleChangeQuestionText}
             error={errors.question_text}
+            placeholder="Write your question here"
           />
         </div>
 
@@ -124,20 +126,23 @@ function QuizzesIndex () {
                   }
                 />
               )}
-              <div className="small-quill flex-grow-1">
+              <div className="small-quill flex-grow-1 hide-quill">
                 <QuillEditor
                   value={answersRefs.current[index].answer_text}
                   onChange={handleOptionsText}
-                  error={errorRef.current} />
+                  error={'errorRef.current'}
+                  placeholder="Solution option text"
+
+                />
               </div>
               <button
                 type="button"
-                className="fs-5"
+                className="fs-5 "
                 onClick={() => removeOption(index)}
                 disabled={data.answers.length <= 2}
               >
-                <div style={{fontSize:'25 px'}}>×</div>
-                
+                <div style={{ fontSize: '28px' }}>×</div>
+
               </button>
 
             </div>
@@ -145,7 +150,9 @@ function QuizzesIndex () {
         }
         )}
 
-        <button type="button" onClick={addOption}>Ajouter une option</button>
+        <button type="button" className="btn text-primary" onClick={addOption} >
+          <span className="" style={{ fontSize: '25px' }}>+</span> Ajouter une option de réponse
+        </button>
         <button type="submit" className='btn btn-primary'>Créer la question</button>
       </form>
     </AuthLayouts>
@@ -153,4 +160,3 @@ function QuizzesIndex () {
 
 }
 
-export default QuizzesIndex;

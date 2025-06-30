@@ -48,8 +48,9 @@ Style géneral
 
 
 /* --------------------------------------------------------------
-                                 Quill.js 
+                                Quill.js 
 -----------------------------------------------------------------*/
+
 .big-quill .ql-toolbar {
     border-radius: 8px 8px 0 0;
     border-top: rgb(126, 126, 126) 1px solid !important;
@@ -60,34 +61,91 @@ Style géneral
 .big-quill .ql-container {
     border-radius: 0 0 8px 8px;
     min-height: 300px;
+    border-top: rgb(126, 126, 126) 1px solid !important;
     border-bottom: rgb(126, 126, 126) 1px solid !important;
     border-left: rgb(126, 126, 126) 1px solid !important;
     border-right: rgb(126, 126, 126) 1px solid !important;
-
 }
 
-.small-quill .ql-toolbar {
+
+
+
+.hide-quill .masking-quill .ql-toolbar.ql-snow {
+    display: none;
+}
+.hide-quill .masking-quill .ql-container.ql-snow {
+    border-radius: 8px;
+    border: rgb(126, 126, 126) 1px solid !important;
+}
+
+
+
+
+.quill-error.masking-quill .ql-toolbar.ql-snow {
+    border-radius: 8px 8px 0 0;
+    border-top: rgb(243, 49, 49) 1px solid !important;
+    border-left: rgb(243, 49, 49) 1px solid !important;
+    border-right: rgb(243, 49, 49) 1px solid !important;
+}
+.quill-error.masking-quill .ql-container.ql-snow {
+    border-radius: 0 0 8px 8px;
+    border-top: rgb(243, 49, 49) 1px solid !important;
+    border-bottom: rgb(243, 49, 49) 1px solid !important;
+    border-left: rgb(243, 49, 49) 1px solid !important;
+    border-right: rgb(243, 49, 49) 1px solid !important;
+}
+.small-quill .quill-error.masking-quill .ql-container.ql-snow {
+    border-radius: 8px;
+    border: rgb(243, 49, 49) 1px solid !important;
+}
+
+
+
+
+.hide-quill .masking-quill.focused .ql-toolbar.ql-snow {
+    display: block;
     border-radius: 8px 8px 0 0;
     border-top: rgb(126, 126, 126) 1px solid !important;
     border-left: rgb(126, 126, 126) 1px solid !important;
     border-right: rgb(126, 126, 126) 1px solid !important;
 }
+.quill-error.masking-quill.focused .ql-toolbar.ql-snow {
+    border-radius: 8px 8px 0 0;
+    border-top: rgb(243, 49, 49) 1px solid !important;
+    border-left: rgb(243, 49, 49) 1px solid !important;
+    border-right: rgb(243, 49, 49) 1px solid !important;
+}
 
-.small-quill .ql-container {
+
+
+.hide-quill .masking-quill.focused .ql-container.ql-snow {
     border-radius: 0 0 8px 8px;
     border-bottom: rgb(126, 126, 126) 1px solid !important;
     border-left: rgb(126, 126, 126) 1px solid !important;
     border-right: rgb(126, 126, 126) 1px solid !important;
-
+}
+.quill-error.masking-quill.focused .ql-container.ql-snow {
+    border-radius: 0 0 8px 8px;
+    border-top: rgb(243, 49, 49) 1px solid !important;
+    border-bottom: rgb(243, 49, 49) 1px solid !important;
+    border-left: rgb(243, 49, 49) 1px solid !important;
+    border-right: rgb(243, 49, 49) 1px solid !important;
 }
 
 
+
+
+.small-quill .loader {
+    display: none;
+}
 .ql-snow .ql-editor pre {
     background-color: rgba(13, 110, 253, 0.6) ! important;
     color: white;
     padding: 5px;
     border-radius: 4px;
 }
+
+
 
 /* --------------------------------------------------------------
                                  Loader 
