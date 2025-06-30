@@ -15,9 +15,6 @@ class QuizFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'start_time' => now(),
-            'end_time' => now()->addHours(2),
-            'category_id' => Category::inRandomOrder()->first()->id ?? Category::factory(), // 🔒 Sécurité
         ];
     }
 }

@@ -27,7 +27,7 @@ class QuizController extends Controller
 
     public function create()
     {
-        return Inertia::render('Quizzes/QuizzesCreate',[
+        return Inertia::render('Quizzes/Questions/QuestionsIndex',[
             'categories'=>Category::all(),
             'questions'=>Question::all()
         ]);
@@ -38,22 +38,13 @@ class QuizController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'start_time' => 'nullable|date',
-            'end_time' => 'nullable|date|after_or_equal:start_time',
-            'category_id' => 'required|exists:categories,id',
-            'questions' => 'required|array',
-            'questions.*' => 'exists:questions,id',
         ]);
 
         $quiz = Quiz::create([
             'title' => $request->title,
             'description' => $request->description,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'category_id' => $request->category_id,
         ]);
-
-        $quiz->questions()->sync($request->questions);
+        dd($quiz);  
 
         return redirect()->route('quizzes.index')->with('success', 'Quiz créé avec succès.');
     }
