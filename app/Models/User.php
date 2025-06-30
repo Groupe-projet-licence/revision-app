@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
     return $this->hasMany(Quiz::class);
     }
+
+    //Gestion des roles
+    public function isAdmin(){
+        return $this->role === 'admin';
+    }
 }

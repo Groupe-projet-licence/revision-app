@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\admin\SheetController;
+use App\Models\Quiz;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\AnswerController;
-use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\RoleUserController;
+use App\Http\Controllers\admin\SheetController;
 use App\Http\Controllers\QuizSubmissionController;
-use App\Models\Quiz;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,5 +108,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+//Routes pour la gestions des roles des utilisateurs
+Route::middleware(['auth'])->prefix('admin')->group(function() {
+    Route::get('/users', [RoleUserController::class, 'index'])->name('admin.users.index');
+    Route::put('/users/{user}', [RoleUserController::class, 'update'])->name('admin.users.update');
+});
 
 

@@ -37,19 +37,30 @@ export default function AuthLayouts({ children }) {
             >
               {auth.user.name}
             </button>
+            {/*} {showDropdown && (
+                <div className="dropdown-menu dropdown-menu-end show"
+                  style={{ position: 'absolute', top: 45, right: -10 }}>
+                  <Link
+                    href="/logout"
+                    method="post"
+                    as="button"
+                    className="dropdown-item"
+                  >
+                    Se Déconnecter
+                  </Link>
+                </div>
+            )}*/}
+
+            {/*---------------------------Partie roles modifier------------------*/}
             {showDropdown && (
-              <div className="dropdown-menu dropdown-menu-end show"
-                style={{ position: 'absolute', top: 45, right: -10 }}>
-                <Link
-                  href="/logout"
-                  method="post"
-                  as="button"
-                  className="dropdown-item"
-                >
-                  Se Déconnecter
-                </Link>
-              </div>
-            )}
+
+              <div className="dropdown-menu dropdown-menu-end show mt-2"> 
+                {auth.user.role === 'admin' && (
+                  <Link href={route('admin.users.index')} className="dropdown-item" > 
+                    👥 Gérer les utilisateurs </Link>)} 
+                  <Link href="/logout" method="post" as="button" className="dropdown-item" > Se Déconnecter </Link> 
+              </div>)}
+            {/*----------------------------Fin de la modification-----------------*/}
           </div>
         </div>
       </nav>
