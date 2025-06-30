@@ -45,4 +45,9 @@ class User extends Authenticatable
     public function sheets(){
         return $this->hasMany(Sheet::class);
     }
+
+    public function quizzes()
+    {
+    return $this->hasMany(Quiz::class);
+    }
 }

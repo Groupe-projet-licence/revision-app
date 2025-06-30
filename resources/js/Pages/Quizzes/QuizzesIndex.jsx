@@ -1,23 +1,66 @@
 import { useEffect, useState } from "react";
+import AuthLayout from "@/Layouts/AuthLayouts";
+//import AuthLayouts from "@/Layouts/AuthLayouts";
+import { Link, usePage } from "@inertiajs/react";
 import CreateSujetModal from "@/Components/CreateSujetModal";
-import QuillEditor from "@/Components/QuillEditor";
-import AuthLayouts from "@/Layouts/AuthLayouts";
-import { Link } from "@inertiajs/react";
 
-export default function QuizzesIndex() {
-  const [quizzes, setQuizzes] = useState([]);
+export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
+  const [messageSuccess, setMessageSuccess] = useState(flash?.success);
+  const [activeTab, setActiveTab] = useState("my"); // 'my' ou 'library'
+  //const [quizzes, setQuizzes] = useState([]);
   const [showSujetModal, setShowSujetModal] = useState(false);
+ // QuizzesIndex
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("quizzes") || "[]");
-    setQuizzes(saved);
-  }, []);
+    if (messageSuccess) {
+      const timer = setTimeout(() => setMessageSuccess(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [messageSuccess]);
+
+  const renderQuizCard = (quiz) => (
+    <div key={quiz.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4">
+      <div className="mycard d-flex flex-column justify-content-between"
+        style={{ aspectRatio: 3 / 1.9, borderRadius: '9px' }}>
+        <div className="m-2">
+          <div style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            fontWeight: '500'
+          }}>
+            {quiz.title}
+          </div>
+          <div style={{ fontSize: '0.9em' }}>
+            {quiz.description || 'Aucune description.'}
+          </div>
+        </div>
+        <div className="text-end">
+          <hr />
+          {quiz.can_edit && (
+            <Link href={route('quizzes.edit', quiz.id)}
+              className="btn btn-sm btn-outline-primary my-2 mx-1 fw-bold"
+              style={{ fontSize: '0.9em' }}>
+              Modifier
+            </Link>
+          )}
+          <Link href={route('quizzes.show', quiz.id)}
+            className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+            style={{ fontSize: '0.9em' }}>
+            Réviser
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <AuthLayouts>
-      <div className="text-end">
+    <AuthLayout>
+      <div>
+        {messageSuccess && <div className="alert alert-info">{messageSuccess}</div>}
+        <div className="text-end">
         <button className="btn btn-primary mb-4" onClick={() => setShowSujetModal(true)}>
-          <span className="fs-5">+</span> New quiz
+          <span className="fs-5">+</span> New quizz
         </button>
       </div>
 
@@ -27,42 +70,43 @@ export default function QuizzesIndex() {
         onClose={() => setShowSujetModal(false)}
       />
 
-      <div className="container">
-        <h4 className="mb-4">Liste de vos Quizz</h4>
+        {/* Boutons de filtre */}
+        <div className="d-flex justify-content-center mb-4 gap-3">
+          <button
+            className={`btn ${activeTab === 'my' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}
+            onClick={() => setActiveTab('my')}
+          >
+             My topics {/*<span className="badge">{myQuizzes}</span>  */}
+          </button>
+          <button
+            className={`btn ${activeTab === 'library' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}
+            onClick={() => setActiveTab('library')}
+          >
+            Librairy
+          </button>
+        </div>
 
-        {quizzes.length === 0 && (
-          <p className="text-muted">Aucun quiz enregistré pour le moment.</p>
-        )}
-
-        {quizzes.map((quiz, idx) => (
-          <div key={idx} className="card mb-4">
-            <div className="card-body">
-              <p><strong>Matière concernée :</strong> {quiz.matiere || "(à remplir)"}</p>
-              <p><strong>Titre de la matière :</strong> {quiz.titre}</p>
-              <p><strong>Proposé par :</strong> {quiz.auteur || "(à remplir)"}</p>
-
-              <hr />
-              <div className="mb-3">
-                <strong>Question</strong>
-                <div dangerouslySetInnerHTML={{ __html: quiz.question }} className="mb-2" />
-
-                {quiz.options.map((opt, i) => (
-                  <div className="form-check" key={i}>
-                    <input
-                      className="form-check-input"
-                      type={quiz.multiple ? "checkbox" : "radio"}
-                      name={`q${idx}`}
-                      disabled
-                      checked={quiz.bonnesReponses.includes(i)}
-                    />
-                    <label className="form-check-label">{opt}</label>
-                  </div>
-                ))}
+        {/* Affichage conditionnel */}
+        <div className="row">
+          {activeTab === 'my' ? (
+            myQuizzes.length > 0 ? (
+              myQuizzes.map(renderQuizCard)
+            ) : (
+              <div className="text-center text-muted my-5">
+                🧩 Aucun quiz créé pour le moment.
               </div>
-            </div>
-          </div>
-        ))}
+            )
+          ) : (
+            otherQuizzes.length > 0 ? (
+              otherQuizzes.map(renderQuizCard)
+            ) : (
+              <div className="text-center text-muted my-5">
+                📚 Aucun quiz disponible dans la bibliothèque.
+              </div>
+            )
+          )}
+        </div>
       </div>
-    </AuthLayouts>
+    </AuthLayout>
   );
 }

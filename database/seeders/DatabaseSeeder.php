@@ -17,10 +17,23 @@ class DatabaseSeeder extends Seeder
     {
 
         // \App\Models\User::factory(10)->create();
-        User::factory()->create([
+        $user1= User::factory()->create([
             "name"=>"darlin",
             "email"=> "donfackdarlin@gmail.com",
             "password"=> Hash::make("670748873")
+        ]);
+
+        $user1->quizzes()->createMany([
+            [
+            'title' => 'Laravel',
+            'description' => 'Ma superbe description du framework Laravel',
+            ],[
+            'title' => 'Angular',
+            'description' => 'Ma superbe description du framework Angular',
+            ],[
+            'title' => 'ReactJs',
+            'description' => 'Ma superbe description de la librairie ReactJs',
+            ] 
         ]);
         User::factory()->create([
             "name"=>"rochelin",
@@ -42,6 +55,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        
         $this->call([
             CategorySeeder::class,
             QuestionSeeder::class,

@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Nouvelle route des quizs
+Route::get('/quizzes/library', [QuizController::class, 'library'])->name('quizzes.library');
 
 //Les diferentes Routes du QUIZ la manipulation des differente tables
 Route::resource('categories', CategoryController::class);

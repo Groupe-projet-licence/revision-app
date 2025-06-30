@@ -30,7 +30,7 @@ export default function Card({ data }) {
                             }}>
                             {data.title}
                         </div>
-                        <div class="small-text">
+                        <div className="small-text">
                             {data.description}
                         </div>
                     </div>

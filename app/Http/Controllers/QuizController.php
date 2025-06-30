@@ -3,19 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
-use App\Models\Question;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Category;
+use App\Models\Question;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class QuizController extends Controller
 {
     public function index()
     {
-        $quizzes = Quiz::with('category')->get();
+        $myQuizzes = Quiz::where('user_id', Auth::id())->latest()->get();
+        $otherQuizzes = Quiz::with('user')->where('user_id', '!=', Auth::id())->latest()->get();
 
-        return Inertia::render('Quizzes/QuizzesIndex', compact('quizzes'));
+        return Inertia::render('Quizzes/QuizzesIndex', [
+            'myQuizzes' => $myQuizzes,
+            'otherQuizzes'=> $otherQuizzes
+        ]);
+       /*$quizzes = Quiz::with('category')->get();
+
+        return Inertia::render('Quizzes/QuizzesIndex', [
+            'quizzes' => $quizzes
+        ]);*/
     }
 
     // public function create()
@@ -24,6 +34,13 @@ class QuizController extends Controller
     //     $questions = Question::all();
     //     return view('quizzes.create', compact('categories', 'questions'));
     // }
+
+    public function library(){
+        $quiz = Quiz::with('user')->where('user_id', '!=', Auth::id())->latest()->get();
+        return Inertia::render('Quizzes/Library', [
+            'quiz' => $quiz
+        ]);
+    }
 
     public function create()
     {
@@ -83,7 +100,7 @@ class QuizController extends Controller
 
     public function destroy(Quiz $quiz)
     {
-        $quiz->questions()->detach(); // détacher les relations avant suppression
+        //$quiz->questions()->detach(); // détacher les relations avant suppression
         $quiz->delete();
         return redirect()->route('quizzes.index')->with('success', 'Quiz supprimé avec succès.');
     }

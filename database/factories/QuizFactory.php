@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,6 +16,7 @@ class QuizFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
+            'user_id'=>User::factory(),
         ];
     }
 }

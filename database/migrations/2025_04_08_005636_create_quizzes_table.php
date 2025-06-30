@@ -16,9 +16,8 @@ return new class extends Migration
         $table->id();
         $table->string('title');
         $table->text('description')->nullable();
-        $table->timestamp('start_time')->nullable();
-        $table->timestamp('end_time')->nullable();
-        $table->foreignId('category_id')->constrained()->onDelete('cascade');
+        // Créateur du quiz (utilisateur connecté)
+        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         $table->timestamps();
     });
 }
