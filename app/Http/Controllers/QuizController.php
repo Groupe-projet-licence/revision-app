@@ -13,7 +13,7 @@ class QuizController extends Controller
 {
     public function index()
     {
-        return dd(Quiz::with('questions')->get());
+        return (Quiz::with('questions')->get());
     }
 
     public function store(Request $request)

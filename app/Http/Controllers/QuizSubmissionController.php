@@ -10,7 +10,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class QuizSubmissionController extends Controller
+class QuizSubmissionController extends Controller 
 {
     public function show(Quiz $quiz)
     {

@@ -15,7 +15,7 @@ class QuestionFactory extends Factory
     {
         return [
             'question_text' => $this->faker->sentence(),
-            'category_id' => Category::factory(),
+           // 'category_id' => Category::factory(),
             'type' => $this->faker->randomElement(['single', 'multiple']),
         ];
     }
