@@ -10,13 +10,7 @@ class Quiz extends Model
 {
     use HasFactory;
 
-<<<<<<< HEAD
    protected $fillable = ['title', 'description','user_id'];
-=======
-   protected $fillable = ['title', 'description', 'start_time', 'end_time', 'category_id'];
-
-
->>>>>>> 5717658 (passer un quiz)
 
 
 
