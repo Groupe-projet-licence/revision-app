@@ -1,14 +1,17 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Category;
 use Inertia\Inertia;
+use Ramsey\Uuid\Type\Integer;
 
 class QuestionController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $questions = Question::with('quizzes')->get();
         return Inertia::render('Questions/Index', [
             'questions' => $questions
@@ -16,17 +19,26 @@ class QuestionController extends Controller
     }
 
 
-    public function create()
+    public function create(Quiz $quiz)
     {
-        return Inertia::render('Questions/QuestionCreate');
+        return Inertia::render('Questions/QuestionCreate' ,[
+            'quiz_id'=>$quiz->id
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Quiz $quiz)
     {
         $request->merge([
-            'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text
+            'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text,
         ]);
-
+        $answers= $request->answers;
+        foreach ($answers as $index => $answer) {
+            $answers[$index]['answer_text'] = $answer['answer_text'] == '<p><br></p>' ? '' : $answer['answer_text'];
+        }
+        $request->merge([
+            'answers' => $answers
+        ]);
+        
         $validated = $request->validate([
             'question_text' => 'required|string',
             'type' => 'required|in:single,multiple',
@@ -38,12 +50,13 @@ class QuestionController extends Controller
         $question = Question::create([
             'question_text' => $validated['question_text'],
             'type' => $validated['type'],
+            "quiz_id" => $quiz->id
         ]);
 
         foreach ($validated['answers'] as $answer) {
             $question->answers()->create($answer);
         }
-        return redirect()->back()->with('success', 'Question ajoutée.');
+        return redirect()->route('quizzes.show', $quiz->id);
     }
 
     // public function show()

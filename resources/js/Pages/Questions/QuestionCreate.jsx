@@ -1,12 +1,13 @@
 import QuillEditor from "@/Components/QuillEditor";
 
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import AuthLayouts from '@/Layouts/AuthLayouts';
 import { useForm } from '@inertiajs/react';
+import QuillEditorSmall from "@/Components/QuillEditorSmall";
 
 
-export default function QuestionCreate() {
+export default function QuestionCreate({ quiz_id }) {
 
   // Pour la gestion des etats et l'envoie des donnees cote backend
   const { data, setData, post, processing, errors } = useForm({
@@ -21,30 +22,15 @@ export default function QuestionCreate() {
     setData('answers', newOptions);
   };
 
-  const addOption = () => {
-    if (data.answers.length < 8) {
-      setData('answers', [...data.answers, { answer_text: '', is_correct: false }])
-    }
-  };
-
-  const removeOption = (index) => {
-    if (data.answers.length > 2) {
-      // Supprimer la ref
-      console.log(answersRefs.current);
-      answersRefs.current.splice(index, 1);
-      // Supprimer l'option
-      const newOptions = data.answers.filter((_, i) => i !== index);
-      setData('answers', newOptions);
-      console.log(answersRefs.current);
-    }
-  };
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('questions.store'));
+    console.log(quiz_id);
+
+    post(route('questions.store', quiz_id));
   };
+  console.log('QuestionCreate:' + errors);
+
 
   // Pour la memorisation du QuillEditor pour le texte de la question
   const questionTextRef = useRef(data.question_text);
@@ -52,23 +38,33 @@ export default function QuestionCreate() {
     setData('question_text', value)
   }, [])
 
-  const handleOptions = useCallback((index, value) => {
-    const newOptions = [...data.answers];
-    newOptions[index]['answer_text'] = value;
-    setData('answers', newOptions);
-  }, [])
-  const handleOptionsText = useCallback((value) => handleOptions(index, value), []);
 
   // Pour la memorisation des QuillEditor pour les options de la question
-  const answersRefs = useRef([])
-  const PlaceHolderOption = useRef("Option ")
+  const answersRefs = useRef(data.answers)
+
+  const addOption = () => {
+    if (data.answers.length < 8) {
+      const newOptions = [...data.answers, { answer_text: '', is_correct: false }];
+      answersRefs.current = newOptions;
+      setData('answers', newOptions);
+    }
+  };
+
+  const removeOption = (index) => {
+    if (data.answers.length > 2) {
+      const newOptions = data.answers.filter((_, i) => i !== index);
+      answersRefs.current = newOptions;
+      setData('answers', newOptions);
+    }
+  };
+
 
   // Pour la gestion des erreurs sur les QuillEditor pour les options de la question
   const errorRef = useRef('');
-
   errorRef.current = Object.keys(errors).some((key) => {
     return /^answers\.\d+\.answer_text$/.test(key)
   }) ? 'Erreur' : '';
+
 
 
   return (
@@ -77,12 +73,10 @@ export default function QuestionCreate() {
       <form onSubmit={handleSubmit}>
 
         <div className="big-quill big-loader">
-
           <QuillEditor
             value={questionTextRef.current}
             onChange={handleChangeQuestionText}
             error={errors.question_text}
-            placeholder="Write your question here"
           />
         </div>
 
@@ -92,12 +86,6 @@ export default function QuestionCreate() {
         </div>
 
         {data.answers.map((option, index) => {
-
-          //const text = useRef(data.answers[index].answer_text);
-          if (!answersRefs.current[index]) {
-            answersRefs.current[index] = React.createRef();
-          }
-
 
 
           return (
@@ -127,10 +115,11 @@ export default function QuestionCreate() {
                 />
               )}
               <div className="small-quill flex-grow-1 hide-quill">
-                <QuillEditor
-                  value={answersRefs.current[index].answer_text}
-                  onChange={handleOptionsText}
-                  error={'errorRef.current'}
+                <QuillEditorSmall
+                  index={index}
+                  setData={setData}
+                  text={answersRefs.current}
+                  error={errorRef.current}
                   placeholder="Solution option text"
 
                 />
@@ -149,11 +138,12 @@ export default function QuestionCreate() {
           )
         }
         )}
-
-        <button type="button" className="btn text-primary" onClick={addOption} >
-          <span className="" style={{ fontSize: '25px' }}>+</span> Ajouter une option de réponse
-        </button>
-        <button type="submit" className='btn btn-primary'>Créer la question</button>
+        <div className="d-flex justify-content-between align-items-center ">
+          <button type="button" className="btn text-primary" onClick={addOption} >
+            <span className="" style={{ fontSize: '25px' }}>+</span> Add options
+          </button>
+          <button type="submit" className='btn btn-primary'>Create</button>
+        </div>
       </form>
     </AuthLayouts>
   )

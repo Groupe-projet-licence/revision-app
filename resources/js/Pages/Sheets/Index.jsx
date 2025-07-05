@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Card from "../../Components/Card";
-import AuthLayout from "@/Layouts/AuthLayouts";
+
+import AuthLayouts from "@/Layouts/AuthLayouts";
 import { Head, Link } from "@inertiajs/react";
+import { useSearchBar } from "@/Layouts/AuthLayouts";
 
-/**
- * Wrapper pour injecter la recherche
- */
-function IndexWrapper(props) {
-  return (
-    <AuthLayout>
-      {(searchKeyword) => <Index {...props} searchKeyword={searchKeyword} />}
-    </AuthLayout>
-  );
-}
 
-/**
- * Composant principal : liste des fiches
- */
-export default function Index({ sheets, flash, categories, selectedCategory, searchKeyword }) {
+export default function Index({ sheets, flash, categories, selectedCategory }) {
   const [messageSuccess, setMessageSuccess] = useState(flash.success);
 
   useEffect(() => {
@@ -31,6 +20,7 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
   }, [flash]);
 
   // 🔍 Filtrage par recherche (titre ou description)
+  const searchKeyword = useSearchBar();
   const filteredSheets = searchKeyword
     ? sheets.filter(
       (sheet) =>
@@ -40,7 +30,7 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
     : sheets;
 
   return (
-    <AuthLayout>
+    <>
       <Head>
         <title>Sheet</title>
       </Head>
@@ -55,7 +45,7 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
           {/* 🎯 Filtre par catégorie */}
           <div className="col-md-4 ">
             <select
-              style={{ borderRadius: '5px',minWidth:'250px' }}
+              style={{ borderRadius: '5px', minWidth: '250px' }}
               className="form-select"
               value={selectedCategory || ""}
               onChange={(e) => {
@@ -94,6 +84,8 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
           )}
         </div>
       </div>
-    </AuthLayout>
+    </>
   );
 }
+
+Index.layout = page => <AuthLayouts children={page} />

@@ -45,7 +45,21 @@ Style géneral
         display: block !important;
     }
 }
+/* --------------------------------------------------------------
+                                Barre de scroll 
+-----------------------------------------------------------------*/
 
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-track{
+    background:white;
+}
+::-webkit-scrollbar-thumb{
+    margin-top: 200px;
+    background: #0d6efd;
+    border-radius: 15px;
+}
 
 /* --------------------------------------------------------------
                                 Quill.js 

@@ -44,7 +44,11 @@ Route::get('/quizzes/library', [QuizController::class, 'library'])->name('quizze
 
 //Les diferentes Routes du QUIZ la manipulation des differente tables
 Route::resource('categories', CategoryController::class);
-Route::resource('questions', QuestionController::class);
+
+Route::get('/questions/create/{quiz}', [QuestionController::class, 'create'])->name('questions.create');
+Route::post('/questions/{quiz}', [QuestionController::class, 'store'])->name('questions.store');
+Route::resource('questions', QuestionController::class)->except(['store', 'create']);
+
 Route::resource('answers', AnswerController::class);
 Route::resource('quizzes', QuizController::class);
 
@@ -53,9 +57,10 @@ Route::get('/quiz/history', [QuizSubmissionController::class, 'history'])->name(
 
 
 Route::middleware(['auth'])->group(function () {
-Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
-Route::get('/histories/{history}', [HistoryController::class, 'result'])->name('histories.result');
+    Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
+    Route::get('/histories/{history}', [HistoryController::class, 'result'])->name('histories.result');
 });
+Route::get('history/historique', [HistoryController::class, 'index'])->name('history.historique');
 
 
 
@@ -63,7 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/quizzes/{quiz}/quiz/evaluate', [QuizSubmissionController::class, 'show'])->name('quiz.evaluate');
     Route::post('/quizzes/{quiz}/submit', [QuizSubmissionController::class, 'store'])->name('quiz.submit');
     Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
-
+    
 });
 
 
@@ -98,29 +103,31 @@ Route::get('/test-quizzes', function () {
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /*---------------------------------------------------------------------------------------------
                                 Routes liées aux fiches de l'apprenant
 -----------------------------------------------------------------------------------------------*/
 
-Route::get('sheets/revision',[SheetController::class,'showSheetsToReviewed'])->name('sheets.revision');
-Route::resource('sheets',controller: SheetController::class)->middleware('auth');
+Route::get('sheets/revision', [SheetController::class, 'showSheetsToReviewed'])->name('sheets.revision');
+Route::resource('sheets', controller: SheetController::class)->middleware('auth');
+
+
 
 
 
 Route::middleware(['auth'])->group(function () {
     //Route::get('/', fn () => Inertia::render('Accueil'));
-    Route::get('/compte', fn () => Inertia::render('Compte'));
-    Route::get('/quizz', fn () => Inertia::render('Quizz'));
-    Route::get('/revision', fn () => Inertia::render('Revision'));
-    Route::get('/historique', fn () => Inertia::render('Historique'));
-    Route::get('/parametres', fn () => Inertia::render('Parametres'));
+    Route::get('/compte', fn() => Inertia::render('Compte'));
+    Route::get('/quizz', fn() => Inertia::render('Quizz'));
+    Route::get('/revision', fn() => Inertia::render('Revision'));
+    Route::get('/historique', fn() => Inertia::render('Historique'));
+    Route::get('/parametres', fn() => Inertia::render('Parametres'));
 });
 
 
 //Routes pour la gestions des roles des utilisateurs
-Route::middleware(['auth'])->prefix('admin')->group(function() {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/users', [RoleUserController::class, 'index'])->name('admin.users.index');
     Route::put('/users/{user}', [RoleUserController::class, 'update'])->name('admin.users.update');
 });

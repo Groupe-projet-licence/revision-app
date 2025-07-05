@@ -1,6 +1,6 @@
-import React, { lazy, Suspense, useRef } from 'react';
+import React, { lazy, Suspense, useCallback, useRef } from 'react';
 
-const QuillEditor = ({ error, ...props }) => {
+const QuillEditorSmall = ({ error, index, setData, text }) => {
     const ReactQuill = lazy(() => import('react-quill'));
     console.log('render Quill')
 
@@ -19,7 +19,6 @@ const QuillEditor = ({ error, ...props }) => {
             ['clean']
         ]
     };
-
     const formats = [ // Formats supportés (doit correspondre aux options de la toolbar)
         'header', 'font', 'size', 'script',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
@@ -28,14 +27,23 @@ const QuillEditor = ({ error, ...props }) => {
     ];
 
     const editorRef = useRef(null);
-
     const handleFocus = () => {
         editorRef.current.classList.add('focused');
     };
-
     const handleBlur = () => {
         editorRef.current.classList.remove('focused');
     };
+    
+
+
+    console.log(text);
+    const onChange = (value) => {
+        const newOptions = [...text];
+        newOptions[index]['answer_text'] = value;
+        setData('answers', newOptions);
+    };
+    console.log(text);
+
 
 
     return (
@@ -47,7 +55,8 @@ const QuillEditor = ({ error, ...props }) => {
                     </div>
                 </div>}>
                 <ReactQuill
-                    {...props}
+                    value={text[index].answer_text}
+                    onChange={onChange}
                     modules={modules}
                     formats={formats}
                     onFocus={handleFocus}
@@ -59,4 +68,4 @@ const QuillEditor = ({ error, ...props }) => {
     );
 };
 
-export default React.memo(QuillEditor);
+export default React.memo(QuillEditorSmall);
