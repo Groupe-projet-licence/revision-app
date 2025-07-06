@@ -26,13 +26,16 @@
  */
 
 import AuthLayouts from "@/Layouts/AuthLayouts";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import React from "react";
 
 const ShowQuiz = ({ quiz }) => {
   console.log(quiz)
   return (
     <AuthLayouts>
+      <Head>
+        <title>Visualized</title>
+      </Head>
       <div className="container">
         <div className="text-end">
           <Link className="btn btn-primary mb-4" href={route('questions.create')} >

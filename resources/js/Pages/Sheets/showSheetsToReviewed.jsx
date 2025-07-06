@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import Card from "../../Components/Card";
 import AuthLayout from "@/Layouts/AuthLayouts";
+import { Head } from "@inertiajs/react";
 
 /**
  * Affichage liste de fiches
@@ -20,6 +21,9 @@ export default function showSheetsToReviewed({ sheets, flash }) {
     
 
     return <AuthLayout>
+        <Head>
+            <title>Revision Notifications</title>
+        </Head>
         <div>
             {messageSuccess && <div className="alert alert-info flash-messge-success">{messageSuccess}</div>}
             {

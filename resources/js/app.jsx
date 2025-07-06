@@ -11,7 +11,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import RevisionProvider from './Contexts/RevisionProvider';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'EasyLearning';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

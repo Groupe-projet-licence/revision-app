@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../../Components/Card";
 import AuthLayout from "@/Layouts/AuthLayouts";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 /**
  * Wrapper pour injecter la recherche
@@ -41,7 +41,9 @@ export default function Index({ sheets, flash, categories, selectedCategory, sea
 
   return (
     <AuthLayout>
-
+      <Head>
+        <title>Sheet</title>
+      </Head>
       <div>
         {messageSuccess && (
           <div className="alert alert-info flash-messge-success">

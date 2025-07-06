@@ -10,9 +10,7 @@ export default function UserIndex() {
             <div className="container">
                 <h2 className="mb-4">Gestion des utilisateurs</h2>
 
-                php-template
-                Copy
-                Edit
+
                 {flash.success && (
                     <div className="alert alert-success">{flash.success}</div>
                 )}

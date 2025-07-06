@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AuthLayout from "@/Layouts/AuthLayouts";
 //import AuthLayouts from "@/Layouts/AuthLayouts";
-import { Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import CreateSujetModal from "@/Components/CreateSujetModal";
 
 export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
@@ -63,6 +63,9 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
 
   return (
     <AuthLayout>
+      <Head>
+        <title>Quiz</title>
+      </Head>
       <div>
         {messageSuccess && <div className="alert alert-info">{messageSuccess}</div>}
         <div className="text-end">

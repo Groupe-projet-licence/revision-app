@@ -35,30 +35,34 @@ export default function AuthLayouts({ children }) {
               className="btn btn-light text-dark"
               onClick={() => setShowDropdown(!showDropdown)}
             >
-              {auth?.user?.name || 'Invité'}            </button>
-            {/*} {showDropdown && (
-                <div className="dropdown-menu dropdown-menu-end show"
-                  style={{ position: 'absolute', top: 45, right: -10 }}>
-                  <Link
-                    href="/logout"
-                    method="post"
-                    as="button"
-                    className="dropdown-item"
-                  >
-                    Se Déconnecter
-                  </Link>
-                </div>
-            )}*/}
-
-            {/*---------------------------Partie roles modifier------------------*/}
+              {auth?.user?.name || 'Invité'}
+            </button>
             {showDropdown && (
-
-              <div className="dropdown-menu dropdown-menu-end show mt-2">
+              <div className="dropdown-menu dropdown-menu-end show"
+                style={{ position: 'absolute', top: 45, right: -10 }}>
+                <Link
+                  href="/logout"
+                  method="post"
+                  as="button"
+                  className="dropdown-item"
+                >
+                  Se Déconnecter
+                </Link>
                 {auth.user.role === 'admin' && (
                   <Link href={route('admin.users.index')} className="dropdown-item" >
                     👥 Gérer les utilisateurs </Link>)}
-                  <Link href="/logout" method="post" as="button" className="dropdown-item" > Se Déconnecter </Link>
-              </div>)}
+              </div>
+            )}
+
+            {/*---------------------------Partie roles modifier------------------*/}
+            {/*showDropdown && (
+
+              <div className="dropdown-menu dropdown-menu-end show mt-2">
+                {auth.user.role === 'admin' && (
+                  <Link href={route('admin.users.index')} className="dropdown-item" > 
+                    👥 Gérer les utilisateurs </Link>)} 
+                  <Link href="/logout" method="post" as="button" className="dropdown-item" > Se Déconnecter </Link> 
+                </div>)*/}
             {/*----------------------------Fin de la modification-----------------*/}
           </div>
         </div>

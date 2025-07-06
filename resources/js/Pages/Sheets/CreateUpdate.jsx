@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import QuillEditor from '../../Components/QuillEditor';
 import AuthLayout from '@/Layouts/AuthLayouts';
 
@@ -56,7 +56,9 @@ export default function CreateUpdate({ sheet, categories }) {
     };
 
     return (<AuthLayout>
-
+        <Head>
+            <title>Create Sheet</title>
+        </Head>
         <div>
             <form onSubmit={handleSubmit} className='vstack gap-3'>
                 {FlashMsg && <div className="alert alert-danger">{FlashMsg}</div>}
