@@ -83,8 +83,8 @@ class DatabaseSeeder extends Seeder
 
         Question::factory(2)->create(["quiz_id" => 2]);
 
-        Answer::factory(4)->create(['question_id' => 4]);
-        Answer::factory(3)->create(['question_id' => 5]);
+        Answer::factory(4)->create(['question_id' => 6]);
+        Answer::factory(3)->create(['question_id' => 7]);
 
 
 
@@ -93,10 +93,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory(5)->create();
         \App\Models\Quiz::factory(10)->create();
 
-        \App\Models\User::factory(5)->create();
-        \App\Models\Quiz::factory(3)->create();
-        \App\Models\Category::factory(5)->create();
-        \App\Models\Quiz::factory(10)->create();
+
 
 
         // \App\Models\User::factory()->create([

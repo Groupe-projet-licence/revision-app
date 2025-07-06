@@ -70,13 +70,13 @@ export default function Result({ submission }) {
     <div className="mt-10 text-center">
       <Link href={route('quiz.evaluate', submission.quiz_id)}
         className="bg-yellow-500 text-white px-6 py-2 rounded mr-4 hover:bg-yellow-600">
-        🔁 Recommencer ce quiz
+        Restart quiz
       </Link>
 
       <Link
-        href={route('sheets.index')} // à adapter selon la route vers les fiches
+        href={route('quiz.history', submission.quiz_id)}
         className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
-        📄 Voir une fiche associée
+        View history
       </Link>
     </div>
   </div>

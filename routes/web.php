@@ -48,6 +48,9 @@ Route::resource('questions', QuestionController::class);
 Route::resource('answers', AnswerController::class);
 Route::resource('quizzes', QuizController::class);
 
+Route::get('/quiz/history', [QuizSubmissionController::class, 'history'])->name('quiz.history');
+
+
 
 Route::middleware(['auth'])->group(function () {
 Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
@@ -103,9 +106,6 @@ require __DIR__.'/auth.php';
 
 Route::get('sheets/revision',[SheetController::class,'showSheetsToReviewed'])->name('sheets.revision');
 Route::resource('sheets',controller: SheetController::class)->middleware('auth');
-
-
-Route::get('history/historique',[HistoryController::class,'index'])->name('history.historique');
 
 
 

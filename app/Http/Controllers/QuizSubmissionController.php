@@ -74,6 +74,19 @@ public function result($id){
                     'submission' => $submission,
                 ]);
         }
+
+        public function history()
+{
+    $submissions = QuizSubmission::with('quiz')
+        ->where('user_id', auth()->id())
+        ->latest()
+        ->get();
+
+    return Inertia::render('Quiz/History', [
+        'submissions' => $submissions
+    ]);
+}
+
 }
 
 

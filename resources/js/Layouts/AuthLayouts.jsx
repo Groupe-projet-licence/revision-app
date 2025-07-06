@@ -35,8 +35,7 @@ export default function AuthLayouts({ children }) {
               className="btn btn-light text-dark"
               onClick={() => setShowDropdown(!showDropdown)}
             >
-              {auth.user.name}
-            </button>
+              {auth?.user?.name || 'Invité'}            </button>
             {/*} {showDropdown && (
                 <div className="dropdown-menu dropdown-menu-end show"
                   style={{ position: 'absolute', top: 45, right: -10 }}>
@@ -54,11 +53,11 @@ export default function AuthLayouts({ children }) {
             {/*---------------------------Partie roles modifier------------------*/}
             {showDropdown && (
 
-              <div className="dropdown-menu dropdown-menu-end show mt-2"> 
+              <div className="dropdown-menu dropdown-menu-end show mt-2">
                 {auth.user.role === 'admin' && (
-                  <Link href={route('admin.users.index')} className="dropdown-item" > 
-                    👥 Gérer les utilisateurs </Link>)} 
-                  <Link href="/logout" method="post" as="button" className="dropdown-item" > Se Déconnecter </Link> 
+                  <Link href={route('admin.users.index')} className="dropdown-item" >
+                    👥 Gérer les utilisateurs </Link>)}
+                  <Link href="/logout" method="post" as="button" className="dropdown-item" > Se Déconnecter </Link>
               </div>)}
             {/*----------------------------Fin de la modification-----------------*/}
           </div>
@@ -138,7 +137,7 @@ function SidebarLinks({ reduceSideBar = true }) {
         </Link>
       </li>
       <li className="nav-item mb-2">
-        <Link href="/historique" className={`nav-link ${isActive('/historique') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+        <Link href="/quiz/history" className={`nav-link ${isActive('/quiz/history') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-clock-history me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My History'}
         </Link>
       </li>

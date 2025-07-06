@@ -44,6 +44,13 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
               Edit
             </Link>
           )}
+          <Link href={route('quiz.evaluate',quiz.id)}
+            className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+            style={{ fontSize: '0.9em' }}>
+            ASSESSMENT
+          </Link>
+
+
           <Link href={route('quizzes.show', quiz.id)}
             className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
             style={{ fontSize: '0.9em' }}>
