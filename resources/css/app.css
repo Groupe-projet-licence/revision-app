@@ -62,7 +62,7 @@ Style géneral
 ::-webkit-scrollbar-thumb{
     margin-top: 200px;
     background: #0d6efd;
-    border-radius: 15px;
+    border-left: 1px white solid;
 }
 
 /* --------------------------------------------------------------

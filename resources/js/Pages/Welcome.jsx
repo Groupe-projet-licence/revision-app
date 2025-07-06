@@ -39,7 +39,7 @@ export default function Welcome() {
   ];
 
   return (
-    <Suspense fallback={LogoLoading}>
+    <Suspense fallback={<LogoLoading/>}>
       <LazyLoading>
         <div className="w-full min-h-screen bg-blue-50 text-gray-800">
           {/* Header */}

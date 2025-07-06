@@ -43,7 +43,7 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
         <div className="d-md-flex justify-content-between align-items-center mb-4">
 
           {/* 🎯 Filtre par catégorie */}
-          <div className="col-md-4 ">
+          <div className="col col-md-4  p-0">
             <select
               style={{ borderRadius: '5px', minWidth: '250px' }}
               className="form-select"

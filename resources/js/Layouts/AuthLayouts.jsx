@@ -25,13 +25,20 @@ export default function AuthLayouts({ children }) {
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
 
           <div className="d-flex flex-grow-1 align-items-center justify-content-between">
-            <button
-              className="navbar-toggler button-menu"
-              type="button"
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+            <div className="d-flex gap-2 align-items-center">
+              <button
+                className="navbar-toggler button-menu"
+                type="button"
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <img
+                style={{ borderRadius: '100%', width: '2em', height: '2em' }}
+                src="/images/icon_app2.png"
+                alt="Application Logo"
+              />
+            </div>
             <input
               type="text"
               style={{ borderRadius: '5px', width: '400px' }}
@@ -40,6 +47,8 @@ export default function AuthLayouts({ children }) {
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
             />
+
+
             <div className="position-relative ms-auto">
               <button
                 className="btn btn-light text-dark"
@@ -49,7 +58,7 @@ export default function AuthLayouts({ children }) {
               </button>
               {showDropdown && (
                 <div className="dropdown-menu dropdown-menu-end show"
-                  style={{ position: 'absolute', top: 45, right: -10 }}>
+                  style={{ position: 'absolute', top: 45, left: -125 }}>
                   <Link
                     href="/logout"
                     method="post"
@@ -64,16 +73,7 @@ export default function AuthLayouts({ children }) {
                 </div>
               )}
             </div>
-            {/*---------------------------Partie roles modifier------------------*/}
-            {/*showDropdown && (
 
-              <div className="dropdown-menu dropdown-menu-end show mt-2">
-                {auth.user.role === 'admin' && (
-                  <Link href={route('admin.users.index')} className="dropdown-item" > 
-                    👥 Gérer les utilisateurs </Link>)} 
-                  <Link href="/logout" method="post" as="button" className="dropdown-item" > Se Déconnecter </Link> 
-                </div>)*/}
-            {/*----------------------------Fin de la modification-----------------*/}
           </div>
         </nav>
 
@@ -86,7 +86,7 @@ export default function AuthLayouts({ children }) {
 
           {/* Sidebar Mobile Dropdown */}
           {showMobileMenu && (
-            <div className="bg-white border-end p-3 d-block d-md-none" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '60vw' }}>
+            <div className="bg-white border-end p-3 d-block d-md-none z-40" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '70vw' }}>
               <SidebarLinks />
             </div>
           )}
@@ -104,17 +104,8 @@ export default function AuthLayouts({ children }) {
                 onChange={(e) => setSearchKeyword(e.target.value)}
               />
             </div>
-            <Suspense fallback={
-              <div className="d-flex justify-content-center align-items-center h-100">
-                <div className='spinner-border text-primary' role='status'>
-                  <span className="sr-only">Chargement de l'editeur...</span>
-                </div>
-              </div>}>
 
-              <LazyLoading>
-                {children}
-              </LazyLoading>
-            </Suspense>
+            {children}
           </main>
         </div>
       </div>
@@ -149,7 +140,7 @@ function SidebarLinks({ reduceSideBar = true }) {
         </Link>
       </li>
       <li className="nav-item mb-2">
-        <Link href="/quizzes" className={`nav-link ${window.location.pathname.includes('/quizzes') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+        <Link href="/quizzes" className={`nav-link ${window.location.pathname.includes('/quizzes') || window.location.pathname.includes('/questions') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-journal-text me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My quiz'}
         </Link>
       </li>
