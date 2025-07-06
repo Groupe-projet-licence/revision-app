@@ -45,6 +45,10 @@ Style géneral
         display: block !important;
     }
 }
+
+.spinner-border.slow{
+    animation-duration: 1s;
+}
 /* --------------------------------------------------------------
                                 Barre de scroll 
 -----------------------------------------------------------------*/

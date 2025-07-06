@@ -1,8 +1,16 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-
 export default function LogoLoading({ }) {
-    return <div className="d-flex justify-content-center align-items-center h-100"
-        style={{ background: '#0d6efd' }}>
-        <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-    </div>
+  return <div className="d-flex justify-content-center align-items-center position-relative"
+    style={{ background: '#0d6efd', height: '100vh' }}>
+
+    <span className="position-absolute">
+      <img
+        style={{ borderRadius: '100%', width:'12em',height:'12em' }}
+        src="/images/icon_app2.png"
+        alt="Application Logo"
+      />
+    </span>
+
+    <div className='spinner-border  text-primary position-absolute' role='status'></div>
+
+  </div>
 }
