@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-    public function index()
-    {
-        $myQuizzes = Quiz::where('user_id', Auth::id())->latest()->get();
-        $otherQuizzes = Quiz::with('user')->where('user_id', '!=', Auth::id())->latest()->get();
+    public function index(Request $request)
+{
+    $myQuizzes = Quiz::where('user_id', Auth::id())->latest()->get();
 
-        return Inertia::render('Quizzes/QuizzesIndex', [
-            'myQuizzes' => $myQuizzes,
-            'otherQuizzes' => $otherQuizzes
-        ]);
-        /*$quizzes = Quiz::with('category')->get();
+    $otherQuizzes = Quiz::with('category', 'user')
+        ->where('user_id', '!=', Auth::id())
+        ->latest()
+        ->paginate(6); // ajuste le nombre par page
 
-         return Inertia::render('Quizzes/QuizzesIndex', [
-             'quizzes' => $quizzes
-         ]);*/
-    }
+    return Inertia::render('Quizzes/QuizzesIndex', [
+        'myQuizzes' => $myQuizzes,
+        'otherQuizzes' => $otherQuizzes
+    ]);
+}
+
 
     // public function create()
     // {

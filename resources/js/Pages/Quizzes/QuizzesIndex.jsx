@@ -56,6 +56,15 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
             style={{ fontSize: '0.9em' }}>
             View
           </Link>
+
+
+          <button
+          className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+          onClick={() => navigator.clipboard.writeText(route('quiz.evaluate', quiz.id))}
+          style={{ fontSize: '0.9em' }}>
+          🔗 Share Quiz
+          </button>
+
         </div>
       </div>
     </div>
@@ -98,24 +107,55 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
 
         {/* Affichage conditionnel */}
         <div className="row">
-          {activeTab === 'my' ? (
-            myQuizzes.length > 0 ? (
-              myQuizzes.map(renderQuizCard)
-            ) : (
-              <div className="text-center text-muted my-5">
-                🧩 Aucun quiz créé pour le moment.
+  {activeTab === 'my' ? (
+    myQuizzes.length > 0 ? (
+      myQuizzes.map(renderQuizCard)
+    ) : (
+      <div className="text-center text-muted my-5">
+        🧩 Aucun quiz créé pour le moment.
+      </div>
+    )
+  ) : (
+    // 🔄 REMPLACER CETTE PARTIE
+    otherQuizzes.data && (
+      <>
+        <div className="mb-4">
+          {Object.entries(
+            otherQuizzes.data.reduce((acc, quiz) => {
+              const cat = quiz.category?.name || 'Autres';
+              acc[cat] = [...(acc[cat] || []), quiz];
+              return acc;
+            }, {})
+          ).map(([category, quizzes]) => (
+            <div key={category} className="mb-5">
+              <h4 className="text-primary mb-3 border-bottom pb-1">{category}</h4>
+              <div className="row">
+                {quizzes.map(renderQuizCard)}
               </div>
-            )
-          ) : (
-            otherQuizzes.length > 0 ? (
-              otherQuizzes.map(renderQuizCard)
-            ) : (
-              <div className="text-center text-muted my-5">
-                📚 Aucun quiz disponible dans la bibliothèque.
-              </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
+
+        {/* PAGINATION */}
+        {otherQuizzes.links && (
+          <div className="mt-4 d-flex justify-content-center flex-wrap gap-2">
+            {otherQuizzes.links.map((link, i) => (
+              <Link
+                key={i}
+                href={link.url || '#'}
+                dangerouslySetInnerHTML={{ __html: link.label }}
+                className={`mx-1 px-3 py-1 text-sm rounded ${
+                  link.active ? 'bg-primary text-white' : 'bg-light text-dark'
+                } ${!link.url && 'text-muted'}`}
+              />
+            ))}
+          </div>
+        )}
+      </>
+    )
+  )}
+</div>
+
       </div>
     </AuthLayout>
   );
