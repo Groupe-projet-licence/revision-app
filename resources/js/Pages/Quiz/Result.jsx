@@ -2,6 +2,11 @@ import React from 'react';
 import AuthLayouts from '@/Layouts/AuthLayouts';
 import { Link } from '@inertiajs/react';
 
+const stripHtml = (html) => {
+const doc = new DOMParser().parseFromString(html, 'text/html');
+return doc.body.textContent || "";
+};
+
 export default function Result({ submission }) {
     const groupedAnswers = submission.answers.reduce((acc, item) => {
         const qId = item.question.id;
@@ -30,9 +35,10 @@ export default function Result({ submission }) {
 
       return (
         <div key={qId} className="mb-6 p-4 border rounded-lg shadow-sm bg-white">
-          <p className="font-semibold mb-2 text-lg">
-            {index + 1}. {question.question_text}
-          </p>
+
+           <p className="font-semibold mb-2"> {index + 1}. {stripHtml(question.question_text).trim()}
+
+                 </p>
 
           <p className="text-gray-800 font-medium"> Tes réponses :</p>
           <ul className="list-disc ml-6 text-black">
