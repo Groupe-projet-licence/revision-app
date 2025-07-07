@@ -54,9 +54,10 @@ export default function Card({ data }) {
                             <div className="dropdown-menu dropdown-menu-end show"
                                 style={{  position: 'absolute', top: 45, right:50, left:100  }}>
                                 <Link
-                                    href={route('sheets.destroy', data.id)}
-                                    method="delete"
+                                    style={{ color : 'red'}}
                                     as="button"
+                                    onClick = {() => { if (confirm('Confirmer la suppression ?'))
+                                                { router.delete(route('sheets.destroy', data.id));}}}
                                     className="dropdown-item"
                                 >
                                     Delete

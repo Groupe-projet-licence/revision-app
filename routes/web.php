@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RoleUserController;
+use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\admin\SheetController;
 use App\Http\Controllers\QuizSubmissionController;
 /*
@@ -117,3 +118,5 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 
+//Route pour marquer le tutoriel comme vu
+Route::middleware(['auth'])->post('/tutorial/complete', [TutorialController::class, 'complete']);

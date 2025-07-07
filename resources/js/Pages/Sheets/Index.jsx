@@ -2,12 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import Card from "../../Components/Card";
 
 import AuthLayouts from "@/Layouts/AuthLayouts";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { useSearchBar } from "@/Layouts/AuthLayouts";
+import TutorialGuide from "@/Components/TutorialGuide";
 
 
 export default function Index({ sheets, flash, categories, selectedCategory }) {
   const [messageSuccess, setMessageSuccess] = useState(flash.success);
+
+  const { auth } = usePage().props;
+
+  const steps = [{ target: '.btn-create-sheet', content:'Clique ici pour créer ta première fiche de révision !',},
+                    { target: '.btn-create-quiz', content:'Ici tu peux crée un quiz associe a une fiche.',},
+                ];
 
   useEffect(() => {
     if (flash?.success) {
@@ -35,6 +42,8 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
         <title>Sheet</title>
       </Head>
       <div>
+        <TutorialGuide steps={steps} user={auth.user}/>
+
         {messageSuccess && (
           <div className="alert alert-info flash-messge-success">
             {messageSuccess}
@@ -66,7 +75,7 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
           {/* ➕ Bouton de création */}
           <div className="text-end mt-1">
             <Link className="btn btn-primary btn-sm" href="/sheets/create">
-              <span className="fs-5">+</span> New sheet
+              <span className="fs-5 btn-create-sheet">+</span> New sheet
             </Link>
           </div>
         </div>
