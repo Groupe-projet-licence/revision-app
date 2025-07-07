@@ -3,6 +3,11 @@
 import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
 
+const stripHtml = (html) => {
+const doc = new DOMParser().parseFromString(html, 'text/html');
+return doc.body.textContent || "";
+};
+
 const Evaluate = ({ quiz }) => {
 const [answers, setAnswers] = useState({});
 
@@ -41,20 +46,21 @@ return (
     <form onSubmit={handleSubmit}>
         {quiz.questions.map((question, index) => (
              <div key={question.id} className="mb-6">
-                 <p className="font-semibold mb-2">{index + 1}. {question.question_text}
+                 <p className="font-semibold mb-2"> {index + 1}. {stripHtml(question.question_text).trim()}
 
                  </p>
                  {question.answers.map((ans) => (
-                     <label key={ans.id} className="block ml-4">
-                         <input type={question.type === 'single' ? 'radio' : 'checkbox'}
-                          name={'question_${question.id}'}
-                          value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
-                          onChange={() =>
-                          handleOptionChange(question.id, ans.id, question.type)}
-                          />
-                          <span className="ml-2"dangerouslySetInnerHTML={{ __html: ans.answer_text  }}/>
-                         </label>
-                     ))}
+                    <div key={ans.id} className="flex items-start gap-2 mb-2 ms-4">
+                    <input type={question.type === 'single' ? 'radio' : 'checkbox'}
+                     name={`question_${question.id}`}
+                     value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
+                     onChange={() => handleOptionChange(question.id, ans.id, question.type)}
+                      className="mt-1" /> <span dangerouslySetInnerHTML={{ __html: ans.answer_text
+
+                       }}
+                       />
+                    </div>
+                ))}
                 </div>
             ))}
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" >Soumettre le quiz</button>
