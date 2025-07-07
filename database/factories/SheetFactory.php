@@ -19,7 +19,8 @@ class SheetFactory extends Factory
         return [
             "title"=>fake()->sentence(2),
             "description"=>fake()->optional()->sentence(10),
-            "content"=>fake()->paragraph(5)
+            "content"=>fake()->paragraph(5),
+            'user_id' => User::factory()
         ];
     }
 }

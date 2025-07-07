@@ -54,8 +54,11 @@ Route::resource('quizzes', QuizController::class);
 Route::get('/test-quizzes', function () {
     return Quiz::with(['questions.answers'])->get();
 });
+// la route pour mon fichier SheetTest
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::resource('sheets', SheetController::class);
+});
 
 
 require __DIR__.'/auth.php';
