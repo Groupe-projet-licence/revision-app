@@ -1,72 +1,72 @@
 // 📄 resources/js/Pages/Quiz/Evaluate.jsx
 
 import React, { useState } from 'react';
-import { router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
+import AuthLayouts from '@/Layouts/AuthLayouts';
+import ShowContentQuill from '@/Components/ShowContentQuill';
 
 const stripHtml = (html) => {
-const doc = new DOMParser().parseFromString(html, 'text/html');
-return doc.body.textContent || "";
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
 };
 
 const Evaluate = ({ quiz }) => {
-const [answers, setAnswers] = useState({});
+    const [answers, setAnswers] = useState({});
 
-const handleOptionChange = (questionId, answerId, type) => {
-    setAnswers((prev) => {
-        const current = prev[questionId] || [];
-        if (type === 'single') {
-            return { ...prev, [questionId]: [answerId] };
-        } else {
-            if (current.includes(answerId)) {
-                return {
-                    ...prev,
-                    [questionId]: current.filter((id) => id !== answerId),
-                };
+    const handleOptionChange = (questionId, answerId, type) => {
+        setAnswers((prev) => {
+            const current = prev[questionId] || [];
+            if (type === 'single') {
+                return { ...prev, [questionId]: [answerId] };
             } else {
-                return {
-                    ...prev,
-                    [questionId]: [...current, answerId],
-                };
+                if (current.includes(answerId)) {
+                    return {
+                        ...prev,
+                        [questionId]: current.filter((id) => id !== answerId),
+                    };
+                } else {
+                    return {
+                        ...prev,
+                        [questionId]: [...current, answerId],
+                    };
+                }
             }
-        }
-    });
-};
+        });
+    };
 
-const handleSubmit = (e) => {
-    e.preventDefault();
-    router.post(route('quiz.submit', quiz.id), {
-        quiz_id: quiz.id,
-        answers,
-    });
-};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        router.post(route('quiz.submit', quiz.id), {
+            quiz_id: quiz.id,
+            answers,
+        });
+    };
 
-return (
-<div className="p-6">
-    <h1 className="text-2xl font-bold mb-6">{quiz.title}</h1>
-    <form onSubmit={handleSubmit}>
-        {quiz.questions.map((question, index) => (
-             <div key={question.id} className="mb-6">
-                 <p className="font-semibold mb-2"> {index + 1}. {stripHtml(question.question_text).trim()}
+    return (
+        <AuthLayouts>
+            <Head title="Quiz" />
+            <h1 className="text-2xl font-bold mb-6">{quiz.title}</h1>
+            <form onSubmit={handleSubmit}>
+                {quiz.questions.map((question, index) => (
+                    <div key={question.id} className="mb-6">
+                        <p className="font-semibold mb-2"> {index + 1}. {stripHtml(question.question_text).trim()}
 
-                 </p>
-                 {question.answers.map((ans) => (
-                    <div key={ans.id} className="flex items-start gap-2 mb-2 ms-4">
-                    <input type={question.type === 'single' ? 'radio' : 'checkbox'}
-                     name={`question_${question.id}`}
-                     value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
-                     onChange={() => handleOptionChange(question.id, ans.id, question.type)}
-                      className="mt-1" /> <span dangerouslySetInnerHTML={{ __html: ans.answer_text
-
-                       }}
-                       />
+                        </p>
+                        {question.answers.map((ans) => (
+                            <div key={ans.id} className="flex items-start gap-2 mb-2 ms-4">
+                                <input type={question.type === 'single' ? 'radio' : 'checkbox'}
+                                    name={`question_${question.id}`}
+                                    value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
+                                    onChange={() => handleOptionChange(question.id, ans.id, question.type)}
+                                    className="mt-1" /><ShowContentQuill>{ans.answer_text}</ShowContentQuill>
+                            </div>
+                        ))}
                     </div>
                 ))}
-                </div>
-            ))}
-            <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" >Soumettre le quiz</button>
+                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" >Soumettre le quiz</button>
             </form>
-             </div>
-              );
-             };
+        </AuthLayouts>
+    );
+};
 
 export default Evaluate;

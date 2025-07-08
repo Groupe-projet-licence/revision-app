@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { lazy, Suspense } from 'react';
 import LogoLoading from '@/Components/LogoLoading';
 const LazyLoading = lazy(() => import('@/Components/LazyLoading'))
@@ -39,6 +39,8 @@ export default function Welcome() {
   ];
 
   return (
+    <>
+    <Head title="Welcome" />
     <Suspense fallback={<LogoLoading/>}>
       <LazyLoading>
         <div className="w-full min-h-screen bg-blue-50 text-gray-800">
@@ -95,6 +97,7 @@ export default function Welcome() {
         </div>
       </LazyLoading>
     </Suspense>
+    </>
   );
 }
 

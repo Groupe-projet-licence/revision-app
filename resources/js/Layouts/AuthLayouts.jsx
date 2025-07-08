@@ -1,7 +1,7 @@
 import TutorialGuide from '@/Components/TutorialGuide';
 import { useRevision } from '@/Contexts/RevisionProvider';
 import { Link, usePage } from '@inertiajs/react';
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 const LazyLoading = lazy(() => import('@/Components/LazyLoading'))
 
 
@@ -13,10 +13,21 @@ export const useSearchBar = () => useContext(SearchBarContext);
 
 
 export default function AuthLayouts({ children }) {
-  const { auth } = usePage().props;
+  const { auth,flash } = usePage().props;
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [messageSuccess, setMessageSuccess] = useState(flash.success);
+
+  useEffect(() => {
+    if (flash?.success) {
+      const timer = setTimeout(() => {
+        setMessageSuccess(null);
+        window.location.reload();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [flash]);
 
   //Differentes pop up
   const steps = [{ target:'.search-bar', content:'Tu peux rechercher rapidement une fiche ou un quiz en tapant ici un mot-clé. C\'est pratique pour retrouve un contenu précis parmi tous tes sujets.',},
@@ -39,7 +50,7 @@ export default function AuthLayouts({ children }) {
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
 
           <div className="d-flex flex-grow-1 align-items-center justify-content-between">
-            <div className="d-flex gap-2 align-items-center">
+            <div className="d-flex gap-2 ">
               <button
                 className="navbar-toggler button-menu"
                 type="button"
@@ -107,6 +118,11 @@ export default function AuthLayouts({ children }) {
 
           {/* Main Content */}
           <main className="p-3 py-5 flex-grow-1 overflow-auto p-reduce">
+            {messageSuccess && (
+              <div className="alert alert-info flash-messge-success">
+                {messageSuccess}
+              </div>
+            )}
             {/* Mobile search bar (only shown on small screen) */}
             <div className="mb-3 d-md-none">
               <input

@@ -13,35 +13,21 @@ use Illuminate\Support\Facades\Auth;
 class QuizController extends Controller
 {
     public function index(Request $request)
-{
-    $myQuizzes = Quiz::where('user_id', Auth::id())->latest()->get();
+    {
+        $myQuizzes = Quiz::where('user_id', Auth::id())->latest()->get();
 
-    $otherQuizzes = Quiz::with('category', 'user')
-        ->where('user_id', '!=', Auth::id())
-        ->latest()
-        ->paginate(6); // ajuste le nombre par page
+        $otherQuizzes = Quiz::with('category', 'user')
+            ->where('user_id', '!=', Auth::id())
+            ->latest()
+            ->paginate(6); // ajuste le nombre par page
 
-    return Inertia::render('Quizzes/QuizzesIndex', [
-        'myQuizzes' => $myQuizzes,
-        'otherQuizzes' => $otherQuizzes
-    ]);
-}
+        return Inertia::render('Quizzes/QuizzesIndex', [
+            'myQuizzes' => $myQuizzes,
+            'otherQuizzes' => $otherQuizzes
+        ]);
+    }
 
 
-    // public function create()
-    // {
-    //     $categories = Category::all();
-    //     $questions = Question::all();
-    //     return view('quizzes.create', compact('categories', 'questions'));
-    // }
-
-    // public function create()
-    // {
-    //     return Inertia::render('Quizzes/Questions/QuestionsIndex', [
-    //         'categories' => Category::all(),
-    //         'questions' => Question::all()
-    //     ]);
-    // }
 
     public function store(Request $request)
     {
@@ -58,8 +44,7 @@ class QuizController extends Controller
             'description' => $request->description,
             'user_id' => Auth::id()
         ]);
-
-        return redirect()->route('quizzes.index')->with('success', 'Quiz créé avec succès.');
+        return back()->with('success', 'Quiz created successfully.');
     }
 
     public function edit(Quiz $quiz)

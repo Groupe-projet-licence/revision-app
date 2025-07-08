@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             "password" => Hash::make("670748873")
         ]);
 
-         $user1=User::factory()->create([
+        $user = User::factory()->create([
             "name" => "rochelin",
             "email" => "anoumedemrochelin6@gmail.com",
             "password" => Hash::make("698112522")
@@ -65,18 +65,18 @@ class DatabaseSeeder extends Seeder
             ['answer_text' => 'React', 'is_correct' => false],
         ]);
 
-         Question::find(4)->answers()->createMany([
+        Question::find(4)->answers()->createMany([
             ['answer_text' => 'Pour simplifier la programmation', 'is_correct' => false],
             ['answer_text' => 'Comme modele', 'is_correct' => false],
             ['answer_text' => 'Pour faciliter la creation des controlleurs', 'is_correct' => false],
-             ['answer_text' => 'Pour la vue dans le MVC', 'is_correct' => true],
+            ['answer_text' => 'Pour la vue dans le MVC', 'is_correct' => true],
         ]);
 
-         Question::find(5)->answers()->createMany([
+        Question::find(5)->answers()->createMany([
             ['answer_text' => '.env.example', 'is_correct' => false],
             ['answer_text' => '.env.local', 'is_correct' => false],
             ['answer_text' => '.env', 'is_correct' => true],
-             ['answer_text' => '.config', 'is_correct' => false],
+            ['answer_text' => '.config', 'is_correct' => false],
         ]);
 
 
@@ -96,10 +96,84 @@ class DatabaseSeeder extends Seeder
 
 
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+
+
+        $userId = 1;
+
+        $subjects = [
+            'Génie Logiciel',
+            'Bases de Données',
+            'Réseau',
+            'Sécurité Informatique',
+            'Système d\'exploitation',
+            'Architecture des Ordinateurs',
+            'Programmation Orientée Objet',
+            'Développement Web',
+            'Analyse de Données',
+            'Administration Système'
+        ];
+
+        foreach ($subjects as $subject) {
+
+            // Créer le quiz avec description texte brut
+            $quiz = Quiz::create([
+                'user_id' => $userId,
+                'title' => "Quiz sur $subject",
+                'description' => "Ce quiz vous permet d’évaluer vos connaissances en $subject.",
+            ]);
+
+            // Nombre de questions aléatoire entre 8 et 14
+            $questionCount = rand(8, 14);
+
+            for ($i = 1; $i <= $questionCount; $i++) {
+
+                // Type de question aléatoire : single ou multiple
+                $type = rand(0, 1) ? 'single' : 'multiple';
+
+                // Génération de l'énoncé riche en HTML simulant Quill
+                $questionText = "<p><strong>Question $i :</strong> Quelle affirmation est correcte concernant <em>$subject</em> ?</p>";
+
+                // Créer la question
+                $question = Question::create([
+                    'quiz_id' => $quiz->id,
+                    'question_text' => $questionText,
+                    'type' => $type,
+                ]);
+
+                // Nombre d'options aléatoire entre 3 et 6
+                $answerCount = rand(3, 6);
+
+                for ($j = 1; $j <= $answerCount; $j++) {
+
+                    // Génération de contenu de réponse enrichi façon Quill
+                    $answerText = "<p>";
+                    if (rand(0, 1))
+                        $answerText .= "<strong>Option $j</strong> : ";
+                    if (rand(0, 1))
+                        $answerText .= "<em>réponse pour $subject</em> ";
+                    if (rand(0, 1))
+                        $answerText .= "avec <u>formatage</u>.";
+
+                    // Parfois une liste à puces
+                    if (rand(0, 1)) {
+                        $answerText .= "<ul><li>Point A</li><li>Point B</li></ul>";
+                    }
+                    $answerText .= "</p>";
+
+                    Answer::create([
+                        'question_id' => $question->id,
+                        'answer_text' => $answerText,
+                        'is_correct' => $type === 'single'
+                            ? ($j === 1) // première réponse correcte pour type single
+                            : (rand(0, 1) ? true : false) // choix aléatoire pour type multiple
+                    ]);
+                }
+            }
+        }
+
+
+
+
 
         $this->call([
             CategorySeeder::class,

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import AuthLayout from "@/Layouts/AuthLayouts";
-//import AuthLayouts from "@/Layouts/AuthLayouts";
 import { Head, Link, usePage } from "@inertiajs/react";
 import CreateSujetModal from "@/Components/CreateSujetModal";
 import TutorialGuide from "@/Components/TutorialGuide";
+import { useSearchBar } from "@/Layouts/AuthLayouts";;
+import AuthLayouts from "@/Layouts/AuthLayouts";
 
 export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
   const [messageSuccess, setMessageSuccess] = useState(flash?.success);
@@ -20,13 +20,6 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
                 ]
 
   // QuizzesIndex
-
-  useEffect(() => {
-    if (messageSuccess) {
-      const timer = setTimeout(() => setMessageSuccess(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [messageSuccess]);
 
   const renderQuizCard = (quiz) => (
     <div key={quiz.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4">
@@ -80,8 +73,12 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
     </div>
   );
 
+  // 🔍 Filtrage par recherche (titre ou description)
+  const searchKeyword = useSearchBar();  
+ 
+    
   return (
-    <AuthLayout>
+    <>
       <Head>
         <title>Quiz</title>
       </Head>
@@ -89,11 +86,29 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
         {/* Affichage du tutoriel */}
         <TutorialGuide steps={steps} user={auth.user}/>
 
-        {messageSuccess && <div className="alert alert-info">{messageSuccess}</div>}
-        <div className="text-end">
-          <button className="btn btn-primary mb-4 newquiz" onClick={() => setShowSujetModal(true)}>
+
+        
+        <div className="d-flex justify-content-between align-items-center  mb-4">
+          {/* Boutons de filtre */}
+          <div className="d-flex justify-content-center gap-3">
+            <button
+              className={`btn ${activeTab === 'my' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}
+              onClick={() => setActiveTab('my')}
+            >
+              My topics {/*<span className="badge">{myQuizzes}</span>  */}
+            </button>
+            <button
+              className={`btn ${activeTab === 'library' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}
+              onClick={() => setActiveTab('library')}
+            >
+              Librairy
+            </button>
+          </div>
+
+          <button className="btn btn-primary" onClick={() => setShowSujetModal(true)}>
             <span className="fs-5">+</span> New quizz
           </button>
+            
         </div>
 
         {/* MODALE DE CRÉATION DE SUJET */}
@@ -102,21 +117,6 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
           onClose={() => setShowSujetModal(false)}
         />
 
-        {/* Boutons de filtre */}
-        <div className="d-flex justify-content-center mb-4 gap-3">
-          <button
-            className={`btn ${activeTab === 'my' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2 topic`}
-            onClick={() => setActiveTab('my')}
-          >
-            My topics {/*<span className="badge">{myQuizzes}</span>  */}
-          </button>
-          <button
-            className={`btn ${activeTab === 'library' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2  librarys`}
-            onClick={() => setActiveTab('library')}
-          >
-            Librairy
-          </button>
-        </div>
 
         {/* Affichage conditionnel */}
         <div className="row">
@@ -169,6 +169,9 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
         </div>
 
       </div>
-    </AuthLayout>
+    </>
   );
 }
+
+
+QuizIndex.layout = page => <AuthLayouts children={page} />

@@ -56,14 +56,8 @@ class QuestionController extends Controller
         foreach ($validated['answers'] as $answer) {
             $question->answers()->create($answer);
         }
-        return redirect()->route('quizzes.show', $quiz->id);
+        return redirect()->route('quizzes.show', $quiz->id)->with('success', 'Question create');
     }
-
-    // public function show()
-    // {
-    //     $questions = Question::all(); // ou filtrer selon besoin
-    //     return view('questions.show', compact('questions'));
-    // }
 
     public function edit($id)
     {

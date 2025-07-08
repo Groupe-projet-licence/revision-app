@@ -7,8 +7,7 @@ import { useSearchBar } from "@/Layouts/AuthLayouts";
 import TutorialGuide from "@/Components/TutorialGuide";
 
 
-export default function Index({ sheets, flash, categories, selectedCategory }) {
-  const [messageSuccess, setMessageSuccess] = useState(flash.success);
+export default function Index({ sheets, categories, selectedCategory }) {
 
   const { auth } = usePage().props;
 
@@ -17,15 +16,7 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
                     { target: '.categorie', content:'Ici tu peux trie tes fiches selon une categorie, choisi en une et tout les fiches qui on la meme categorie seront afficher.',},
                 ];
 
-  useEffect(() => {
-    if (flash?.success) {
-      const timer = setTimeout(() => {
-        setMessageSuccess(null);
-        window.location.reload();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [flash]);
+ 
 
   // 🔍 Filtrage par recherche (titre ou description)
   const searchKeyword = useSearchBar();
@@ -46,11 +37,6 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
         {/*Affichage du tutoriel*/}
         <TutorialGuide steps={steps} user={auth.user}/>
 
-        {messageSuccess && (
-          <div className="alert alert-info flash-messge-success">
-            {messageSuccess}
-          </div>
-        )}
         <div className="d-md-flex justify-content-between align-items-center mb-4">
 
           {/* 🎯 Filtre par catégorie */}
