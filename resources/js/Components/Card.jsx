@@ -2,7 +2,7 @@
  * Affichage d'une carte presentant une fiche de revision
  * @param {title:string, description:string, content:string,last_opened_at:string} data 
  */
-import { Link, router, usePage } from '@inertiajs/react'
+import { Link, router, useForm, usePage } from '@inertiajs/react'
 import { useState } from 'react';
 import TutorialGuide from './TutorialGuide';
 
@@ -11,19 +11,19 @@ export default function Card({ data }) {
     const showEditButton = !window.location.pathname.includes('sheets/revision');
 
     const { auth } = usePage().props;
-    
+
     const [showDropdown, setShowDropdown] = useState(false);
 
     //Differentes pop up
-    const steps = [{ target: '.delete', content:'Clique ici si tu veux supprimer la fiche que tu as crée mais attention elle sera supprimer de facon definitive.',},
-                    { target: '.edit', content:'Ce bouton te permet de modifier le contenu de ta fiche de révision. Clique dessus pour corriger ou mettre à jour les informations.',},
-                    { target: '.revise', content:'Ce bouton te permet de réviser ta fiche selon le système de répétition espacée. Clique ici pour renforcer ta mémorisatio au bon moment.',},
-                  ];
+    const steps = [{ target: '.delete', content: 'Click here if you want to delete the file you created, but be careful, it will be permanently deleted.', },
+    { target: '.edit', content: 'This button allows you to edit the content of your review sheet. Click it to correct or update the information.', },
+    { target: '.revise', content: 'This button allows you to review your worksheet using spaced repetition. Click here to reinforce your memorization at the right time.', },
+    ];
 
     return <div key={data.id} className="row-13">
 
         {/*Affichage du tutoriel*/}
-        <TutorialGuide steps={steps} user={auth.user}/>
+        <TutorialGuide steps={steps} user={auth.user} />
 
         <div className="mycard d-flex flex-column position-relative"
             style={{
@@ -36,14 +36,13 @@ export default function Card({ data }) {
                     <div className="mx-2" style={{ fontSize: "2.2em" }}>
                         <i className="bi bi-journal-bookmark text-secondary"></i>
                     </div>
-                    <div className='m-2'>
+                    <div className='m-2 max-width-title-sheet'>
                         <div
                             style={{
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
                                 fontWeight: '600',
-
                             }}>
                             {data.title}
                         </div>
@@ -65,12 +64,15 @@ export default function Card({ data }) {
                         </button>
                         {showDropdown && (
                             <div className="dropdown-menu dropdown-menu-end show"
-                                style={{  position: 'absolute', top: 45, right:50, left:100  }}>
+                                style={{ position: 'absolute', top: 45, right: 50, left: 100 }}>
                                 <Link
-                                    style={{ color : 'red'}}
+                                    style={{ color: 'red' }}
                                     as="button"
-                                    onClick = {() => { if (confirm('Confirmer la suppression ?'))
-                                                { router.delete(route('sheets.destroy', data.id));}}}
+                                    onClick={() => {
+                                        if (confirm('Confirmer la suppression ?')) {
+                                            router.delete(route('sheets.destroy', data.id));
+                                        }
+                                    }}
                                     className="dropdown-item"
                                 >
                                     Delete
@@ -88,11 +90,11 @@ export default function Card({ data }) {
                     {/* Catégorie */}
                     {data.category ? (
                         <div style={{ fontSize: '0.75em', color: '#666' }}>
-                            📚 {data.category.subject} — Niveau {data.category.level}
+                            📚 {data.category.subject} — {data.category.level}
                         </div>
                     ) : (
                         <div style={{ fontSize: '0.75em', color: '#666' }}>
-                            Autre
+                            Other
                         </div>
                     )}
 

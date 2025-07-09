@@ -30,7 +30,7 @@ public function create()
     {
         $validated = $request->validate(['subject' => 'required|string']);
         Category::create($validated);
-        return redirect()->route('categories.index')->with('success', 'Catégorie ajoutée avec succès.');
+        return redirect()->route('categories.index')->with('success', 'Category added successfully.');
     }
 
     public function show($id)
@@ -50,13 +50,13 @@ public function create()
     {
         $category = Category::findOrFail($id);
         $category->update($request->validate(['subject' => 'required|string']));
-        return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour.');
+        return redirect()->route('categories.index')->with('success', 'Category updated.');
     }
 
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Catégorie supprimée.');
+        return redirect()->route('categories.index')->with('success', 'Category removed.');
     }
 }

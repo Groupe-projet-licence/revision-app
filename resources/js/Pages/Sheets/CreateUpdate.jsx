@@ -99,7 +99,7 @@ export default function CreateUpdate({ sheet, categories }) {
                     <button type="submit"
                         className='btn btn-primary'
                         disabled={processing || nbCharacterRemainig.current < 0 || LongParagraph.current}>
-                        {nbCharacterRemainig.current} | Enregistrer
+                        {nbCharacterRemainig.current} | Save
                     </button>
                 </div>
             </form>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuestionRequest;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Models\Question;
@@ -21,53 +22,37 @@ class QuestionController extends Controller
 
     public function create(Quiz $quiz)
     {
-        return Inertia::render('Questions/QuestionCreate' ,[
-            'quiz_id'=>$quiz->id
+        return Inertia::render('Questions/QuestionCreate', [
+            'quiz_id' => $quiz->id
         ]);
     }
 
-    public function store(Request $request, Quiz $quiz)
+    public function store(QuestionRequest $request, Quiz $quiz)
     {
-        $request->merge([
-            'question_text' => $request->question_text == '<p><br></p>' ? '' : $request->question_text,
-        ]);
-        $answers= $request->answers;
-        foreach ($answers as $index => $answer) {
-            $answers[$index]['answer_text'] = $answer['answer_text'] == '<p><br></p>' ? '' : $answer['answer_text'];
-        }
-        $request->merge([
-            'answers' => $answers
-        ]);
-        
-        $validated = $request->validate([
-            'question_text' => 'required|string',
-            'type' => 'required|in:single,multiple',
-            'answers' => 'required|array|min:2',
-            'answers.*.answer_text' => 'required|string',
-            'answers.*.is_correct' => 'required|boolean',
-        ]);
+
+
 
         $question = Question::create([
-            'question_text' => $validated['question_text'],
-            'type' => $validated['type'],
+            'question_text' => $request->validated('question_text'),
+            'type' => $request->validated('type'),
             "quiz_id" => $quiz->id
         ]);
 
-        foreach ($validated['answers'] as $answer) {
+        foreach ($request->validated('answers') as $answer) {
             $question->answers()->create($answer);
         }
-        return redirect()->route('quizzes.show', $quiz->id)->with('success', 'Question create');
+        return redirect()->route('quizzes.show', $quiz->id)->with('success', 'Question created');
     }
 
     public function edit($id)
     {
         $question = Question::findOrFail($id);
-        $categories = Category::all();
-        $types = ['single', 'multiple'];
-        return view('questions.edit', compact('question', 'categories', 'types'));
+        return Inertia::render('Questions/QuestionCreate', [
+            'quiz_id' => $question->quizzes()->id 
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(QuestionRequest $request, $id)
     {
         $question = Question::findOrFail($id);
 
@@ -79,7 +64,7 @@ class QuestionController extends Controller
 
         $question->update($validated);
 
-        return redirect()->route('questions.index')->with('success', 'Question mise à jour');
+        return redirect()->route('questions.index')->with('success', 'Updated question.');
     }
 
     public function destroy($id)
@@ -87,7 +72,7 @@ class QuestionController extends Controller
         $question = Question::findOrFail($id);
         $question->delete();
 
-        return redirect()->route('questions.index')->with('success', 'Supprimée avec succès');
+        return redirect()->route('questions.index')->with('success', 'Question Deleted Successfully');
     }
 
 

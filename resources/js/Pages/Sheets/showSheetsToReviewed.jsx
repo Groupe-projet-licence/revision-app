@@ -28,7 +28,7 @@ export default function showSheetsToReviewed({ sheets, flash }) {
             {messageSuccess && <div className="alert alert-info flash-messge-success">{messageSuccess}</div>}
             {
                 sheets.length === 0 ?
-                    <h1>Aucune fiche à reviser pour le moment!!</h1>
+                    <h1>🗂️ No files to review at the moment !!</h1>
                     :
                     <div className="container-grid-css-card">
                         {sheets.map(sheet => (

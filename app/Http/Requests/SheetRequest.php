@@ -23,14 +23,15 @@ class SheetRequest extends FormRequest
     {
         return [
             'title'=> ['required','string','min:7'],
-            'description'=> ['nullable','string'],
+            'description'=> ['nullable','string','max:50'],
             'content'=> ['required','string','min:4'],
             'category_id' => 'required | exists:categories,id',
         ];
     }
     protected function prepareForValidation(){
         return $this->merge([
-            'description'=> trim($this->input('description')) ? trim($this->input('description')) : 'Sheet without description' 
+            'description'=> trim($this->input('description')) ? trim($this->input('description')) : 'Sheet without description' ,
+            'content' => $this->input('content')== '<p><br></p>' ? '' : $this->input('content'),
         ]);
     }
 }

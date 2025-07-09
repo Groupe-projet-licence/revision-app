@@ -9,7 +9,7 @@
             <label for="subject">Sujet</label>
             <input type="text" name="subject" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-success">Enregistrer</button>
+        <button type="submit" class="btn btn-success">Save</button>
     </form>
 </div>
 @endsection

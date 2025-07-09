@@ -35,7 +35,7 @@ class AnswerController extends Controller
         ]);
     }
 
-    return redirect()->back()->with('success', 'Réponses enregistrées avec succès.');
+    return redirect()->back()->with('success', 'Responses successfully recorded.');
 }
 
    public function update(Request $request, $id)
@@ -59,13 +59,13 @@ class AnswerController extends Controller
 
         if ($existingCorrect) {
             return back()->withErrors([
-                'is_correct' => 'Une seule réponse correcte est autorisée pour une question de type "single".'
+                'is_correct' => 'Only one correct answer is allowed for a "single" type question.'
             ])->withInput();
         }
     }
 
     $answer->update($validated);
-    return redirect()->route('answers.index')->with('success', 'Réponse mise à jour avec succès');
+    return redirect()->route('answers.index')->with('success', 'Response successfully updated');
 }
     public function show($id)
     {
@@ -84,6 +84,6 @@ class AnswerController extends Controller
     {
         $answer = Answer::findOrFail($id);
         $answer->delete();
-        return redirect()->route('answers.index')->with('success', 'Réponse supprimée avec succès');
+        return redirect()->route('answers.index')->with('success', 'Reply successfully deleted');
     }
 }

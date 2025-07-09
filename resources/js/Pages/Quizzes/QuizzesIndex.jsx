@@ -14,9 +14,9 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
   const { auth } = usePage().props;
 
   //Differentes pop up
-  const steps = [ { target: '.newquiz', content:'Tu peux crée un nouveau et ajoute le nombres de reponses que tu souhaite et defini plusieurs bonne reponse'},
-                  { target:'.librarys', content:'Clique sur le button pour consulter les quizs des autres utilisateurs ou tu pouras aussi evalue.',},
-                  { target:'.topic', content:'Ici tu peux consulter les quiz que ta crée et d\'autovalue dessus.',}, 
+  const steps = [ { target: '.newquiz', content:'You can create a new one and add the number of answers you want and define several correct answers.'},
+                  { target:'.librarys', content:'Click on the button to view other users\' quizzes or to rate them.',},
+                  { target:'.topic', content:'Here you can view the quizzes you created and self-assess them.',}, 
                 ]
 
   // QuizzesIndex

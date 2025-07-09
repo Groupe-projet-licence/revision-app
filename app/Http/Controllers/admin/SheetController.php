@@ -53,6 +53,7 @@ class SheetController extends Controller
      */
     public function store(SheetRequest $request)
     {
+        dd($request->content);
         $sheet = new Sheet();
         $sheet->fill($request->validated());
         $sheet->user_id = Auth::user()->id;
@@ -127,6 +128,7 @@ class SheetController extends Controller
     public function destroy(Sheet $sheet)
     {
         $sheet->delete();
+        dd('');
         return redirect()->route('sheets.index')->with('success', 'Sheet succefully deleted');
     }
     public function showSheetsToReviewed()
@@ -139,7 +141,6 @@ class SheetController extends Controller
         }
         return Inertia::render('Sheets/showSheetsToReviewed', [
             'sheets' => $sheets,
-
         ]);
     }
 }

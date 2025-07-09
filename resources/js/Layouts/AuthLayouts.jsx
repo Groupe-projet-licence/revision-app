@@ -1,3 +1,4 @@
+import LogoLoading from '@/Components/LogoLoading';
 import TutorialGuide from '@/Components/TutorialGuide';
 import { useRevision } from '@/Contexts/RevisionProvider';
 import { Link, usePage } from '@inertiajs/react';
@@ -13,7 +14,7 @@ export const useSearchBar = () => useContext(SearchBarContext);
 
 
 export default function AuthLayouts({ children }) {
-  const { auth,flash } = usePage().props;
+  const { auth, flash } = usePage().props;
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -30,115 +31,122 @@ export default function AuthLayouts({ children }) {
   }, [flash]);
 
   //Differentes pop up
-  const steps = [{ target:'.search-bar', content:'Tu peux rechercher rapidement une fiche ou un quiz en tapant ici un mot-clé. C\'est pratique pour retrouve un contenu précis parmi tous tes sujets.',},
-                  {target:'.profile', content:'Accède ici à ton profil pour modifier ton nom, ton email ou gérer tes préférences. C\'est ton espace personnel.',},
-                  {target:'.nav-sheets', content:'Depuis cette section, tu peux accèder à toutes tes fiches de révision. Tu peux les modifier, les supprimer ou en créer de nouvelles.',},
-                  {target:'.nav-quiz', content:'Dans cette section, tu trouveras tous les quiz enregistrés. Tu peux les consulter, les modifier ou en créer de nouveaux pour t\'evaluer. Tu as aussi la possibilite de visualiser toutes les quiz de tout les utilisateurs.',},
-                  {target:'.nav-revision', content:'Accède ici au mode de révision intelligente : l\'application te proposera automatiquement les fiches à revoir aujourd\'hui selon la technique mis en oeuvre.',},
-                  {target:'.nav-history', content:'Consulte ici l\'historique de toutes tes révisions et de tes activités passées. Cela t\'aide à suivre ton évolution et ta régularité.',},
-                  {target:'.nav-chatbot', content:'Si vous avez des question ou des incomprehension sur le fonctionnement du site veiller les poser à EasyLearning Bot qui vous repondras'}
-                ]
+  const steps = [{ target: '.search-bar', content: 'You can quickly search for a worksheet or quiz by typing a keyword here. This is useful for finding specific content across all your topics.', },
+  { target: '.profile', content: 'Access your profile here to change your name, email, or manage your preferences. This is your personal space.', },
+  { target: '.nav-sheets', content: 'From this section, you can access all your revision cards. You can edit them, delete them, or create new ones.', },
+  { target: '.nav-quiz', content: 'In this section, you\'ll find all your saved quizzes. You can view them, edit them, or create new ones to assess yourself. You can also view all your users\' quizzes.', },
+  { target: '.nav-revision', content: 'Access the smart review mode here: the application will automatically suggest the files to review today based on the technique used.', },
+  { target: '.nav-history', content: 'View your revision history and past activities here. This helps you track your progress and consistency.', },
+  { target: '.nav-chatbot', content: 'If you have any questions or misunderstandings about how the site works, please ask EasyLearning Bot who will answer you.' }
+  ]
 
   return (
     <SearchBarContext.Provider value={searchKeyword}>
-      <div className="d-flex flex-column vh-100">
+      <Suspense fallback={<LogoLoading/>}>
+        <LazyLoading>
 
-        {/* Affichage du tutoriel */}
-        <TutorialGuide steps={steps} user={auth.user}/>
+          <div className="d-flex flex-column vh-100">
 
-        {/* Top Navbar (visible always) */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+            {/* Affichage du tutoriel */}
+            <TutorialGuide steps={steps} user={auth.user} />
 
-          <div className="d-flex flex-grow-1 align-items-center justify-content-between">
-            <div className="d-flex gap-2 ">
-              <button
-                className="navbar-toggler button-menu"
-                type="button"
-                onClick={() => setShowMobileMenu(!showMobileMenu)}
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <img
-                style={{ borderRadius: '100%', width: '2em', height: '2em' }}
-                src="/images/icon_app2.png"
-                alt="Application Logo"
-              />
-            </div>
-            <input
-              type="text"
-              style={{ borderRadius: '5px', width: '400px' }}
-              className="form-control mx-4 d-none d-md-block my-auto search-bar"
-              placeholder="Search..."
-              value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
-            />
+            {/* Top Navbar (visible always) */}
+            <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
 
-
-            <div className="position-relative ms-auto">
-              <button
-                className="btn btn-light text-dark"
-                onClick={() => setShowDropdown(!showDropdown)}
-              >
-                {auth?.user?.name || 'Invité'}
-              </button>
-              {showDropdown && (
-                <div className="dropdown-menu dropdown-menu-end show"
-                  style={{ position: 'absolute', top: 45, left: -125 }}>
-                  <Link
-                    href="/logout"
-                    method="post"
-                    as="button"
-                    className="dropdown-item"
+              <div className="d-flex flex-grow-1 align-items-center justify-content-between">
+                <div className="d-flex gap-2 align-items-center">
+                  <button
+                    className="navbar-toggler button-menu"
+                    type="button"
+                    onClick={() => setShowMobileMenu(!showMobileMenu)}
                   >
-                    Se Déconnecter
-                  </Link>
-                  {auth.user.role === 'admin' && (
-                    <Link href={route('admin.users.index')} className="dropdown-item" >
-                      👥 Gérer les utilisateurs </Link>)}
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+                  <img
+                    style={{ borderRadius: '100%', width: '2em', height: '2em' }}
+                    src="/images/icon_app2.png"
+                    alt="Application Logo"
+                  />
+                </div>
+                <input
+                  type="text"
+                  style={{ borderRadius: '5px', width: '400px' }}
+                  className="form-control mx-4 d-none d-md-block my-auto search-bar"
+                  placeholder="Search..."
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                />
+
+
+                <div className="position-relative ms-auto">
+                  <button
+                    className="btn btn-light text-dark"
+                    onClick={() => setShowDropdown(!showDropdown)}
+                  >
+                    {auth?.user?.name || 'Invité'}
+                  </button>
+                  {showDropdown && (
+                    <div className="dropdown-menu dropdown-menu-end show"
+                      style={{ position: 'absolute', top: 45, left: -125 }}>
+                      <Link
+                        href="/logout"
+                        method="post"
+                        as="button"
+                        className="dropdown-item"
+                      >
+                        Se Déconnecter
+                      </Link>
+                      {auth.user.role === 'admin' && (
+                        <Link href={route('admin.users.index')} className="dropdown-item" >
+                          👥 Gérer les utilisateurs </Link>)}
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </nav>
+
+            {/* Sidebar (mobile = dropdown, desktop = fixed) */}
+            <div className="d-flex flex-grow-1" style={{ position: 'relative' }}>
+              {/* Sidebar Desktop */}
+              <nav className={`bg-white border-end p-3 d-none d-md-block grow-side-bar ${!showMobileMenu && "reduce-side-bar"}`}>
+                <SidebarLinks reduceSideBar={showMobileMenu} />
+              </nav>
+
+              {/* Sidebar Mobile Dropdown */}
+              {showMobileMenu && (
+                <div className="bg-white border-end p-3 d-block d-md-none z-40" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '70vw' }}>
+                  <SidebarLinks />
                 </div>
               )}
-            </div>
 
+              {/* Main Content */}
+              <main className="p-3 py-5 flex-grow-1 overflow-auto p-reduce">
+                {messageSuccess && (
+                  <div className="alert alert-info flash-messge-success">
+                    {messageSuccess}
+                  </div>
+                )}
+                {/* Mobile search bar (only shown on small screen) */}
+                <div className="mb-3 d-md-none">
+                  <input
+                    type="text"
+                    className="form-control"
+                    style={{ borderRadius: '5px' }}
+                    placeholder="Search..."
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
+                  />
+                </div>
+
+                {children}
+              </main>
+            </div>
           </div>
-        </nav>
+        </LazyLoading>
+      </Suspense>
 
-        {/* Sidebar (mobile = dropdown, desktop = fixed) */}
-        <div className="d-flex flex-grow-1" style={{ position: 'relative' }}>
-          {/* Sidebar Desktop */}
-          <nav className={`bg-white border-end p-3 d-none d-md-block grow-side-bar ${!showMobileMenu && "reduce-side-bar"}`}>
-            <SidebarLinks reduceSideBar={showMobileMenu} />
-          </nav>
 
-          {/* Sidebar Mobile Dropdown */}
-          {showMobileMenu && (
-            <div className="bg-white border-end p-3 d-block d-md-none z-40" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '70vw' }}>
-              <SidebarLinks />
-            </div>
-          )}
-
-          {/* Main Content */}
-          <main className="p-3 py-5 flex-grow-1 overflow-auto p-reduce">
-            {messageSuccess && (
-              <div className="alert alert-info flash-messge-success">
-                {messageSuccess}
-              </div>
-            )}
-            {/* Mobile search bar (only shown on small screen) */}
-            <div className="mb-3 d-md-none">
-              <input
-                type="text"
-                className="form-control"
-                style={{ borderRadius: '5px' }}
-                placeholder="Search..."
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-              />
-            </div>
-
-            {children}
-          </main>
-        </div>
-      </div>
     </SearchBarContext.Provider>
   );
 }

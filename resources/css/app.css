@@ -188,13 +188,16 @@ Style géneral
 
 .container-grid-css-card {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 20px;
 }
 
 .mycard {
     box-shadow: 0 0 4px #918f8f;
     max-width: 400px;
+}
+.max-width-title-sheet{
+    max-width: calc(100% - 120px);
 }
 
 .small-text {

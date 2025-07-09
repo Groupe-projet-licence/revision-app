@@ -49,7 +49,7 @@ export default function Chatbot() {
     return (
         <AuthLayouts>
             <Head>
-                <title>EasyLearning bot</title>
+                <title>Bot</title>
             </Head>
             <div className="card shadow-lg border-0 p-4 mb-5" style={{ maxWidth: '650px', margin: 'auto' }}>
                 <h2 className="mb-3 text-primary fw-bold">🤖 EasyLearning bot</h2>
@@ -107,7 +107,7 @@ export default function Chatbot() {
                         className="form-control me-2"
                         value={question}
                         onChange={e => setQuestion(e.target.value)}
-                        placeholder="Demander à EasyLearning bot"
+                        placeholder="Ask EasyLearning bot"
                         disabled={isTyping}
                     />
                     <button

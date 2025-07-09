@@ -30,8 +30,8 @@
         </div>
     </div>
 
-    <button type="button" onclick="addAnswer()">+ Ajouter une réponse</button>
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <button type="button" onclick="addAnswer()">+ Add an answer</button>
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
 <script>

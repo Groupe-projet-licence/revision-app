@@ -27,31 +27,20 @@ const QuillEditor = ({ error, ...props }) => {
         'link', 'image', 'color', 'code-block', 'align'
     ];
 
-    const editorRef = useRef(null);
-
-    const handleFocus = () => {
-        editorRef.current.classList.add('focused');
-    };
-
-    const handleBlur = () => {
-        editorRef.current.classList.remove('focused');
-    };
 
 
     return (
-        <div ref={editorRef} className={`masking-quill ${error && 'quill-error'}`}>
+        <div  className={`masking-quill ${error && 'quill-error'}`}>
             <Suspense fallback={
                 <div className='loader'>
                     <div className='spinner-border text-primary' role='status'>
-                        <span className="sr-only">Chargement de l'editeur...</span>
+                        <span className="sr-only">Loading the editor...</span>
                     </div>
                 </div>}>
                 <ReactQuill
                     {...props}
                     modules={modules}
                     formats={formats}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
                     theme="snow"
                 />
             </Suspense>

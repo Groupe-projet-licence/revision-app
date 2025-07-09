@@ -28,6 +28,6 @@ class RoleUserController extends Controller
             'role' => 'required | in:user,admin'
         ]);
 
-        return redirect()->back()->with('success', 'Role mis a jour avec succes');
+        return redirect()->back()->with('success', 'Role updated successfully');
     }
 }

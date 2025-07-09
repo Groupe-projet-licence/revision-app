@@ -10,7 +10,9 @@ const stripHtml = (html) => {
     return doc.body.textContent || "";
 };
 
+
 const Evaluate = ({ quiz }) => {
+    console.log(quiz);
     const [answers, setAnswers] = useState({});
 
     const handleOptionChange = (questionId, answerId, type) => {
@@ -49,16 +51,16 @@ const Evaluate = ({ quiz }) => {
             <form onSubmit={handleSubmit}>
                 {quiz.questions.map((question, index) => (
                     <div key={question.id} className="mb-6">
-                        <p className="font-semibold mb-2"> {index + 1}. {stripHtml(question.question_text).trim()}
+                            <ShowContentQuill> {`<div style="display:flex; align-items:start;">${index + 1} ${question.question_text}</div>`}     </ShowContentQuill>
 
-                        </p>
                         {question.answers.map((ans) => (
-                            <div key={ans.id} className="flex items-start gap-2 mb-2 ms-4">
+                            <div key={ans.id} className="flex items-center gap-2 mb-2 ms-4">
                                 <input type={question.type === 'single' ? 'radio' : 'checkbox'}
                                     name={`question_${question.id}`}
                                     value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
                                     onChange={() => handleOptionChange(question.id, ans.id, question.type)}
-                                    className="mt-1" /><ShowContentQuill>{ans.answer_text}</ShowContentQuill>
+                                    className="mt-1" />
+                                    <ShowContentQuill>{ans.answer_text}</ShowContentQuill>
                             </div>
                         ))}
                     </div>

@@ -71,13 +71,13 @@ class QuizController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('quizzes.index')->with('success', 'Quiz mis à jour avec succès.');
+        return redirect()->route('quizzes.index')->with('success', 'Quiz successfully updated.');
     }
 
     public function destroy(Quiz $quiz)
     {
         $quiz->delete();
-        return redirect()->route('quizzes.index')->with('success', 'Quiz supprimé avec succès.');
+        return redirect()->route('quizzes.index')->with('success', 'Quiz successfully deleted.');
     }
 
     public function show(Quiz $quiz)

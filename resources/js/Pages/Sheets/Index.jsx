@@ -12,8 +12,8 @@ export default function Index({ sheets, categories, selectedCategory }) {
   const { auth } = usePage().props;
 
   //Differentes pop up
-  const steps = [{ target: '.btn-create-sheet', content:'Clique ici pour créer ta première fiche de révision !',},
-                    { target: '.categorie', content:'Ici tu peux trie tes fiches selon une categorie, choisi en une et tout les fiches qui on la meme categorie seront afficher.',},
+  const steps = [{ target: '.btn-create-sheet', content:'Click here to create your first revision sheet!',},
+                    { target: '.categorie', content:'Here you can sort your files according to a category, choose one and all the files that have the same category will be displayed.',},
                 ];
 
  
@@ -76,7 +76,7 @@ export default function Index({ sheets, categories, selectedCategory }) {
             ))
           ) : (
             <div className="text-center text-muted my-5">
-              🗂️ Aucune fiche ne correspond à cette catégorie ou à votre recherche.
+              🗂️ No listings match this category or your search.
             </div>
           )}
         </div>

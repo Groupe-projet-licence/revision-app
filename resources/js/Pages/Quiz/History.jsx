@@ -9,10 +9,10 @@ export default function History({ submissions }) {
         <title>Historique Quiz</title>
       </Head>
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">Historique des Quiz Passés</h1>
+        <h1 className="text-2xl font-bold mb-6">History of Past Quizzes</h1>
 
         {submissions.length === 0 ? (
-          <p>Aucune tentative enregistrée pour le moment.</p>
+          <p>No attempts recorded yet.</p>
         ) : (
           <table className="min-w-full table-auto border border-gray-200 shadow-md rounded">
             <thead className="bg-gray-100">
