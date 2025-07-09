@@ -12,8 +12,9 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
 
   const { auth } = usePage().props;
 
+  //Differentes pop up
   const steps = [{ target: '.btn-create-sheet', content:'Clique ici pour créer ta première fiche de révision !',},
-                    { target: '.btn-create-quiz', content:'Ici tu peux crée un quiz associe a une fiche.',},
+                    { target: '.categorie', content:'Ici tu peux trie tes fiches selon une categorie, choisi en une et tout les fiches qui on la meme categorie seront afficher.',},
                 ];
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
         <title>Sheet</title>
       </Head>
       <div>
+        {/*Affichage du tutoriel*/}
         <TutorialGuide steps={steps} user={auth.user}/>
 
         {messageSuccess && (
@@ -52,7 +54,7 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
         <div className="d-md-flex justify-content-between align-items-center mb-4">
 
           {/* 🎯 Filtre par catégorie */}
-          <div className="col col-md-4  p-0">
+          <div className="col col-md-4  p-0 categorie">
             <select
               style={{ borderRadius: '5px', minWidth: '250px' }}
               className="form-select"
@@ -73,9 +75,9 @@ export default function Index({ sheets, flash, categories, selectedCategory }) {
           </div>
 
           {/* ➕ Bouton de création */}
-          <div className="text-end mt-1">
+          <div className="text-end mt-1 btn-create-sheet">
             <Link className="btn btn-primary btn-sm" href="/sheets/create">
-              <span className="fs-5 btn-create-sheet">+</span> New sheet
+              <span className="fs-5">+</span> New sheet
             </Link>
           </div>
         </div>

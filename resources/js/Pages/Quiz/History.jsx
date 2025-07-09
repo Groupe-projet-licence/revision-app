@@ -1,10 +1,13 @@
 import React from 'react';
 import AuthLayouts from '@/Layouts/AuthLayouts';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function History({ submissions }) {
   return (
     <AuthLayouts>
+      <Head>
+        <title>Historique Quiz</title>
+      </Head>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-6">Historique des Quiz Passés</h1>
 

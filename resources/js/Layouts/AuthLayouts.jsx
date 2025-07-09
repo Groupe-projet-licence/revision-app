@@ -1,3 +1,4 @@
+import TutorialGuide from '@/Components/TutorialGuide';
 import { useRevision } from '@/Contexts/RevisionProvider';
 import { Link, usePage } from '@inertiajs/react';
 import { lazy, Suspense, useState } from 'react';
@@ -17,9 +18,22 @@ export default function AuthLayouts({ children }) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+  //Differentes pop up
+  const steps = [{ target:'.search-bar', content:'Tu peux rechercher rapidement une fiche ou un quiz en tapant ici un mot-clé. C\'est pratique pour retrouve un contenu précis parmi tous tes sujets.',},
+                  {target:'.profile', content:'Accède ici à ton profil pour modifier ton nom, ton email ou gérer tes préférences. C\'est ton espace personnel.',},
+                  {target:'.nav-sheets', content:'Depuis cette section, tu peux accèder à toutes tes fiches de révision. Tu peux les modifier, les supprimer ou en créer de nouvelles.',},
+                  {target:'.nav-quiz', content:'Dans cette section, tu trouveras tous les quiz enregistrés. Tu peux les consulter, les modifier ou en créer de nouveaux pour t\'evaluer. Tu as aussi la possibilite de visualiser toutes les quiz de tout les utilisateurs.',},
+                  {target:'.nav-revision', content:'Accède ici au mode de révision intelligente : l\'application te proposera automatiquement les fiches à revoir aujourd\'hui selon la technique mis en oeuvre.',},
+                  {target:'.nav-history', content:'Consulte ici l\'historique de toutes tes révisions et de tes activités passées. Cela t\'aide à suivre ton évolution et ta régularité.',},
+                  {target:'.nav-chatbot', content:'Si vous avez des question ou des incomprehension sur le fonctionnement du site veiller les poser à EasyLearning Bot qui vous repondras'}
+                ]
+
   return (
     <SearchBarContext.Provider value={searchKeyword}>
       <div className="d-flex flex-column vh-100">
+
+        {/* Affichage du tutoriel */}
+        <TutorialGuide steps={steps} user={auth.user}/>
 
         {/* Top Navbar (visible always) */}
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-3">
@@ -42,7 +56,7 @@ export default function AuthLayouts({ children }) {
             <input
               type="text"
               style={{ borderRadius: '5px', width: '400px' }}
-              className="form-control mx-4 d-none d-md-block my-auto"
+              className="form-control mx-4 d-none d-md-block my-auto search-bar"
               placeholder="Search..."
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
@@ -130,29 +144,29 @@ function SidebarLinks({ reduceSideBar = true }) {
       </li> */}
       <li className="nav-item mb-2">
         <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-person me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My account'}
+          <i className="bi bi-person me-2 reduce-margin-icon-side-bar profile"></i>{reduceSideBar && 'My account'}
         </Link>
       </li>
 
       <li className="nav-item mb-2">
         <Link href="/sheets" className={`nav-link ${window.location.pathname.includes('/sheets') && !isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-folder2-open me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My sheets'}
+          <i className="bi bi-folder2-open me-2 reduce-margin-icon-side-bar nav-sheets"></i>{reduceSideBar && 'My sheets'}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/quizzes" className={`nav-link ${window.location.pathname.includes('/quizzes') || window.location.pathname.includes('/questions') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-journal-text me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My quiz'}
+          <i className="bi bi-journal-text me-2 reduce-margin-icon-side-bar nav-quiz"></i>{reduceSideBar && 'My quiz'}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/sheets/revision" className={`nav-link ${isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-book me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'Revision'}
+          <i className="bi bi-book me-2 reduce-margin-icon-side-bar nav-revision"></i>{reduceSideBar && 'Revision'}
           {revisionCount > 0 && <sup className='position-relative'><span className={`badge bg-danger ${!reduceSideBar && "badge-revision"}`}>{revisionCount}</span></sup>}
         </Link>
       </li>
       <li className="nav-item mb-2">
         <Link href="/quiz/history" className={`nav-link ${isActive('/quiz/history') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
-          <i className="bi bi-clock-history me-2 reduce-margin-icon-side-bar"></i>{reduceSideBar && 'My History'}
+          <i className="bi bi-clock-history me-2 reduce-margin-icon-side-bar nav-history"></i>{reduceSideBar && 'My History'}
         </Link>
       </li>
       {/* <li className="nav-item">
@@ -160,6 +174,12 @@ function SidebarLinks({ reduceSideBar = true }) {
           <i className="bi bi-gear me-2"></i> Settings
         </Link>
       </li> */}
+
+      <li className="nav-item mb-2">
+        <Link href={route('chatbot')} className={`nav-link ${isActive('/chatbot') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+          <i className="bi bi-robot me-2 reduce-margin-icon-side-bar nav-chatbot"></i>{reduceSideBar && 'Assistant IA'}
+        </Link>
+      </li>
     </ul>
   );
 }

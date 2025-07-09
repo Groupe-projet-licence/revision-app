@@ -12,6 +12,6 @@ class TutorialController extends Controller
         $user->has_seen_tutorial = true;
         $user->save();
 
-        return response()->json(['message' => 'Tutoriel terminé']);
+        return redirect()->back();
     }
 }

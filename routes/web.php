@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
@@ -120,3 +121,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 //Route pour marquer le tutoriel comme vu
 Route::middleware(['auth'])->post('/tutorial/complete', [TutorialController::class, 'complete']);
+
+//Route pour demander a ntre IA
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chatbot', function (){
+        return Inertia::render('Chatbot');
+    })->name('chatbot');
+});
+//Route::post('/chatbot/ask', [ChatbotController::class, 'ask']);

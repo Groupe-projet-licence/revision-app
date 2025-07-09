@@ -4,14 +4,27 @@
  */
 import { Link, router, usePage } from '@inertiajs/react'
 import { useState } from 'react';
+import TutorialGuide from './TutorialGuide';
+
 export default function Card({ data }) {
     const last_review = data.last_opened_at
     const showEditButton = !window.location.pathname.includes('sheets/revision');
-      const { auth } = usePage().props;
+
+    const { auth } = usePage().props;
+    
     const [showDropdown, setShowDropdown] = useState(false);
 
+    //Differentes pop up
+    const steps = [{ target: '.delete', content:'Clique ici si tu veux supprimer la fiche que tu as crée mais attention elle sera supprimer de facon definitive.',},
+                    { target: '.edit', content:'Ce bouton te permet de modifier le contenu de ta fiche de révision. Clique dessus pour corriger ou mettre à jour les informations.',},
+                    { target: '.revise', content:'Ce bouton te permet de réviser ta fiche selon le système de répétition espacée. Clique ici pour renforcer ta mémorisatio au bon moment.',},
+                  ];
 
     return <div key={data.id} className="row-13">
+
+        {/*Affichage du tutoriel*/}
+        <TutorialGuide steps={steps} user={auth.user}/>
+
         <div className="mycard d-flex flex-column position-relative"
             style={{
                 borderRadius: '15px'
@@ -48,7 +61,7 @@ export default function Card({ data }) {
                             className="btn btn-light text-dark"
                             onClick={() => setShowDropdown(!showDropdown)}
                         >
-                            <i className="bi bi-three-dots text-secondary"></i>
+                            <i className="bi bi-three-dots text-secondary delete"></i>
                         </button>
                         {showDropdown && (
                             <div className="dropdown-menu dropdown-menu-end show"
@@ -91,10 +104,10 @@ export default function Card({ data }) {
                 <hr />
                 {showEditButton &&
                     <Link href={route('sheets.edit', data.id)}
-                        className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold"
+                        className="btn btn-sm btn-outline-primary  my-2 mx-1 fw-bold edit"
                         style={{ fontSize: '0.9em' }}>Edit</Link>}
                 <Link href={route('sheets.show', data.id)}
-                    className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold"
+                    className="btn btn-sm btn-outline-primary my-2 ms-1 me-2  fw-bold revise"
                     style={{ fontSize: '0.9em' }}>Review</Link>
             </div>
         </div>

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use App\Models\Sheet;
+use Inertia\Response;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Inertia\Inertia;
-use Inertia\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -46,7 +47,25 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
+        
         return redirect(RouteServiceProvider::HOME);
     }
 }
+
+       /* //Verifie si c'est la premiere connexion
+        $utilisateur = Auth::user();
+
+        if(!$utilisateur->has_seen_tutorial){
+            //Cree une fiche par defaut
+            Sheet::create([
+                'title' => 'Bienvenue sur EasyLearning',
+                'description' => 'Voici un exemple de fiche de revision',
+                'content' => 'Ceci est une fiche de démonstration. Tu peux la supprimer ou en créer d\'autres !',
+                'user_id' => $utilisateur->id,
+                'category_id' => 1,
+            ]);
+
+            //Marquer comme vu (pour ne pas créer à chaque fois)
+            $utilisateur->has_seen_tutorial = true;
+            $utilisateur->save();
+        }*/

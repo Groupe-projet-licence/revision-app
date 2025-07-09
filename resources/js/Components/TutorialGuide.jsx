@@ -17,7 +17,7 @@ export default function TutorialGuide({ user, steps }) {
     };
 
     return (
-        <><ReactJoyride steps={steps} run={run} continuous showSkipButton showProgress callback={(data) => { if(data.status === 'finished' || data.status === 'skipped') { handleTutorialEnd();} }} styles={{ options: {zIndex: 10000,}, }}/>
+        <><ReactJoyride steps={steps} run={run} continuous showSkipButton showProgress callback={(data) => { if(data.status === 'finished' || data.status === 'skipped') { handleTutorialEnd();} }} styles={{ options: {zIndex: 10000, primaryColor: 'blue'}, }}/>
         </>
     );
 }
