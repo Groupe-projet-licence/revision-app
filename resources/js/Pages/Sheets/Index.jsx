@@ -76,7 +76,7 @@ export default function Index({ sheets, categories, selectedCategory }) {
             ))
           ) : (
             <div className="text-center text-muted my-5">
-              🗂️ No listings match this category or your search.
+              🗂️ No revision sheet matches this category or your search
             </div>
           )}
         </div>
