@@ -4,6 +4,9 @@ import CreateSujetModal from "@/Components/CreateSujetModal";
 import TutorialGuide from "@/Components/TutorialGuide";
 import { useSearchBar } from "@/Layouts/AuthLayouts";;
 import AuthLayouts from "@/Layouts/AuthLayouts";
+import ShareQuizModal from '@/Components/ShareQuizModal';
+import { useRef } from "react";
+import { router } from "@inertiajs/react";
 
 export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
   const [messageSuccess, setMessageSuccess] = useState(flash?.success);
@@ -11,72 +14,139 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
   //const [quizzes, setQuizzes] = useState([]);
   const [showSujetModal, setShowSujetModal] = useState(false);
 
+  const [showShareModal, setShowShareModal] = useState(false);
+const [selectedQuiz, setSelectedQuiz] = useState(null);
+
+const [openDropdownId, setOpenDropdownId] = useState(null);
+const dropdownRefs = useRef({});
+
+useEffect(() => {
+const handleClickOutside = (event) => {
+if (
+openDropdownId !== null &&
+dropdownRefs.current[openDropdownId] &&
+!dropdownRefs.current[openDropdownId].contains(event.target)
+) {
+setOpenDropdownId(null);
+}
+};
+
+document.addEventListener("mousedown", handleClickOutside);
+return () => document.removeEventListener("mousedown", handleClickOutside);
+}, [openDropdownId]);
+
+const handleDropdownToggle = (quizId) => {
+setOpenDropdownId((prevId) => (prevId === quizId ? null : quizId));
+};
+
+const handleDelete = (quizId) => {
+if (confirm("Êtes-vous sûr de vouloir supprimer ce quiz ?")) {
+router.delete(route("quizzes.destroy", quizId));
+}
+};
+
   const { auth } = usePage().props;
 
   //Differentes pop up
-  const steps = [ { target: '.newquiz', content:'You can create a new one and add the number of answers you want and define several correct answers.'},
-                  { target:'.librarys', content:'Click on the button to view other users\' quizzes or to rate them.',},
-                  { target:'.topic', content:'Here you can view the quizzes you created and self-assess them.',}, 
+  const steps = [ { target: '.newquiz', content:'Tu peux crée un nouveau et ajoute le nombres de reponses que tu souhaite et defini plusieurs bonne reponse'},
+                  { target:'.librarys', content:'Clique sur le button pour consulter les quizs des autres utilisateurs ou tu pouras aussi evalue.',},
+                  { target:'.topic', content:'Ici tu peux consulter les quiz que ta crée et d\'autovalue dessus.',},
                 ]
 
   // QuizzesIndex
 
-  const renderQuizCard = (quiz) => (
-    <div key={quiz.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4">
-      <div className="mycard d-flex flex-column justify-content-between"
-        style={{ aspectRatio: 3 / 1.9, borderRadius: '9px' }}>
-        <div className="m-2">
-          <div style={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            fontWeight: '500'
-          }}>
-            {quiz.title}
-          </div>
-          <div style={{ fontSize: '0.9em' }}>
-            {quiz.description || 'Aucune description.'}
-          </div>
-        </div>
-        <div className="text-end">
-          <hr />
-          {quiz.can_edit && (
-            <Link href={route('quizzes.edit', quiz.id)}
-              className="btn btn-sm btn-outline-primary my-2 mx-1 fw-bold"
-              style={{ fontSize: '0.9em' }}>
-              Edit
-            </Link>
-          )}
-          <Link href={route('quiz.evaluate', quiz.id)}
-            className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
-            style={{ fontSize: '0.9em' }}>
-            ASSESSMENT
-          </Link>
+ const renderQuizCard = (quiz) => (
 
+<div key={quiz.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4"> <div className="mycard d-flex flex-column justify-content-between position-relative" style={{ aspectRatio: 3 / 1.9, borderRadius: "9px" }}> <div className="m-2"> <div className="d-flex justify-content-between align-items-start"> <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "500", fontSize: "1rem", }} > {quiz.title} </div>
 
-          <Link href={route('quizzes.show', quiz.id)}
-            className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
-            style={{ fontSize: '0.9em' }}>
-            View
-          </Link>
-
-
+      {/* Trois points avec menu */}
+      {quiz.can_edit && (
+        <div className="position-relative" ref={(el) => (dropdownRefs.current[quiz.id] = el)}>
           <button
-            className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
-            onClick={() => navigator.clipboard.writeText(route('quiz.evaluate', quiz.id))}
-            style={{ fontSize: '0.9em' }}>
-            🔗 Share Quiz
+            type="button"
+            className="btn btn-sm text-dark"
+            onClick={() => handleDropdownToggle(quiz.id)}
+            style={{ fontSize: "1.2em", fontWeight: "bold" }}
+          >
+            ⋮
           </button>
 
+          {openDropdownId === quiz.id && (
+            <div
+              className="dropdown-menu show shadow-sm"
+              style={{
+                position: "absolute",
+                right: 0,
+                top: "1.8rem",
+                zIndex: 1000,
+                minWidth: "140px",
+                border: "1px solid #ddd",
+                borderRadius: "6px",
+                backgroundColor: "#fff",
+                padding: "0.3rem 0",
+              }}
+            >
+              <Link
+                href={route("quizzes.edit", quiz.id)}
+                className="dropdown-item px-3 py-2 text-dark"
+              >
+                ✏️ Modifier
+              </Link>
+              <button
+              onClick={() => handleDelete(quiz.id)}
+               href={route("quizzes.destroy", quiz.id)}
+               className="dropdown-item px-3 py-2 text-danger"
+                style={{ background: "none", border: "none", width: "100%", textAlign: "left" }}
+              >
+                🗑️ Supprimer
+              </button>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
-  );
 
+    <div style={{ fontSize: "0.9em" }}>
+      {quiz.description || "Aucune description."}
+    </div>
+  </div>
+
+  <div className="text-end">
+    <hr />
+
+    <Link
+      href={route("quiz.evaluate", quiz.id)}
+      className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+      style={{ fontSize: "0.9em" }}
+    >
+      ASSESSMENT
+    </Link>
+    <Link
+      href={route("quizzes.show", quiz.id)}
+      className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+      style={{ fontSize: "0.9em" }}
+    >
+      View
+    </Link>
+    <button
+      className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+      style={{ fontSize: "0.9em" }}
+      onClick={() => {
+        setSelectedQuiz(quiz);
+        setShowShareModal(true);
+      }}
+    >
+      ✉️ Partager
+    </button>
+  </div>
+</div>
+</div> );
   // 🔍 Filtrage par recherche (titre ou description)
-  const searchKeyword = useSearchBar();  
- 
-    
+  const searchKeyword = useSearchBar();
+
+
+
+
   return (
     <>
       <Head>
@@ -87,7 +157,7 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
         <TutorialGuide steps={steps} user={auth.user}/>
 
 
-        
+
         <div className="d-flex justify-content-between align-items-center  mb-4">
           {/* Boutons de filtre */}
           <div className="d-flex justify-content-center gap-3">
@@ -108,7 +178,7 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
           <button className="btn btn-primary" onClick={() => setShowSujetModal(true)}>
             <span className="fs-5">+</span> New quizz
           </button>
-            
+
         </div>
 
         {/* MODALE DE CRÉATION DE SUJET */}
@@ -169,6 +239,12 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
         </div>
 
       </div>
+
+       <ShareQuizModal
+isOpen={showShareModal}
+onClose={() => setShowShareModal(false)}
+quiz={selectedQuiz}
+/>
     </>
   );
 }

@@ -70,7 +70,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/quizzes/{quiz}/quiz/evaluate', [QuizSubmissionController::class, 'show'])->name('quiz.evaluate');
     Route::post('/quizzes/{quiz}/submit', [QuizSubmissionController::class, 'store'])->name('quiz.submit');
     Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
-    
+
 });
 
 
@@ -79,6 +79,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('quizzes', QuizController::class);
 });
+
+Route::middleware(['auth'])->post('/quizzes/{quiz}/share', [QuizController::class, 'share'])->name('quizzes.share');
+
 
 
 
