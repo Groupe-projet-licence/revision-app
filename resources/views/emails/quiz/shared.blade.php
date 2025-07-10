@@ -5,7 +5,7 @@
 
 @component('mail::button', ['url' => route('quiz.evaluate', $quiz->id)])
 📘 Accéder au quiz
- Evaluez os competences en **{{ $quiz->title }}**
+ Evaluez vos competences en {{ $quiz->title }}
 @endcomponent
 
 Merci d’utiliser EasyLearning !

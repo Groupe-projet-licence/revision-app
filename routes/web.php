@@ -42,7 +42,11 @@ Route::middleware('auth')->group(function () {
 });
 
 //Nouvelle route des quizs
+Route::resource('/quizzes', QuizController::class);
+Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
+Route::get('/quizzes/{quiz}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
 Route::get('/quizzes/library', [QuizController::class, 'library'])->name('quizzes.library');
+Route::middleware(['auth'])->post('/quizzes/{quiz}/share', [QuizController::class, 'share'])->name('quizzes.share');
 
 //Les diferentes Routes du QUIZ la manipulation des differente tables
 Route::resource('categories', CategoryController::class);
@@ -52,9 +56,6 @@ Route::post('/questions/{quiz}', [QuestionController::class, 'store'])->name('qu
 Route::resource('questions', QuestionController::class)->except(['store', 'create']);
 
 Route::resource('answers', AnswerController::class);
-Route::resource('quizzes', QuizController::class);
-
-Route::get('/quiz/history', [QuizSubmissionController::class, 'history'])->name('quiz.history');
 
 
 
@@ -72,15 +73,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
 
 });
-
-
-
-
-Route::middleware(['auth'])->group(function () {
-    Route::resource('quizzes', QuizController::class);
-});
-
-Route::middleware(['auth'])->post('/quizzes/{quiz}/share', [QuizController::class, 'share'])->name('quizzes.share');
+Route::get('/quiz/history', [QuizSubmissionController::class, 'history'])->name('quiz.history');
 
 
 

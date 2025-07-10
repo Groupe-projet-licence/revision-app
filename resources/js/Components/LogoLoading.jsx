@@ -9,7 +9,7 @@ export default function LogoLoading({ }) {
         alt="Application Logo"
       />
     </span> */}
-    <span class="position-absolute" style={{width:'3em', height:'3em', borderRadius:'50%', backgroundColor: 'white'}}></span>
+    <span className="position-absolute" style={{width:'3em', height:'3em', borderRadius:'50%', backgroundColor: 'white'}}></span>
 
     <div className='spinner-border  text-primary position-absolute' role='status'></div>
 

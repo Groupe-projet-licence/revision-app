@@ -7,14 +7,14 @@ export default function QuestionIndex({ questions }) {
     <AuthLayouts>
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">Liste des questions</h1>
+                <h1 className="text-2xl font-bold">List of questions</h1>
                 <Link href={route('questions.create')}className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                ➕ Nouvelle question
+                ➕ New question
                 </Link>
             </div>
 
             {questions.length === 0 ? (
-                <p className="text-gray-500">Aucune question enregistrée.</p>
+                <p className="text-gray-500">No question registered.</p>
             ) : (
 
             <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
@@ -38,17 +38,17 @@ export default function QuestionIndex({ questions }) {
                 <Link
                   href={route('questions.edit', question.id)}
                   className="text-blue-600 hover:underline mr-2" >
-                  Modifier
+                  Edit
                 </Link>
                 <Link
                   href={route('questions.show', question.id)}
                   className="text-green-600 hover:underline mr-2">
-                   Voir
+                   View
                 </Link>
                 <Link
                   href={route('questions.destroy', question.id)}
                   className="text-red-600 hover:underline mr-2">
-                  Supprimer
+                  Delete
                 </Link>
               </td>
             </tr>

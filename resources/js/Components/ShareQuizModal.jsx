@@ -38,7 +38,7 @@ router.post(
 return (
 <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
     <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-        <h2 className="text-xl font-bold mb-4">Partager le quiz : {quiz.title}</h2>
+        <h2 className="text-xl font-bold mb-4">Share the quiz : {quiz.title}</h2>
         <form onSubmit={handleSubmit}>
             <input
             type="email" required value={email}
@@ -48,11 +48,11 @@ return (
             />
             <div className="flex justify-end gap-2">
                 <button type="button" className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300" onClick={onClose} >
-                    Annuler
+                    Cancel
                 </button>
 
                 <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700" disabled={loading} >
-                    {loading ? 'Envoi...' : 'Partager'}
+                    {loading ? 'Envoi...' : 'Share'}
                 </button>
 
            </div>

@@ -36,7 +36,7 @@ export default function History({ submissions }) {
                       href={route('quiz.result', s.id)}
                       className="text-blue-600 hover:underline"
                     >
-                      Voir Résultat
+                      View Results
                     </Link>
                   </td>
                 </tr>

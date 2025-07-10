@@ -3,6 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import AuthLayouts from "@/Layouts/AuthLayouts";
 import ShowContentQuill from "@/Components/ShowContentQuill";
 
+const stripHtml = (html) => {
+const doc = new DOMParser().parseFromString(html, 'text/html');
+return doc.body.textContent || "";
+};
+
 const Evaluate = ({ quiz }) => {
   const [answers, setAnswers] = useState({});
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -75,7 +80,7 @@ const Evaluate = ({ quiz }) => {
           <div key={question.id} className="mb-6 border rounded p-3">
             <div className="d-flex justify-content-between align-items-start">
               <ShowContentQuill className="font-semibold mb-2">
-                {index + 1}. {question.question_text}
+                {index + 1}. {stripHtml(question.question_text).trim()}
               </ShowContentQuill>
 
               <div
@@ -109,7 +114,7 @@ const Evaluate = ({ quiz }) => {
                       href={route("questions.edit", question.id)}
                       className="dropdown-item px-3 py-2 text-dark"
                     >
-                      ✏️ Modifier
+                      ✏️ Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(question.id)}
@@ -121,7 +126,7 @@ const Evaluate = ({ quiz }) => {
                         textAlign: "left",
                       }}
                     >
-                      🗑️ Supprimer
+                      🗑️ Delete
                     </button>
                   </div>
                 )}
@@ -129,22 +134,17 @@ const Evaluate = ({ quiz }) => {
             </div>
 
             <div className="ms-4 mt-2">
-              {question.answers.map((ans) => (
-                <label key={ans.id} className="d-block mb-1">
-                  <input
-                    type={question.type === "single" ? "radio" : "checkbox"}
-                    name={`question_${question.id}`}
-                    value={ans.id}
-                    checked={answers[question.id]?.includes(ans.id) || false}
-                    onChange={() =>
-                      handleOptionChange(question.id, ans.id, question.type)
-                    }
-                  />
-                  <span className="ms-2">
-                    <ShowContentQuill>{ans.answer_text}</ShowContentQuill>
-                  </span>
-                </label>
-              ))}
+                {question.answers.map((ans) => (
+                     <div key={ans.id} className="flex items-center gap-2 mb-2 ms-4">
+                        <input type={question.type === 'single' ? 'radio' : 'checkbox'}
+                         name={`question_${question.id}`}
+                         value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
+                          onChange={() => handleOptionChange(question.id, ans.id, question.type)}
+                           className="mt-1" />
+                           <ShowContentQuill>{ans.answer_text}</ShowContentQuill>
+                            </div>
+                        ))}
+
             </div>
           </div>
         ))}
@@ -153,7 +153,7 @@ const Evaluate = ({ quiz }) => {
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
-          Soumettre le quiz
+          Submit Quiz
         </button>
       </form>
     </AuthLayouts>

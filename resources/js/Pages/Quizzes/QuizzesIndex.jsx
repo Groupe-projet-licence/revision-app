@@ -90,7 +90,7 @@ router.delete(route("quizzes.destroy", quizId));
                 href={route("quizzes.edit", quiz.id)}
                 className="dropdown-item px-3 py-2 text-dark"
               >
-                ✏️ Modifier
+                ✏️ Edit
               </Link>
               <button
               onClick={() => handleDelete(quiz.id)}
@@ -98,7 +98,7 @@ router.delete(route("quizzes.destroy", quizId));
                className="dropdown-item px-3 py-2 text-danger"
                 style={{ background: "none", border: "none", width: "100%", textAlign: "left" }}
               >
-                🗑️ Supprimer
+                🗑️ Delete
               </button>
             </div>
           )}
@@ -136,7 +136,7 @@ router.delete(route("quizzes.destroy", quizId));
         setShowShareModal(true);
       }}
     >
-      ✉️ Partager
+      ✉️ Share
     </button>
   </div>
 </div>
@@ -195,7 +195,7 @@ router.delete(route("quizzes.destroy", quizId));
               myQuizzes.map(renderQuizCard)
             ) : (
               <div className="text-center text-muted my-5">
-                🧩 Aucun quiz créé pour le moment.
+                🧩 No quiz created for the moment.
               </div>
             )
           ) : (

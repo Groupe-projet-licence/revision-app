@@ -24,7 +24,7 @@ export default function Result({ submission }) {
     return (
     <AuthLayouts>
         <div className="p-6">
-            <h1 className="text-3xl font-bold mb-6 text-center"> Résultat du Quiz</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center"> Results of the quiz</h1>
             <div className="text-xl text-center font-semibold mb-6">
                  Score : <span className="text-blue-600">{submission.score}%</span>
                  </div>
@@ -40,23 +40,23 @@ export default function Result({ submission }) {
 
                  </p>
 
-          <p className="text-gray-800 font-medium"> Tes réponses :</p>
+          <p className="text-gray-800 font-medium">Your answer:</p>
           <ul className="list-disc ml-6 text-black">
             {selected.length > 0 ? (
               selected.map((ans, i) => (
                 <li key={i} className={ans?.is_correct ? 'text-green-700' : 'text-red-700'}>
                   <span dangerouslySetInnerHTML={{ __html: ans?.answer_text || 'Non spécifiée' }} />
                   {!ans?.is_correct && (
-                    <span className="text-sm ml-2 italic text-red-500">← Mauvaise réponse</span>
+                    <span className="text-sm ml-2 italic text-red-500">← Wrong answers</span>
                   )}
                 </li>
               ))
             ) : (
-              <li className="text-red-600">Aucune réponse donnée</li>
+              <li className="text-red-600">No answer choosen</li>
             )}
           </ul>
 
-          <p className="text-gray-800 mt-3 font-medium">Bonnes réponses attendues :</p>
+          <p className="text-gray-800 mt-3 font-medium">Expected valid answers:</p>
           <ul className="list-disc ml-6 text-green-700">
             {correct.map((ans, i) => (
               <li key={i}>

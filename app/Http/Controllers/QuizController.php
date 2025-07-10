@@ -37,12 +37,11 @@ class QuizController extends Controller
 
     return Inertia::render('Quizzes/QuizzesIndex', [
         'myQuizzes' => $myQuizzes,
-        'otherQuizzes' => $otherQuizzes
+        'otherQuizzes' => $otherQuizzes,
+        'auth' => ['user' => Auth::user()
+        ]
     ]);
 }
-
-
-
 
     public function store(Request $request)
     {
@@ -64,10 +63,11 @@ class QuizController extends Controller
 
     public function edit(Quiz $quiz)
     {
-        $categories = Category::all();
-        $questions = Question::all();
-        return view('quizzes.edit', compact('quiz', 'categories', 'questions'));
+        return Inertia::render('Quizzes/EditQuiz', [
+            'quiz' => $quiz
+        ]);
     }
+
 
     public function update(Request $request, Quiz $quiz)
     {
