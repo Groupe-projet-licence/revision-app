@@ -46,49 +46,40 @@ class QuestionController extends Controller
         return redirect()->route('quizzes.show', $quiz->id)->with('success', 'Question created');
     }
 
-   public function edit($id)
-{
-    $question = Question::with('answers')->findOrFail($id);
-    $types = ['single', 'multiple'];
-    $quizzes = Quiz::all();
+    public function edit($id)
+    {
+        $question = Question::with('answers')->findOrFail($id);
+        $types = ['single', 'multiple'];
+        $quizzes = Quiz::all();
 
-    return Inertia::render('Questions/EditQuestion', [
-        'question' => $question,
-        'types' => $types,
-        'quizzes' => $quizzes,
-    ]);
-}
-
-
-    public function update(Request $request, $id)
-{
-    $question = Question::findOrFail($id);
-
-    $validated = $request->validate([
-        'question_text' => 'required|string',
-        'type' => 'required|in:single,multiple',
-        'quiz_id' => 'required|exists:quizzes,id',
-        'answers' => 'nullable|array',
-        'answers.*.answer_text' => 'required|string',
-        'answers.*.is_correct' => 'required|boolean',
-    ]);
-
-    $question->update([
-        'question_text' => $validated['question_text'],
-        'type' => $validated['type'],
-        'quiz_id' => $validated['quiz_id'],
-    ]);
-
-    // Supprimer les anciennes réponses
-    $question->answers()->delete();
-
-    // Créer les nouvelles réponses
-    foreach ($validated['answers'] as $answerData) {
-        $question->answers()->create($answerData);
+        return Inertia::render('Questions/EditQuestion', [
+            'question' => $question,
+            'types' => $types,
+            'quizzes' => $quizzes,
+        ]);
     }
 
-    return redirect()->route('quizzes.show', $question->quiz_id)->with('success', 'Question mise à jour avec succès');
-}
+
+    public function update(QuestionRequest $request, $id)
+    {
+        $question = Question::findOrFail($id);
+
+
+        $question->update([
+            'question_text' => $request->validated('question_text'),
+            'type' => $request->validated('type')
+        ]);
+
+        // Supprimer les anciennes réponses
+        $question->answers()->delete();
+
+        // Créer les nouvelles réponses
+        foreach ($request->validated('answers') as $answer) {
+            $question->answers()->create($answer);
+        }
+
+        return redirect()->route('quizzes.show', $question->quiz_id)->with('success', 'Question mise à jour avec succès');
+    }
 
 
 

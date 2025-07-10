@@ -75,7 +75,7 @@ export default function Card({ data }) {
                                     }}
                                     className="dropdown-item"
                                 >
-                                    Delete
+                                   🗑️ Delete
                                 </Link>
                             </div>
                         )}

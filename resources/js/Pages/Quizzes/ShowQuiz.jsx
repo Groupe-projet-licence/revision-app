@@ -101,7 +101,7 @@ const Evaluate = ({ quiz }) => {
                     className="dropdown-menu show shadow-sm"
                     style={{
                       position: "absolute",
-                      right: 0,
+                      left: -100,
                       zIndex: 1000,
                       background: "#fff",
                       border: "1px solid #ddd",

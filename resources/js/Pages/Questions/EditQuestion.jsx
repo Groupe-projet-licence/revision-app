@@ -1,164 +1,133 @@
-import React, { useState } from 'react';
-import { useForm, Link, Head } from '@inertiajs/react';
+import React, { useCallback, useRef } from 'react';
 import AuthLayouts from '@/Layouts/AuthLayouts';
+import { Head, useForm } from '@inertiajs/react';
 import QuillEditor from '@/Components/QuillEditor';
-import QuillEditorSmall from "@/Components/QuillEditorSmall";
-import InputError from '@/Components/InputError';
+import QuillEditorSmall from '@/Components/QuillEditorSmall';
 
-const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
-};
+export default function QuestionEdit({ quiz_id, question }) {
 
-export default function EditQuestion({ question, quizzes }) {
-  const { data, setData, put, errors } = useForm({
-    question_text: question.question_text || '',
-    type: question.type || 'single',
-    quiz_id: question.quiz_id || '',
-    answers: question.answers || [],
+  const { data, setData, put, processing, errors } = useForm({
+    question_text: question.question_text,
+    type: question.type,
+    answers: question.answers.map(ans => ({
+      answer_text: ans.answer_text,
+      is_correct: ans.is_correct
+    }))
   });
 
-  const [newAnswer, setNewAnswer] = useState('');
-
-  const handleAnswerChange = (index, field, value) => {
-    const updated = [...data.answers];
-    updated[index][field] = value;
-    setData('answers', updated);
+  const handleOptionChange = (index, field, value) => {
+    const newOptions = [...data.answers];
+    newOptions[index][field] = value;
+    setData('answers', newOptions);
   };
 
-  const handleAddAnswer = () => {
-    const trimmed = newAnswer.trim();
-    if (trimmed !== '') {
-      setData('answers', [
-        ...data.answers,
-        { answer_text: trimmed, is_correct: false },
-      ]);
-      setNewAnswer('');
-    }
-  };
-
-  const handleRemoveAnswer = (index) => {
-    const updated = [...data.answers];
-    updated.splice(index, 1);
-    setData('answers', updated);
-  };
-
-  const submit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     put(route('questions.update', question.id));
   };
 
+  const questionTextRef = useRef(data.question_text);
+  const handleChangeQuestionText = useCallback((value) => {
+    setData('question_text', value)
+  }, []);
+
+  const answersRefs = useRef(data.answers);
+
+  const addOption = () => {
+    if (data.answers.length < 8) {
+      const newOptions = [...data.answers, { answer_text: '', is_correct: false }];
+      answersRefs.current = newOptions;
+      setData('answers', newOptions);
+    }
+  };
+
+  const removeOption = (index) => {
+    if (data.answers.length > 2) {
+      const newOptions = data.answers.filter((_, i) => i !== index);
+      answersRefs.current = newOptions;
+      setData('answers', newOptions);
+    }
+  };
+
+  const errorRef = useRef('');
+  errorRef.current = Object.keys(errors).some((key) => {
+    return /^answers\.\d+\.answer_text$/.test(key)
+  }) ? 'Erreur' : '';
+
   return (
     <AuthLayouts>
-      <Head title="Edit Question" />
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-6">✏️ Edit Question</h1>
-        <form onSubmit={submit} className="space-y-5">
+      <Head title="Question" />
 
-          {/* QUIZ SELECTION */}
-          <div>
-            <label className="block mb-1 font-semibold">Quiz</label>
-            <select
-              className="w-full border border-gray-300 rounded p-2"
-              value={data.quiz_id}
-              onChange={(e) => setData('quiz_id', e.target.value)}
-            >
-              <option value="">-- Select a quiz --</option>
-              {quizzes.map((quiz) => (
-                <option key={quiz.id} value={quiz.id}>
-                  {quiz.title}
-                </option>
-              ))}
-            </select>
-            <InputError message={errors.quiz_id} />
-          </div>
+      <form onSubmit={handleSubmit}>
 
-          {/* QUESTION TEXT */}
-          <div>
-            <label className="block mb-1 font-semibold">Question Text</label>
-            <QuillEditor
-              value={data.question_text}
-              onChange={(value) => setData('question_text', value)}
-            />
-            <InputError message={errors.question_text} />
-          </div>
+        <div className="big-quill big-loader">
+          <QuillEditor
+            value={questionTextRef.current}
+            onChange={handleChangeQuestionText}
+            error={errors.question_text}
+          />
+        </div>
 
-          {/* TYPE */}
-          <div>
-            <label className="block mb-1 font-semibold">Question Type</label>
-            <select
-              className="w-full border border-gray-300 rounded p-2"
-              value={data.type}
-              onChange={(e) => setData('type', e.target.value)}
-            >
-              <option value="single">Single choice</option>
-              <option value="multiple">Multiple choice</option>
-            </select>
-            <InputError message={errors.type} />
-          </div>
+        <div className="form-check form-switch my-3">
+          <input type='checkbox' className="form-check-input"
+            checked={data.type === "multiple"}
+            onChange={(e) => setData('type', e.target.checked ? "multiple" : "single")} />
+        </div>
 
-          {/* ANSWERS */}
-          <div>
-            <label className="block mb-2 font-semibold">Answers</label>
-            {data.answers.map((answer, index) => (
-              <div key={index} className="flex items-center gap-2 mb-2">
-                <input
-                  type="text"
-                  value={answer.answer_text}
-                  onChange={(e) =>
-                    handleAnswerChange(index, 'answer_text', e.target.value)
-                  }
-                  className="flex-1 border border-gray-300 rounded p-2"
-                  placeholder={`Answer ${index + 1}`}
-                />
-                <label className="flex items-center gap-1">
-                  <input
-                    type="checkbox"
-                    checked={answer.is_correct}
-                    onChange={(e) =>
-                      handleAnswerChange(index, 'is_correct', e.target.checked)
-                    }
-                  />
-                  Correct
-                </label>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveAnswer(index)}
-                  className="text-red-600"
-                >
-                  ✖
-                </button>
-              </div>
-            ))}
-
-            {/* NEW ANSWER INPUT */}
-            <div className="flex gap-2 mt-2">
+        {data.answers.map((option, index) => (
+          <div key={index} className="form-group hstack gap-3 mb-3">
+            {data.type === 'single' ? (
               <input
-                type="text"
-                value={newAnswer}
-                onChange={(e) => setNewAnswer(e.target.value)}
-                placeholder="New answer"
-                className="flex-1 border border-gray-300 rounded p-2"
+                type="radio"
+                name="correct"
+                checked={option.is_correct}
+                onChange={() => {
+                  const newOptions = data.answers.map((opt, i) => ({
+                    ...opt,
+                    is_correct: i === index
+                  }));
+                  setData('answers', newOptions);
+                }}
               />
-              <button
-                type="button"
-                onClick={handleAddAnswer}
-                className="px-4 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                ➕ Add
-              </button>
-            </div>
-          </div>
+            ) : (
+              <input
+                type="checkbox"
+                checked={option.is_correct}
+                onChange={(e) =>
+                  handleOptionChange(index, 'is_correct', e.target.checked)
+                }
+              />
+            )}
 
-          {/* SUBMIT */}
-          <button
-            type="submit"
-            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-          >
-            💾 Save
+            <div className="small-quill flex-grow-1 hide-quill">
+              <QuillEditorSmall
+                index={index}
+                setData={setData}
+                text={answersRefs.current}
+                error={errorRef.current}
+                placeholder="Solution option text"
+              />
+            </div>
+
+            <button
+              type="button"
+              className="fs-5"
+              onClick={() => removeOption(index)}
+              disabled={data.answers.length <= 2}
+            >
+              <div style={{ fontSize: '28px' }}>×</div>
+            </button>
+          </div>
+        ))}
+
+        <div className="d-flex justify-content-between align-items-center ">
+          <button type="button" className="btn text-primary" onClick={addOption}>
+            <span style={{ fontSize: '25px' }}>+</span> Add options
           </button>
-        </form>
-      </div>
+          <button type="submit" className='btn btn-primary'>Update</button>
+        </div>
+      </form>
+
     </AuthLayouts>
-  );
+  )
 }

@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
          *------------------------------------------------------------------------------------*/
 
         $user = User::factory()->create([
-            "name" => "darlin",
-            "email" => "donfackdarlin@gmail.com",
+            "name" => "John Doe",
+            "email" => "johndoe@gmail.com",
             "password" => Hash::make("670748873")
         ]);
         $user1 = User::factory()->create([
@@ -866,7 +866,7 @@ button.setOnClickListener(v -> {
          *------------------------------------------------------------------------------------*/
 
         $this->call([
-            HistorySeeder::class,
+            
         ]);
     }
 }
