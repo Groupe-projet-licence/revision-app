@@ -8,24 +8,39 @@ use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+ use Illuminate\Support\Facades\Mail;
+use App\Mail\QuizShared;
 
 
 class QuizController extends Controller
 {
     public function index(Request $request)
-    {
-        $myQuizzes = Quiz::where('user_id', Auth::id())->latest()->get();
+{
+    $myQuizzes = Quiz::where('user_id', Auth::id())
+        ->latest()
+        ->get()
+        ->map(function ($quiz) {
+            $quiz->can_edit = true;
+            return $quiz;
+        });
 
-        $otherQuizzes = Quiz::with('category', 'user')
-            ->where('user_id', '!=', Auth::id())
-            ->latest()
-            ->paginate(6); // ajuste le nombre par page
+    $otherQuizzes = Quiz::with('category', 'user')
+        ->where('user_id', '!=', Auth::id())
+        ->latest()
+        ->paginate(6);
 
-        return Inertia::render('Quizzes/QuizzesIndex', [
-            'myQuizzes' => $myQuizzes,
-            'otherQuizzes' => $otherQuizzes
-        ]);
-    }
+    // ajoute can_edit = false pour les autres quiz
+    $otherQuizzes->getCollection()->transform(function ($quiz) {
+        $quiz->can_edit = false;
+        return $quiz;
+    });
+
+    return Inertia::render('Quizzes/QuizzesIndex', [
+        'myQuizzes' => $myQuizzes,
+        'otherQuizzes' => $otherQuizzes
+    ]);
+}
+
 
 
 
@@ -74,7 +89,20 @@ class QuizController extends Controller
         return redirect()->route('quizzes.index')->with('success', 'Quiz successfully updated.');
     }
 
-    public function destroy(Quiz $quiz)
+    public function share(Request $request, Quiz $quiz)
+    {
+        $request->validate([
+             'email' => 'required|email',
+            ]);
+
+
+             // Envoi du mail
+            Mail::to($request->email)->send(new QuizShared($quiz, Auth::user()));
+             return back()->with('success', 'Le quiz a été partagé avec succès par e-mail.');
+    }
+
+
+    function destroy(Quiz $quiz)
     {
         $quiz->delete();
         return redirect()->route('quizzes.index')->with('success', 'Quiz successfully deleted.');
