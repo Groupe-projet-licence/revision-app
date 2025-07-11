@@ -121,7 +121,7 @@ Route::middleware(['auth'])->post('/tutorial/complete', [TutorialController::cla
 //Route pour demander a ntre IA
 Route::middleware(['auth'])->group(function () {
     Route::get('/chatbot', function (){
-        return Inertia::render('Chatbot');
+        return Inertia::render('Chatbot/Chatbot');
     })->name('chatbot');
 });
 //Route::post('/chatbot/ask', [ChatbotController::class, 'ask']);

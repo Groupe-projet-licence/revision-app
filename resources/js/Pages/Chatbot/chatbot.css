@@ -1,0 +1,14 @@
+.form-select {
+    max-width: 150px;
+}
+.chat-box {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+.blink {
+    animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+    50% { opacity: 0; }
+}

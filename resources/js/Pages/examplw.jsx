@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import chatbotAnswers from '../data/chatbotAnswers';
+import chatbotAnswers from './Chatbot/data/chatbotAnswers';
 import AuthLayouts from '@/Layouts/AuthLayouts';
 import { useEffect } from 'react';
 
@@ -26,14 +26,14 @@ export default function Chatbot() {
 
     //Effet machine a ecrire 
     useEffect(() => {
-        if(!isTyping || !answer) return;
+        if (!isTyping || !answer) return;
 
         let index = -1;
         const interval = setInterval(() => {
             setDisplayedAnswer(prev => prev + answer[index]);
             index++;
 
-            if (index === answer.length-1){
+            if (index === answer.length - 1) {
                 clearInterval(interval);
                 setIsTyping(false);
             }
