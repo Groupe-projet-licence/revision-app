@@ -98,7 +98,7 @@ class QuizController extends Controller
 
              // Envoi du mail
             Mail::to($request->email)->send(new QuizShared($quiz, Auth::user()));
-             return back()->with('success', 'Le quiz a été partagé avec succès par e-mail.');
+             return back()->with('success', 'The quiz has been shared sucessfully via email.');
     }
 
 

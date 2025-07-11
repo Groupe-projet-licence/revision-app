@@ -1,76 +1,81 @@
 <?php
- namespace App\Http\Controllers;
-  use App\Models\History;
-  use App\Models\Quiz;
-  use App\Models\Question;
-  use App\Models\Answer;
-  use Illuminate\Http\Request;
-  use Illuminate\Support\Facades\Auth;
-  use Inertia\Inertia;
 
-class HistoryController extends Controller {
-
-   // Affiche la liste des historiques du quiz pour l'utilisateur connecté
-   public function index() {
-    $histories = History::with('quiz')->where('user_id',
-    Auth::id())->get(); return Inertia::render('History/Index',
-    [ 'histories' => $histories, ]);
-  }
+namespace App\Http\Controllers;
 
 
-    // Démarre un nouveau quiz et enregistre l'heure de début
-    public function start(Quiz $quiz) {
-        $history = History::create([
-            'user_id' => Auth::id(),
-            'quiz_id' => $quiz->id,
-            'start_time' => now(),
-         ]);
-         return Inertia::render('Quiz/Evaluate',[ 'quiz' => $quiz->load(['questions.answers']), 'history' => $history, ]);
-        }
+use App\Models\QuizSubmission;
+use App\Models\Sheet;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
+use Inertia\Inertia;
+
+class HistoryController extends Controller
+{
+public function index()
+{
+$userId = Auth::id();
 
 
-    // Soumission du quiz avec évaluation et enregistrement des réponses
-    public function submit(Request $request, Quiz $quiz) {
-     $data = $request->validate([
-        'answers' => 'required|array',
-        'history_id'=> 'required|exists:histories,id',
-    ]);
-    $scoreTotal = 0;
-    $scoreMax = 0;
-    $corrections = [];
+    // Quiz
+    $submissions = QuizSubmission::with('quiz')
+        ->where('user_id', $userId)
+        ->orderByDesc('created_at')
+        ->get()
+        ->map(function ($s) {
+            return [
+                'type' => 'quiz',
+                'title' => $s->quiz->title ?? 'Quiz supprimé',
+                'date' => substr($s->created_at, 0, 10),
+                'score' => $s->score,
+                'id' => $s->id,
+            ];
+        });
 
-    foreach ($data['answers'] as $questionId => $selectedIds) {
-        $question = Question::with('answers')->findOrFail($questionId);
-        $correctAnswers = $question->answers->where('is_correct', true)->pluck('id')->sort()->values();
-         $selected = collect($selectedIds)->sort()->values();
-         $nbCorrect = $correctAnswers->count(); $nbMatched = $selected->intersect($correctAnswers)->count();
+    // Fiches
+    $sheets = Sheet::where('user_id', $userId)
+        ->whereNotNull('last_opened_at')
+        ->orderByDesc('last_opened_at')
+        ->get()
+        ->map(function ($sheet) {
+            return [
+                'type' => 'sheet',
+                'title' => $sheet->title,
+                'date' => substr($sheet->last_opened_at, 0, 10),
+                'id' => $sheet->id,
+            ];
+        });
 
-          // Pourcentage obtenu pour cette question
-         $percent = $nbCorrect > 0 ? ($nbMatched / $nbCorrect) : 0; $scoreTotal += $percent;
-          $scoreMax += 1;
-           $corrections[$question->id] = [
-            'selected' => $selected->toArray(),
-            'correct' => $correctAnswers->toArray(),
-            'score' => round($percent * 100), ];
-        }
+    // Fusion & regroupement par date
+    $all = $submissions->concat($sheets)->sortByDesc('date')->values();
+    $grouped = [];
 
-        $finalScore = $scoreMax > 0 ? round(($scoreTotal / $scoreMax) * 100) : 0;
-         $history = History::findOrFail($data['history_id']);
-          $history->update([
-            'end_time' => now(),
-            'score' => $finalScore,
-            'correction' => json_encode($corrections),
-       ]);
-          return redirect()->route('histories.result', $history->id);
+    foreach ($all as $item) {
+        $key = Carbon::parse($item['date'])->isToday() ? "Aujourd'hui" :
+               (Carbon::parse($item['date'])->isYesterday() ? "Hier" :
+               Carbon::parse($item['date'])->translatedFormat('d F Y'));
+
+        $grouped[$key][] = $item;
     }
 
+    return Inertia::render('History/Index', [
+        'history' => $grouped,
+    ]);
+}
 
-         // Affiche le détail d'un historique avec correction
-    public function result(History $history) {
-         $history->load('quiz.questions.answers');
-          return Inertia::render('History/Result', [
-            'history' => $history,
-            'corrections' => json_decode($history->correction, true),
-         ]);
-     }
+public function destroy($type, $id)
+{
+    if ($type === 'quiz') {
+        $submission = QuizSubmission::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+        $submission->delete();
+    } elseif ($type === 'sheet') {
+        $sheet = Sheet::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+        $sheet->delete();
+    }
+
+    return redirect()->back()->with('success', 'Element deleted sucessfully.');
+}
 }

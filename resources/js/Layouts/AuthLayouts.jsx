@@ -189,7 +189,7 @@ function SidebarLinks({ reduceSideBar = true }) {
         </Link>
       </li>
       <li className="nav-item mb-2">
-        <Link href="/quiz/history" className={`nav-link ${isActive('/quiz/history') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
+        <Link href="/history" className={`nav-link ${isActive('/history') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-clock-history me-2 reduce-margin-icon-side-bar nav-history"></i>{reduceSideBar && 'My History'}
         </Link>
       </li>

@@ -19,7 +19,7 @@ router.post(
   { email },
   {
     onSuccess: () => {
-      setStatus('✅ Quiz partagé avec succès');
+      setStatus('✅ Quiz shared with sucess');
       setEmail('');
       setLoading(false);
       setTimeout(() => {
@@ -28,7 +28,7 @@ router.post(
       }, 2000);
     },
     onError: () => {
-      setStatus("❌ Une erreur s'est produite");
+      setStatus("❌ An error occured");
       setLoading(false);
     },
   }

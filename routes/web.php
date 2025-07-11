@@ -51,20 +51,20 @@ Route::middleware(['auth'])->post('/quizzes/{quiz}/share', [QuizController::clas
 //Les diferentes Routes du QUIZ la manipulation des differente tables
 Route::resource('categories', CategoryController::class);
 
+Route::resource('answers', AnswerController::class);
+
 Route::get('/questions/create/{quiz}', [QuestionController::class, 'create'])->name('questions.create');
 Route::post('/questions/{quiz}', [QuestionController::class, 'store'])->name('questions.store');
 Route::resource('questions', QuestionController::class)->except(['store', 'create']);
 
-Route::resource('answers', AnswerController::class);
-
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
-    Route::get('/histories/{history}', [HistoryController::class, 'result'])->name('histories.result');
+    Route::get('history/historique', [HistoryController::class, 'index'])->name('history.historique');
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::delete('/history/{type}/{id}', [HistoryController::class, 'destroy'])->name('history.delete');
+    Route::get('/history', [HistoryController::class, 'index'])->name('history');
 });
-Route::get('history/historique', [HistoryController::class, 'index'])->name('history.historique');
-
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -73,9 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
 
 });
-Route::get('/quiz/history', [QuizSubmissionController::class, 'history'])->name('quiz.history');
-
-
 
 
 Route::get('/test-quizzes', function () {
