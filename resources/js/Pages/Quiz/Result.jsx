@@ -80,7 +80,7 @@ export default function Result({ submission }) {
       </Link>
 
       <Link
-        href={route('quiz.history', submission.quiz_id)}
+        href={route('history.index', submission.quiz_id)}
         className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
         View history
       </Link>

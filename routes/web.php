@@ -66,6 +66,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/history', [HistoryController::class, 'index'])->name('history');
 });
 
+ Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/quizzes/{quiz}/quiz/evaluate', [QuizSubmissionController::class, 'show'])->name('quiz.evaluate');
