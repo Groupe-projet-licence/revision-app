@@ -22,6 +22,7 @@ export default function AuthLayouts({ children }) {
 
   useEffect(() => {
     if (flash?.success) {
+      setMessageSuccess(flash.success)
       const timer = setTimeout(() => {
         setMessageSuccess(null);
         window.location.reload();
@@ -185,7 +186,7 @@ function SidebarLinks({ reduceSideBar = true }) {
       <li className="nav-item mb-2">
         <Link href="/sheets/revision" className={`nav-link ${isActive('/sheets/revision') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-book me-2 reduce-margin-icon-side-bar nav-revision"></i>{reduceSideBar && 'Revision'}
-          {revisionCount > 0 && <sup className='position-relative'><span className={`badge bg-danger ${!reduceSideBar && "badge-revision"}`}>{revisionCount}</span></sup>}
+          {revisionCount > 0 && <sup className='position-relative'><span className={`badge bg-info ${!reduceSideBar && "badge-revision"}`}>{revisionCount}</span></sup>}
         </Link>
       </li>
       <li className="nav-item mb-2">

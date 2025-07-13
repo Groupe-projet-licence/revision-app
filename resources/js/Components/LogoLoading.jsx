@@ -1,6 +1,9 @@
+import { Head } from "@inertiajs/react";
+
 export default function LogoLoading({ }) {
   return <div className="d-flex justify-content-center align-items-center position-relative"
     style={{ background: '#0d6efd', height: '100vh' }}>
+      <Head title="Loading"/>
 
     {/* <span className="position-absolute">
       <img

@@ -62,7 +62,7 @@ export default function CreateUpdate({ sheet, categories }) {
         <div>
             <form onSubmit={handleSubmit} className='vstack gap-3'>
                 {FlashMsg && <div className="alert alert-danger">{FlashMsg}</div>}
-                <div className="form-group">
+                <div className="form-group  m-0">
                     <input
                         type='text'
                         style={{ boxShadow: 'none' }}
@@ -83,11 +83,11 @@ export default function CreateUpdate({ sheet, categories }) {
                         onChange={(e) => setData('description', e.target.value)} />
                     {errors.description && <span className="text-danger">{errors.description}</span>}
                 </div>
-                <div className="form-group">
-                    <select value={data.category_id} onChange={(e) => setData('category_id', e.target.value)} className={errors.category_id ? 'is-invalid form-select rounded-2' : 'form-select rounded-2'}>
-                        <option value="">Choisir une categorie</option>
+                <div className="form-group m-0">
+                    <select value={data.category_id} onChange={(e) => setData('category_id', e.target.value)} className={errors.category_id ? 'is-invalid form-select rounded-2 w-100' : 'form-select rounded-2 w-100'}>
+                        <option value="">Choose a category</option>
                         {categories.map((cat) => (
-                            <option key={cat.id} value={cat.id}>{cat.subject} - Niveau {cat.level}</option>
+                            <option key={cat.id} value={cat.id}>{cat.subject} - Level {cat.level}</option>
                         ))}
                     </select>
                     {errors.category_id && <span className="text-danger">{errors.category_id}</span>}

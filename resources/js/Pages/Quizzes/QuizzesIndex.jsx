@@ -76,7 +76,7 @@ router.delete(route("quizzes.destroy", quizId));
               className="dropdown-menu show shadow-sm"
               style={{
                 position: "absolute",
-                right: 0,
+                left: -150,
                 top: "1.8rem",
                 zIndex: 1000,
                 minWidth: "140px",

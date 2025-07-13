@@ -65,10 +65,10 @@ const CreateSujetModal = ({ isOpen, onClose }) => {
                 onClose();
               }}
             >
-              Annuler
+              Cancel
             </button>
             <button type="submit" className="btn btn-primary" disabled={processing}>
-              {processing ? "Création..." : "Créer"}
+              {processing ? "Creating..." : "Create"}
             </button>
           </div>
         </form>

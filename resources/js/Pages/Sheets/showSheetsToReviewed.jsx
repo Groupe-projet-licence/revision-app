@@ -22,7 +22,7 @@ export default function showSheetsToReviewed({ sheets, flash }) {
 
     return <AuthLayout>
         <Head>
-            <title>Revision Notifications</title>
+            <title>Revision</title>
         </Head>
         <div>
             {messageSuccess && <div className="alert alert-info flash-messge-success">{messageSuccess}</div>}

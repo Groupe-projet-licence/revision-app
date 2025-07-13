@@ -3,7 +3,7 @@ import QuillEditor from "@/Components/QuillEditor";
 
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import AuthLayouts from '@/Layouts/AuthLayouts';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import QuillEditorSmall from "@/Components/QuillEditorSmall";
 
 
@@ -69,6 +69,7 @@ export default function QuestionCreate({ quiz_id }) {
 
   return (
     <AuthLayouts>
+      <Head title='Question' />
 
       <form onSubmit={handleSubmit}>
 

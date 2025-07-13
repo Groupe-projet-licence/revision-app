@@ -60,7 +60,7 @@ export default function Card({ data }) {
                             className="btn btn-light text-dark"
                             onClick={() => setShowDropdown(!showDropdown)}
                         >
-                            <i className="bi bi-three-dots text-secondary delete"></i>
+                            ⋮
                         </button>
                         {showDropdown && (
                             <div className="dropdown-menu dropdown-menu-end show"

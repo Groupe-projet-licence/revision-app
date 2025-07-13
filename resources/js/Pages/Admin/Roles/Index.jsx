@@ -7,8 +7,8 @@ export default function UserIndex() {
 
     return (
         <AuthLayout>
-            <div className="container">
-                <h2 className="mb-4">Gestion des utilisateurs</h2>
+            <div className="">
+                <h2 className="mb-4">User managment</h2>
 
 
                 {flash.success && (

@@ -53,7 +53,6 @@ class SheetController extends Controller
      */
     public function store(SheetRequest $request)
     {
-        dd($request->content);
         $sheet = new Sheet();
         $sheet->fill($request->validated());
         $sheet->user_id = Auth::user()->id;
@@ -118,7 +117,7 @@ class SheetController extends Controller
     public function update(SheetRequest $request, Sheet $sheet)
     {
         $sheet->update($request->validated());
-        return redirect()->route('sheets.index')->with('success', 'Sheet succefully updated!');
+        return redirect()->route('sheets.index')->with('success', 'Sheet succefully updated.');
 
     }
 
@@ -133,7 +132,7 @@ class SheetController extends Controller
     }
     public function showSheetsToReviewed()
     {
-        $sheets = Sheet::Where('user_id', Auth()->id())
+        $sheets = Sheet::with('category')->Where('user_id', Auth()->id())
             ->where('next_revision_at', '<=', now())
             ->orderBy('next_revision_at', 'asc')->get();
         foreach ($sheets as &$sheet) {

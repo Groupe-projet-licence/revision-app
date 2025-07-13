@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Sheet;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             "name" => "John Doe",
             "email" => "johndoe@gmail.com",
+            'role'=>'admin',
             "password" => Hash::make("670748873")
         ]);
         $user1 = User::factory()->create([
@@ -112,6 +114,7 @@ class DatabaseSeeder extends Seeder
                     <h2><strong>Modèles NoSQL</strong></h2>
                     <p>Pour les données non structurées ou volumineuses : <strong>MongoDB, Redis…</strong></p>
                 ',
+                'next_revision_at'=>Carbon::yesterday()
             ],
             [
                 'title' => 'Le Cycle de Vie du Logiciel',
