@@ -20,7 +20,7 @@ export default {
 
         {
             keywords: ['en savoir plus', 'easylearning bot',],
-            answer: 'Je suis Easy Learning Bot un assistant virtuel concu par 👨‍💻 WAFO AROLD intégré à l\'application EasyLearning. J\'ai été concu pour aider les utilisateurs à comprendre comment utiliser l\'application et ses fonctionnalités. Je suis là pour te guider dans la création de fiches de revision, de quiz, la révision intelligente, et bien plus encore'
+            answer: 'Je suis Easy Learning Bot un assistant virtuel concu par 👨‍💻 L’EQUIPE EASYLEARNING intégré à l\'application EasyLearning. J\'ai été concu pour aider les utilisateurs à comprendre comment utiliser l\'application et ses fonctionnalités. Je suis là pour te guider dans la création de fiches de revision, de quiz, la révision intelligente, et bien plus encore'
         },
 
         {
@@ -155,7 +155,7 @@ export default {
 
         {
             keywords: ['learn more', 'easylearning bot', 'about'],
-            answer: 'I am EasyLearning Bot, a virtual assistant designed by 👨‍💻 WAFO AROLD, integrated into the EasyLearning application. I was created to help users understand how to use the app and its features. I’m here to guide you through creating revision sheets, quizzes, smart revision, and much more.'
+            answer: 'I am EasyLearning Bot, a virtual assistant designed by 👨‍💻  EASYLEARNING DEVELOPPERS, integrated into the EasyLearning application. I was created to help users understand how to use the app and its features. I’m here to guide you through creating revision sheets, quizzes, smart revision, and much more.'
         },
 
         {
@@ -282,7 +282,7 @@ export default {
             keywords: ['language', 'french', 'english', 'How to change the bot’s language?'],
             answer: 'At the top right coner you will see english there just clique on change a define a new language .'
         },
-    ]   
+    ]
 
     // 📂 Revision Sheets
 };
