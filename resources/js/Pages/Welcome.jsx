@@ -98,33 +98,38 @@ export default function Welcome() {
 
           <div className="space-y-8 text-gray-800 text-base leading-relaxed">
             <div>
-              <h3 className="text-xl font-semibold text-blue-700 mb-2">Ultra-personalized Note Creation</h3>
-              <p>You’re not limited to plain text: you can format your notes as you like. This visual customization helps you memorize better by presenting information in a clear and structured way.</p>
+              <h3 className="text-xl font-semibold text-blue-700 mb-2">Create Utra-Customized Revision Sheets</h3>
+              <p>You are not limited to plain text: you can format your revision Sheets however you like,inserting bullet lists,bold or text,images,...,all to create sheets taillored to your lessons and personal needs. 
+</p>
+</div>
+            <div>
+              <h3 className="text-xl font-semibold text-blue-700 mb-2">Complete Sheet Management</h3>
+              <p>You can edit your revision sheets at any time to update or correct them. You can also delete them to keep a clean workspace.Additionally,sheets are organized by subject for quick access to information. 
+          </p>
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold text-blue-700 mb-2">Complete Note Management</h3>
-              <p>You can edit your notes at any time to add or correct them. Delete unnecessary notes to keep a clean workspace. Notes are organized by folders or subjects for quick access to information.</p>
+              <h3 className="text-xl font-semibold text-blue-700 mb-2">Smart Revision(Spaced Repetition)</h3>
+              <p>EasyLearning automatically selects the sheets you should revice first. This proven metho boots long-term memory retention 
+    </p>
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold text-blue-700 mb-2">Simple and Fast Review Mode</h3>
-              <p>EasyLearning offers full-screen display of your notes so you can focus only on the content. Fast navigation between notes, no reloads or wasted time. You can revise even while commuting or between classes.</p>
+              <h3 className="text-xl font-semibold text-blue-700 mb-2">Fast and Simple Revision Mode</h3>
+              <p>EasyLearning offers a full-screen display of your sheets,allowing you to focus solely on the content, with fast navigation between sheets,without reloading or delays. You can revise smoothly breaking your momentum.
+               </p>
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold text-blue-700 mb-2">Smart Review (Spaced Repetition)</h3>
-              <p>EasyLearning automatically selects the notes you need to review the most. This proven method boosts long-term memory by reviewing right before forgetting occurs.</p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold text-blue-700 mb-2">Create Quizzes Linked to Your Notes</h3>
-              <p>You can create your own questions tailored to your needs and courses. Multiple-choice (radio or checkbox) or open-ended responses. No more generic quizzes that don’t match your needs.</p>
+              <h3 className="text-xl font-semibold text-blue-700 mb-2">Create Quizzes</h3>
+              <p>Create your own quizzes tailored to your needs and courses, with single or multiple-choice question(radio buttons or checkboxes).No more generic quizzes that don't match your objectives.
+              </p>
             </div>
 
             <div>
               <h3 className="text-xl font-semibold text-blue-700 mb-2">Automatic Evaluation</h3>
-              <p>Take your quizzes and instantly get your score and correction. No manual grading — save time and see right away what your strengths and weaknesses are.</p>
+              <p>Take your quizzes and instantly receive your score and correction. No manual grading:save time and  immediately identify your strengths and weaknesses.
+                </p>
             </div>
           </div>
         </div>
