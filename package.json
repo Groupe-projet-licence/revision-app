@@ -23,6 +23,7 @@
         "bootstrap": "^5.3.6",
         "bootstrap-icons": "^1.13.1",
         "fuse.js": "^7.1.0",
+        "nprogress": "^0.2.0",
         "quill": "^2.0.3",
         "quill-image-resize-module-react": "^3.0.0",
         "react-error-boundary": "^6.0.0",

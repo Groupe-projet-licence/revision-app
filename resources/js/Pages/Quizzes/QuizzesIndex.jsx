@@ -15,49 +15,49 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
   const [showSujetModal, setShowSujetModal] = useState(false);
 
   const [showShareModal, setShowShareModal] = useState(false);
-const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
 
-const [openDropdownId, setOpenDropdownId] = useState(null);
-const dropdownRefs = useRef({});
+  const [openDropdownId, setOpenDropdownId] = useState(null);
+  const dropdownRefs = useRef({});
 
-useEffect(() => {
-const handleClickOutside = (event) => {
-if (
-openDropdownId !== null &&
-dropdownRefs.current[openDropdownId] &&
-!dropdownRefs.current[openDropdownId].contains(event.target)
-) {
-setOpenDropdownId(null);
-}
-};
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        openDropdownId !== null &&
+        dropdownRefs.current[openDropdownId] &&
+        !dropdownRefs.current[openDropdownId].contains(event.target)
+      ) {
+        setOpenDropdownId(null);
+      }
+    };
 
-document.addEventListener("mousedown", handleClickOutside);
-return () => document.removeEventListener("mousedown", handleClickOutside);
-}, [openDropdownId]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [openDropdownId]);
 
-const handleDropdownToggle = (quizId) => {
-setOpenDropdownId((prevId) => (prevId === quizId ? null : quizId));
-};
+  const handleDropdownToggle = (quizId) => {
+    setOpenDropdownId((prevId) => (prevId === quizId ? null : quizId));
+  };
 
-const handleDelete = (quizId) => {
-if (confirm("Êtes-vous sûr de vouloir supprimer ce quiz ?")) {
-router.delete(route("quizzes.destroy", quizId));
-}
-};
+  const handleDelete = (quizId) => {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce quiz ?")) {
+      router.delete(route("quizzes.destroy", quizId));
+    }
+  };
 
   const { auth } = usePage().props;
 
   //Differentes pop up
-  const steps = [ { target: '.newquiz', content:'Tu peux crée un nouveau et ajoute le nombres de reponses que tu souhaite et defini plusieurs bonne reponse'},
-                  { target:'.librarys', content:'Clique sur le button pour consulter les quizs des autres utilisateurs ou tu pouras aussi evalue.',},
-                  { target:'.topic', content:'Ici tu peux consulter les quiz que ta crée et d\'autovalue dessus.',},
-                ]
+  const steps = [{ target: '.newquiz', content: 'Tu peux crée un nouveau et ajoute le nombres de reponses que tu souhaite et defini plusieurs bonne reponse' },
+  { target: '.librarys', content: 'Clique sur le button pour consulter les quizs des autres utilisateurs ou tu pouras aussi evalue.', },
+  { target: '.topic', content: 'Ici tu peux consulter les quiz que ta crée et d\'autovalue dessus.', },
+  ]
 
   // QuizzesIndex
 
- const renderQuizCard = (quiz) => (
+  const renderQuizCard = (quiz) => (
 
-<div key={quiz.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4"> <div className="mycard d-flex flex-column justify-content-between position-relative" style={{ aspectRatio: 3 / 1.9, borderRadius: "9px" }}> <div className="m-2"> <div className="d-flex justify-content-between align-items-start"> <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "500", fontSize: "1rem", }} > {quiz.title} </div>
+    <div key={quiz.id} className="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-4"> <div className="mycard d-flex flex-column justify-content-between position-relative" style={{ aspectRatio: 3 / 1.9, borderRadius: "9px" }}> <div className="m-2"> <div className="d-flex justify-content-between align-items-start"> <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "500", fontSize: "1rem", }} > {quiz.title} </div>
 
       {/* Trois points avec menu */}
       {quiz.can_edit && (
@@ -93,9 +93,9 @@ router.delete(route("quizzes.destroy", quizId));
                 ✏️ Edit
               </Link>
               <button
-              onClick={() => handleDelete(quiz.id)}
-               href={route("quizzes.destroy", quiz.id)}
-               className="dropdown-item px-3 py-2 text-danger"
+                onClick={() => handleDelete(quiz.id)}
+                href={route("quizzes.destroy", quiz.id)}
+                className="dropdown-item px-3 py-2 text-danger"
                 style={{ background: "none", border: "none", width: "100%", textAlign: "left" }}
               >
                 🗑️ Delete
@@ -106,44 +106,59 @@ router.delete(route("quizzes.destroy", quizId));
       )}
     </div>
 
-    <div style={{ fontSize: "0.9em" }}>
-      {quiz.description || "Aucune description."}
+      <div style={{ fontSize: "0.9em" }}>
+        {quiz.description || "Aucune description."}
+      </div>
     </div>
-  </div>
 
-  <div className="text-end">
-    <hr />
+      <div className="text-end">
+        <hr />
 
-    <Link
-      href={route("quiz.evaluate", quiz.id)}
-      className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
-      style={{ fontSize: "0.9em" }}
-    >
-      ASSESSMENT
-    </Link>
-    <Link
-      href={route("quizzes.show", quiz.id)}
-      className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
-      style={{ fontSize: "0.9em" }}
-    >
-      View
-    </Link>
-    <button
-      className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
-      style={{ fontSize: "0.9em" }}
-      onClick={() => {
-        setSelectedQuiz(quiz);
-        setShowShareModal(true);
-      }}
-    >
-      ✉️ Share
-    </button>
-  </div>
-</div>
-</div> );
+        <Link
+          href={route("quiz.evaluate", quiz.id)}
+          className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+          style={{ fontSize: "0.9em" }}
+        >
+          ASSESSMENT
+        </Link>
+        <Link
+          href={route("quizzes.show", quiz.id)}
+          className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+          style={{ fontSize: "0.9em" }}
+        >
+          View
+        </Link>
+        <button
+          className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
+          style={{ fontSize: "0.9em" }}
+          onClick={() => {
+            setSelectedQuiz(quiz);
+            setShowShareModal(true);
+          }}
+        >
+          ✉️ Share
+        </button>
+      </div>
+    </div>
+    </div>);
   // 🔍 Filtrage par recherche (titre ou description)
   const searchKeyword = useSearchBar();
+  const filteredMyQuizzes = myQuizzes.filter(q =>
+    q.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+    q.description?.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
 
+  const filteredOtherQuizzesGrouped = otherQuizzes.data.reduce((acc, quiz) => {
+    const match =
+      quiz.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      quiz.description?.toLowerCase().includes(searchKeyword.toLowerCase());
+
+    if (!match) return acc;
+
+    const cat = quiz.category?.name || 'Autres';
+    acc[cat] = [...(acc[cat] || []), quiz];
+    return acc;
+  }, {});
 
 
 
@@ -154,7 +169,7 @@ router.delete(route("quizzes.destroy", quizId));
       </Head>
       <div>
         {/* Affichage du tutoriel */}
-        <TutorialGuide steps={steps} user={auth.user}/>
+        <TutorialGuide steps={steps} user={auth.user} />
 
 
 
@@ -192,7 +207,13 @@ router.delete(route("quizzes.destroy", quizId));
         <div className="row">
           {activeTab === 'my' ? (
             myQuizzes.length > 0 ? (
-              myQuizzes.map(renderQuizCard)
+              filteredMyQuizzes.length > 0 ? (
+                filteredMyQuizzes.map(renderQuizCard)
+              ) : (
+
+                <div className="text-center text-muted my-5"> 🧩 No quiz matches this keyword. </div>
+              )
+
             ) : (
               <div className="text-center text-muted my-5">
                 🧩 No quiz created for the moment.
@@ -203,20 +224,18 @@ router.delete(route("quizzes.destroy", quizId));
             otherQuizzes.data && (
               <>
                 <div className="mb-4">
-                  {Object.entries(
-                    otherQuizzes.data.reduce((acc, quiz) => {
-                      const cat = quiz.category?.name || 'Autres';
-                      acc[cat] = [...(acc[cat] || []), quiz];
-                      return acc;
-                    }, {})
-                  ).map(([category, quizzes]) => (
-                    <div key={category} className="mb-5">
-                      <h4 className="text-primary mb-3 border-bottom pb-1">{category}</h4>
-                      <div className="row">
-                        {quizzes.map(renderQuizCard)}
+                  {Object.entries(filteredOtherQuizzesGrouped).length > 0 ? (
+                    Object.entries(filteredOtherQuizzesGrouped).map(([category, quizzes]) => (
+                      <div key={category} className="mb-5">
+                        <h4 className="text-primary mb-3 border-bottom pb-1">{category}</h4>
+                        <div className="row">
+                          {quizzes.map(renderQuizCard)}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+
+                    <div className="text-center text-muted my-5"> 🗂️ No quiz matches with your keyword on our library. </div>)}
                 </div>
 
                 {/* PAGINATION */}
@@ -240,11 +259,11 @@ router.delete(route("quizzes.destroy", quizId));
 
       </div>
 
-       <ShareQuizModal
-isOpen={showShareModal}
-onClose={() => setShowShareModal(false)}
-quiz={selectedQuiz}
-/>
+      <ShareQuizModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        quiz={selectedQuiz}
+      />
     </>
   );
 }
