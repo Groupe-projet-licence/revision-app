@@ -23,7 +23,7 @@ class SheetRequest extends FormRequest
     {
         return [
             'title'=> ['required','string','min:7'],
-            'description'=> ['nullable','string','max:50'],
+            'description'=> ['nullable','string','max:70'],
             'content'=> ['required','string','min:4'],
             'category_id' => 'required | exists:categories,id',
         ];

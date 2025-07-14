@@ -2,7 +2,6 @@ import React, { lazy, Suspense, useRef } from 'react';
 
 const QuillEditor = ({ error, ...props }) => {
     const ReactQuill = lazy(() => import('react-quill'));
-    console.log('render Quill')
 
     const modules = { // Définition des options de la barre d'outils
         toolbar: [

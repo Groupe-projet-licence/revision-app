@@ -12,7 +12,6 @@ const stripHtml = (html) => {
 
 
 const Evaluate = ({ quiz }) => {
-    console.log(quiz);
     const [answers, setAnswers] = useState({});
 
     const handleOptionChange = (questionId, answerId, type) => {

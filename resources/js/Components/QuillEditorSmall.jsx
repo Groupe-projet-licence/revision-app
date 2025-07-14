@@ -2,7 +2,6 @@ import React, { lazy, Suspense, useCallback, useRef } from 'react';
 
 const QuillEditorSmall = ({ error, index, setData, text }) => {
     const ReactQuill = lazy(() => import('react-quill'));
-    console.log('render Quill')
 
     const modules = { // Définition des options de la barre d'outils
         toolbar: [
@@ -31,13 +30,11 @@ const QuillEditorSmall = ({ error, index, setData, text }) => {
     
 
 
-    console.log(text);
     const onChange = (value) => {
         const newOptions = [...text];
         newOptions[index]['answer_text'] = value;
         setData('answers', newOptions);
     };
-    console.log(text);
 
 
 

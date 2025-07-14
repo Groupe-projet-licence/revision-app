@@ -25,11 +25,9 @@ export default function QuestionCreate({ quiz_id }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(quiz_id);
 
     post(route('questions.store', quiz_id));
   };
-  console.log('QuestionCreate:' + errors);
 
 
   // Pour la memorisation du QuillEditor pour le texte de la question

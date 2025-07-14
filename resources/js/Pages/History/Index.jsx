@@ -55,7 +55,7 @@ export default function HistoryIndex({ history }) {
 
         {/* ✅ Affichage de l'historique filtré */}
         {Object.entries(filteredHistory).length === 0 ? (
-          <p className="text-gray-600">Aucune activité trouvée pour cette catégorie.</p>
+          <p className="text-gray-600">No activities found.</p>
         ) : (
           Object.entries(filteredHistory).map(([date, items]) => (
             <div key={date} className="mb-5">

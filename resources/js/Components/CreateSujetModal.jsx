@@ -10,8 +10,6 @@ const CreateSujetModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
-    console.log(errors);
     
 
     post(route("quizzes.store"), {

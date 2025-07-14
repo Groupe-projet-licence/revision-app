@@ -28,7 +28,6 @@ class SheetController extends Controller
             $sheet->last_opened_at = substr($sheet->last_opened_at, 0, 10);
         }
         
-        //dd($query->get());
         return Inertia::render('Sheets/Index', [
             'sheets' => $sheets,
             'categories' => Category::orderBy('subject')->get(),
@@ -127,7 +126,6 @@ class SheetController extends Controller
     public function destroy(Sheet $sheet)
     {
         $sheet->delete();
-        dd('');
         return redirect()->route('sheets.index')->with('success', 'Sheet succefully deleted');
     }
     public function showSheetsToReviewed()
