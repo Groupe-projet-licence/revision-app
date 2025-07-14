@@ -40,10 +40,14 @@ export default function AuthLayouts({ children }) {
   { target: '.nav-history', content: 'View your revision history and past activities here. This helps you track your progress and consistency.', },
   { target: '.nav-chatbot', content: 'If you have any questions or misunderstandings about how the site works, please ask EasyLearning Bot who will answer you.' }
   ]
+  const isActive = (url) => {
+    return url === window.location.pathname
+  }
+  const ShowSearchBar = (isActive('/sheets') || isActive('/quizzes') || isActive('/sheets/revision') || isActive('/history'));
 
   return (
     <SearchBarContext.Provider value={searchKeyword}>
-      <Suspense fallback={<LogoLoading/>}>
+      <Suspense fallback={<LogoLoading />}>
         <LazyLoading>
 
           <div className="d-flex flex-column vh-100">
@@ -69,14 +73,16 @@ export default function AuthLayouts({ children }) {
                     alt="Application Logo"
                   />
                 </div>
-                <input
-                  type="text"
-                  style={{ borderRadius: '5px', width: '400px' }}
-                  className="form-control mx-4 d-none d-md-block my-auto search-bar"
-                  placeholder="Search..."
-                  value={searchKeyword}
-                  onChange={(e) => setSearchKeyword(e.target.value)}
-                />
+                {ShowSearchBar && (
+                  <input
+                    type="text"
+                    style={{ borderRadius: '5px', width: '400px' }}
+                    className="form-control mx-4 d-none d-md-block my-auto search-bar"
+                    placeholder="Search..."
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
+                  />)
+                }
 
 
                 <div className="position-relative ms-auto">
@@ -129,16 +135,18 @@ export default function AuthLayouts({ children }) {
                   </div>
                 )}
                 {/* Mobile search bar (only shown on small screen) */}
-                <div className="mb-3 d-md-none">
-                  <input
-                    type="text"
-                    className="form-control"
-                    style={{ borderRadius: '5px' }}
-                    placeholder="Search..."
-                    value={searchKeyword}
-                    onChange={(e) => setSearchKeyword(e.target.value)}
-                  />
-                </div>
+                {ShowSearchBar &&
+                  <div className="mb-3 d-md-none">
+                    <input
+                      type="text"
+                      className="form-control"
+                      style={{ borderRadius: '5px' }}
+                      placeholder="Search..."
+                      value={searchKeyword}
+                      onChange={(e) => setSearchKeyword(e.target.value)}
+                    />
+                  </div>
+                }
 
                 {children}
               </main>

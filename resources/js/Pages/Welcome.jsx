@@ -45,14 +45,14 @@ export default function Welcome() {
   return (
     <div className="w-full min-h-screen bg-blue-900 text-black font-serif">
       <header className="sticky top-0 z-50 w-full bg-blue-900 text-white shadow-md py-4 px-8 flex justify-between items-center">
-        <h1 className="text-2xl font-extrabold tracking-wide">EasyLearning</h1>
+        <h1 className="text-2xl font-extrabold tracking-wide">Easy Learning</h1>
         <div className="space-x-4">
           <Link href={route('login')} className="hover:underline font-medium">Login</Link>
           <Link href={route('register')} className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 font-semibold transition">Sign Up</Link>
         </div>
       </header>
       <section className="bg-white px-6 py-16">
-        <h2 className="text-5xl font-bold text-blue-800 text-center mb-12">Welcome to EasyLearning 📘</h2>
+        <h2 className="text-5xl font-bold text-blue-800 text-center mb-12">Welcome to Easy Learning 📘</h2>
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">
           <div className="md:w-1/2">
             <img
@@ -63,7 +63,7 @@ export default function Welcome() {
           </div>
           <div className="md:w-1/2 text-center md:text-left">
             <p className="text-lg sm:text-xl text-gray-800 leading-8">
-              <span className="font-semibold text-blue-700">EasyLearning</span> is the ideal platform to learn and revise efficiently.
+              <span className="font-semibold text-blue-700">Easy Learning</span> is the ideal platform to learn and revise efficiently.
               Access clear and concise lessons on a variety of topics, test your knowledge with interactive quizzes, and track your progress in real time.
               Study at your own pace, wherever you are.
             </p>
@@ -94,7 +94,7 @@ export default function Welcome() {
       {/* Why Choose */}
       <section className="bg-white py-12 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-blue-800 mb-10">Why Choose EasyLearning?</h2>
+          <h2 className="text-3xl font-bold text-center text-blue-800 mb-10">Why Choose Easy Learning?</h2>
 
           <div className="space-y-8 text-gray-800 text-base leading-relaxed">
             <div>
@@ -110,13 +110,13 @@ export default function Welcome() {
 
             <div>
               <h3 className="text-xl font-semibold text-blue-700 mb-2">Smart Revision(Spaced Repetition)</h3>
-              <p>EasyLearning automatically selects the sheets you should revice first. This proven metho boots long-term memory retention 
+              <p>Easy Learning automatically selects the sheets you should revice first. This proven metho boots long-term memory retention 
     </p>
             </div>
 
             <div>
               <h3 className="text-xl font-semibold text-blue-700 mb-2">Fast and Simple Revision Mode</h3>
-              <p>EasyLearning offers a full-screen display of your sheets,allowing you to focus solely on the content, with fast navigation between sheets,without reloading or delays. You can revise smoothly breaking your momentum.
+              <p>Easy Learning offers a full-screen display of your sheets,allowing you to focus solely on the content, with fast navigation between sheets,without reloading or delays. You can revise smoothly breaking your momentum.
                </p>
             </div>
 
@@ -139,7 +139,7 @@ export default function Welcome() {
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-3xl font-bold mb-2">Learn More Effectively 📈</h3>
           <p className="text-gray-700 mb-4 text-lg leading-relaxed">
-            Thanks to a method based on long-term memory and active learning, EasyLearning helps you make lasting progress.
+            Thanks to a method based on long-term memory and active learning, Easy Learning helps you make lasting progress.
           </p>
           <Link
             href={route('register')}
@@ -150,7 +150,7 @@ export default function Welcome() {
         </div>
       </section>
       <footer className="bg-blue-900 text-white py-6 text-center">
-        <p className="text-sm">&copy; {new Date().getFullYear()} EasyLearning. All rights reserved.</p>
+        <p className="text-sm">&copy; {new Date().getFullYear()} Easy Learning. All rights reserved.</p>
       </footer>
     </div>
   );

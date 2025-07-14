@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
-import AuthLayouts from '@/Layouts/AuthLayouts';
+import AuthLayouts, { useSearchBar } from '@/Layouts/AuthLayouts';
 import HistoryCard from '@/Components/History/HistoryCard';
 
 export default function HistoryIndex({ history }) {
+  
+  const searchKeyword = useSearchBar();
+  console.log(searchKeyword);
+
   const [activeTab, setActiveTab] = useState('all'); // 'quiz', 'sheet', or 'all'
   // 🔍 Fonction de filtrage selon l’onglet actif
   const getFilteredHistory = () => {
@@ -20,8 +24,10 @@ export default function HistoryIndex({ history }) {
 
   const filteredHistory = getFilteredHistory();
 
+
+
   return (
-    <AuthLayouts>
+    <>
       <Head title="History" />
       <div className="p-4 md:p-6">
         <h1 className="text-2xl font-bold mb-4">My History</h1>
@@ -65,6 +71,8 @@ export default function HistoryIndex({ history }) {
           ))
         )}
       </div>
-    </AuthLayouts>
+    </>
   );
 }
+
+HistoryIndex.layout = page => <AuthLayouts children={page} />

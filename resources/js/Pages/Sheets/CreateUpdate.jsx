@@ -74,7 +74,7 @@ export default function CreateUpdate({ sheet, categories }) {
                         {errors.title}
                     </span>}
                 </div>
-                <div className="form-group">
+                <div className="form-group  m-0">
                     <input type='text'
                         style={{ boxShadow: 'none' }}
                         placeholder='Description'

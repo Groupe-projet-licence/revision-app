@@ -37,10 +37,10 @@ export default function Index({ sheets, categories, selectedCategory }) {
         {/*Affichage du tutoriel*/}
         <TutorialGuide steps={steps} user={auth.user}/>
 
-        <div className="d-md-flex justify-content-between align-items-center mb-4">
+        <div className="d-lg-flex justify-content-between align-items-center mb-4">
 
           {/* 🎯 Filtre par catégorie */}
-          <div className="col col-md-4  p-0 categorie">
+          <div className="col col-lg-4  p-0 categorie">
             <select
               style={{ borderRadius: '5px', minWidth: '250px' }}
               className="form-select"
