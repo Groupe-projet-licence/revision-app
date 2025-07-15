@@ -26,7 +26,7 @@ export default function AuthLayouts({ children }) {
       const timer = setTimeout(() => {
         setMessageSuccess(null);
         //window.location.reload();
-      }, 300000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [flash]);
