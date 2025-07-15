@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Link, usePage } from '@inertiajs/react';
+import { useForm, Link, usePage, Head } from '@inertiajs/react';
 import AuthLayout from '@/Layouts/AuthLayouts';
 
 export default function UserIndex() {
@@ -47,17 +47,22 @@ function UserRow({ user, index }) {
     };
 
     return (
-        <tr>
-            <td>{index}</td>
-            <td>{user.name}</td>
-            <td>{user.email}</td>
-            <td>{user.role}</td>
-            <td>
-                <select className="form-select form-select-sm" value={data.role} onChange={handleChange} disabled={processing} >
-                    <option value="user">Utilisateur</option>
-                    <option value="admin">Administrateur</option>
-                </select>
-            </td>
-        </tr>
+        <>
+            <Head>
+                <title>Admin</title>
+            </Head>
+            <tr>
+                <td>{index}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                    <select className="form-select form-select-sm" value={data.role} onChange={handleChange} disabled={processing} >
+                        <option value="user">Utilisateur</option>
+                        <option value="admin">Administrateur</option>
+                    </select>
+                </td>
+            </tr>   
+        </>
     );
 }

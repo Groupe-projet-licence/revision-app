@@ -56,7 +56,7 @@ class SheetController extends Controller
         $sheet->fill($request->validated());
         $sheet->user_id = Auth::user()->id;
         $sheet->save();
-        return redirect()->route('sheets.index')->with('success', 'Sheet succefully added!');
+        return redirect()->route('sheets.index')->with('success', 'Sheet added succefully.');
     }
 
     /**
@@ -116,7 +116,7 @@ class SheetController extends Controller
     public function update(SheetRequest $request, Sheet $sheet)
     {
         $sheet->update($request->validated());
-        return redirect()->route('sheets.index')->with('success', 'Sheet succefully updated.');
+        return redirect()->route('sheets.index')->with('success', 'Sheet updated succefully.');
 
     }
 
@@ -126,7 +126,7 @@ class SheetController extends Controller
     public function destroy(Sheet $sheet)
     {
         $sheet->delete();
-        return redirect()->route('sheets.index')->with('success', 'Sheet succefully deleted');
+        return redirect()->route('sheets.index')->with('success', 'Sheet deleted succefully.');
     }
     public function showSheetsToReviewed()
     {

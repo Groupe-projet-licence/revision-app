@@ -50,13 +50,13 @@ public function create()
     {
         $category = Category::findOrFail($id);
         $category->update($request->validate(['subject' => 'required|string']));
-        return redirect()->route('categories.index')->with('success', 'Category updated.');
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Category removed.');
+        return redirect()->route('categories.index')->with('success', 'Category removed successfully.');
     }
 }

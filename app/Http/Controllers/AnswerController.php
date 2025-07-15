@@ -35,7 +35,7 @@ class AnswerController extends Controller
         ]);
     }
 
-    return redirect()->back()->with('success', 'Responses successfully recorded.');
+    return redirect()->back()->with('success', 'Responses recorded successfully.');
 }
 
    public function update(Request $request, $id)
@@ -65,7 +65,7 @@ class AnswerController extends Controller
     }
 
     $answer->update($validated);
-    return redirect()->route('answers.index')->with('success', 'Response successfully updated');
+    return redirect()->route('answers.index')->with('success', 'Response updated successfully');
 }
     public function show($id)
     {
@@ -84,6 +84,6 @@ class AnswerController extends Controller
     {
         $answer = Answer::findOrFail($id);
         $answer->delete();
-        return redirect()->route('answers.index')->with('success', 'Reply successfully deleted');
+        return redirect()->route('answers.index')->with('success', 'Reply deleted successfully');
     }
 }

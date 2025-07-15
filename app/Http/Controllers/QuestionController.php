@@ -43,7 +43,7 @@ class QuestionController extends Controller
         foreach ($request->validated('answers') as $answer) {
             $question->answers()->create($answer);
         }
-        return redirect()->route('quizzes.show', $quiz->id)->with('success', 'Question created');
+        return redirect()->route('quizzes.show', $quiz->id)->with('success', 'Question added successfully.');
     }
 
     public function edit($id)
@@ -78,7 +78,7 @@ class QuestionController extends Controller
             $question->answers()->create($answer);
         }
 
-        return redirect()->route('quizzes.show', $question->quiz_id)->with('success', 'Question mise à jour avec succès');
+        return redirect()->route('quizzes.show', $question->quiz_id)->with('success', 'Question updated successfully.');
     }
 
 
