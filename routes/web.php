@@ -14,6 +14,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RoleUserController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\admin\SheetController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\QuizSubmissionController;
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/quizzes/{quiz}/submit', [QuizSubmissionController::class, 'store'])->name('quiz.submit');
     Route::get('/quizzes/submission/{id}', [QuizSubmissionController::class, 'result'])->name('quiz.result');
 
+});
+
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+Route::get('/ratings', [RatingController::class, 'index'])->name('ratings.index');
+Route::post('/ratings', [RatingController::class, 'store'])->name('ratings.store');
 });
 
 

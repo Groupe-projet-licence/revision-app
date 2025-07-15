@@ -27,13 +27,13 @@ class SheetController extends Controller
         foreach ($sheets as &$sheet) {
             $sheet->last_opened_at = substr($sheet->last_opened_at, 0, 10);
         }
-        
+
         return Inertia::render('Sheets/Index', [
             'sheets' => $sheets,
             'categories' => Category::orderBy('subject')->get(),
             'selectedCategory' => $request->category_id,
         ]);
-        
+
     }
 
     /**

@@ -175,6 +175,8 @@ function SidebarLinks({ reduceSideBar = true }) {
           <i className="bi bi-house me-2"></i> Home
         </Link>
       </li> */}
+
+
       <li className="nav-item mb-2">
         <Link href="/profile" className={`nav-link ${isActive('/profile') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-person me-2 reduce-margin-icon-side-bar profile"></i>{reduceSideBar && 'My account'}
@@ -207,6 +209,20 @@ function SidebarLinks({ reduceSideBar = true }) {
           <i className="bi bi-gear me-2"></i> Settings
         </Link>
       </li> */}
+
+      <li className="nav-item mb-2">
+  <Link
+    href={route('ratings.index')}
+    className={`nav-link ${isActive('/ratings') ? 'text-white bg-primary rounded' : 'text-dark'} px-3 py-1`}
+  >
+    <i
+      className="bi bi-star-fill me-2 reduce-margin-icon-side-bar"
+      style={{ color: 'white', WebkitTextStroke: '1px black' }}
+    ></i>
+    {reduceSideBar && 'RATE US'}
+  </Link>
+</li>
+
 
       <li className="nav-item mb-2">
         <Link href={route('chatbot')} className={`nav-link ${isActive('/chatbot') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
