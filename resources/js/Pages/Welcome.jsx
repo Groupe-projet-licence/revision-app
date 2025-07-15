@@ -143,10 +143,10 @@ export default function Welcome() {
       </Head>
       <div className="w-full min-h-screen bg-blue-900 text-black font-serif">
         <header className="sticky top-0 z-50 w-full bg-blue-900 text-white shadow-md py-2 px-8 flex justify-between items-center">
-          <img src="/images/icon_app2.png" alt="icon de app" className="h-24 w-24"
-            style={{borderRadius: '100%'}}/>
-          <h1 className="text-2xl font-extrabold tracking-wide"
-            style={{textAlign: 'center'}}>Easy Learning</h1>
+          <div className="d-flex justify-content-between align-items-center gap-4">
+            <img src="/images/icon_app2.png" alt="icon de app" className="h-24 w-24" style={{ borderRadius: '100%' }} />
+            <h1 className="text-2xl font-extrabold tracking-wide" style={{}}>Easy Learning</h1>
+          </div>
           <div className="space-x-4">
             <Link href={route('login')} className="hover:underline font-medium">Login</Link>
             <Link href={route('register')} className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 font-semibold transition">Sign Up</Link>
@@ -157,7 +157,7 @@ export default function Welcome() {
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-1000 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)`}}
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {slides.map((slide, index) => (
                 <div key={index} className="w-full flex-shrink-0 px-6 py-10">
