@@ -1,8 +1,102 @@
 import React from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Welcome() {
   const { auth } = usePage().props;
+
+  //Les differentes slides du carrousel
+  const slides = [
+    {
+      content: (
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">
+          <div className="md:w-1/2">
+            <img
+              src="/images/photo.png"
+              alt="Online Learning"
+              className="w-full max-w-md mx-auto rounded-xl shadow-lg"
+            />
+          </div>
+          <div className="md:w-1/2 text-center md:text-left">
+            <p className="text-lg sm:text-xl text-gray-800 leading-8">
+              <span className="font-semibold text-blue-700">Easy Learning</span> is the ideal platform to learn and revise efficiently.
+              Access clear and concise lessons on a variety of topics, test your knowledge with interactive quizzes, and track your progress in real time.
+              Study at your own pace, wherever you are.
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      content: (
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">
+          <div className="md:w-1/2">
+            <img
+              src="/images/femmelaptop.webp"
+              alt="Test your knowledge"
+              className="w-full max-w-md mx-auto rounded-xl shadow-lg"
+            />
+          </div>
+          <div className="md:w-1/2 text-center md:text-left">
+            <h3 className="text-2xl font-bold text-blue-800 mb-2">Test Your Knowledge 🧠</h3>
+            <p className="text-lg sm:text-xl text-gray-800 leading-8">
+              Create quizzes, assess yourself and improve your memory through interactive evaluation.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    {
+      content: (
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">
+          <div className="md:w-1/2">
+            <img
+              src="/images/hommelaptop.jpeg"
+              alt="Online Learning"
+              className="w-full max-w-md mx-auto rounded-xl shadow-lg"
+            />
+          </div>
+          <div className="md:w-1/2 text-center md:text-left">
+            <p className="text-lg sm:text-xl text-gray-800 leading-8">
+              <span className="font-semibold text-blue-700">Easy Learning</span> 📜 Create clear, interactive, and personalized revision sheets for every topic. Structure your knowledge, add styles with titles, lists, or images, and quickly access key points when it's time to review
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    {
+      content: (
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">
+          <div className="md:w-1/2">
+            <img
+              src="/images/laptop.jpeg"
+              alt="Online Learning"
+              className="w-full max-w-md mx-auto rounded-xl shadow-lg"
+            />
+          </div>
+          <div className="md:w-1/2 text-center md:text-left">
+            <p className="text-lg sm:text-xl text-gray-800 leading-8">
+              <span className="font-semibold text-blue-700">Easy Learning</span> 📧 Share your custom quizzes with classmates or friends in one click. Whether it's for collaboration or self-assessment, spreading knowledge has never been easier
+            </p>
+          </div>
+        </div>
+      )
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    }, 7000); // change every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+
 
   const features = [
     {
@@ -48,8 +142,11 @@ export default function Welcome() {
         <title>Welcome</title>
       </Head>
       <div className="w-full min-h-screen bg-blue-900 text-black font-serif">
-        <header className="sticky top-0 z-50 w-full bg-blue-900 text-white shadow-md py-4 px-8 flex justify-between items-center">
-          <h1 className="text-2xl font-extrabold tracking-wide">Easy Learning</h1>
+        <header className="sticky top-0 z-50 w-full bg-blue-900 text-white shadow-md py-2 px-8 flex justify-between items-center">
+          <img src="/images/icon_app2.png" alt="icon de app" className="h-24 w-24"
+            style={{borderRadius: '100%'}}/>
+          <h1 className="text-2xl font-extrabold tracking-wide"
+            style={{textAlign: 'center'}}>Easy Learning</h1>
           <div className="space-x-4">
             <Link href={route('login')} className="hover:underline font-medium">Login</Link>
             <Link href={route('register')} className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 font-semibold transition">Sign Up</Link>
@@ -57,20 +154,16 @@ export default function Welcome() {
         </header>
         <section className="bg-white px-6 py-16">
           <h2 className="text-5xl font-bold text-blue-800 text-center mb-12">Welcome to Easy Learning 📘</h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">
-            <div className="md:w-1/2">
-              <img
-                src="/images/photo.png"
-                alt="Online Learning"
-                className="w-full max-w-md mx-auto rounded-xl shadow-lg"
-              />
-            </div>
-            <div className="md:w-1/2 text-center md:text-left">
-              <p className="text-lg sm:text-xl text-gray-800 leading-8">
-                <span className="font-semibold text-blue-700">Easy Learning</span> is the ideal platform to learn and revise efficiently.
-                Access clear and concise lessons on a variety of topics, test your knowledge with interactive quizzes, and track your progress in real time.
-                Study at your own pace, wherever you are.
-              </p>
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-1000 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)`}}
+            >
+              {slides.map((slide, index) => (
+                <div key={index} className="w-full flex-shrink-0 px-6 py-10">
+                  {slide.content}
+                </div>
+              ))}
             </div>
           </div>
         </section>
