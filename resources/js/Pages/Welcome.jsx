@@ -141,19 +141,19 @@ export default function Welcome() {
       <Head>
         <title>Welcome</title>
       </Head>
-      <div className="w-full min-h-screen bg-blue-900 text-black font-serif">
-        <header className="sticky top-0 z-50 w-full bg-blue-900 text-white shadow-md py-2 px-8 flex justify-between items-center">
+      <div className="w-full min-h-screen bg-blue-900 text-black font-serif ">
+        <header className="sticky top-0 z-50 w-full bg-blue-900 text-white shadow-md py-2 px-2 flex justify-between items-center">
           <div className="d-flex justify-content-between align-items-center gap-4">
-            <img src="/images/icon_app2.png" alt="icon de app" className="h-24 w-24" style={{ borderRadius: '100%' }} />
-            <h1 className="text-2xl font-extrabold tracking-wide" style={{}}>Easy Learning</h1>
+            <img src="/images/icon_app2.png" alt="icon de app" className="h-24 w-24 decrease-imgage-welcome" style={{ borderRadius: '100%' }} />
+            <h1 className="text-2xl font-extrabold tracking-wide hide-title-app" style={{}}>Easy Learning</h1>
           </div>
-          <div className="space-x-4">
+          <div className="space-x-4 decrease-size-biouton-login-register ">
             <Link href={route('login')} className="hover:underline font-medium">Login</Link>
-            <Link href={route('register')} className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 font-semibold transition">Sign Up</Link>
+            <Link href={route('register')} className="bg-blue-700 text-white px-2 py-2 rounded-lg hover:bg-blue-800 font-semibold transition">Sign Up</Link>
           </div>
         </header>
         <section className="bg-white px-6 py-16">
-          <h2 className="text-5xl font-bold text-blue-800 text-center mb-12">Welcome to Easy Learning 📘</h2>
+          <h2 className="text-5xl font-bold text-blue-800 text-center mb-12 decrease-msg-welcome">Welcome to Easy Learning 📘</h2>
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-1000 ease-in-out"

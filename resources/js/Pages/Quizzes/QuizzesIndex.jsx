@@ -173,11 +173,11 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
 
 
 
-        <div className="d-flex justify-content-between align-items-center  mb-4">
+        <div className="d-md-flex justify-content-between align-items-center  mb-4">
           {/* Boutons de filtre */}
           <div className="d-flex justify-content-center gap-3">
             <button
-              className={`btn ${activeTab === 'my' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-4 py-2`}
+              className={`btn ${activeTab === 'my' ? 'btn-primary' : 'btn-outline-primary'} fw-bold px-2 py-2`}
               onClick={() => setActiveTab('my')}
             >
               My topics {/*<span className="badge">{myQuizzes}</span>  */}
@@ -190,7 +190,7 @@ export default function QuizIndex({ myQuizzes, otherQuizzes, flash }) {
             </button>
           </div>
 
-          <button className="btn btn-primary" onClick={() => setShowSujetModal(true)}>
+          <button className="btn btn-primary mt-2" onClick={() => setShowSujetModal(true)}>
             <span className="fs-5">+</span> New quizz
           </button>
 

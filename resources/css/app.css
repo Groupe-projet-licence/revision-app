@@ -46,20 +46,56 @@ Style géneral
     }
 }
 
-.spinner-border.slow{
+.spinner-border.slow {
     animation-duration: 1s;
 }
+
+@media screen and (max-width:500px) {
+
+    .hide-title-app {
+        display: none;
+    }
+
+    .decrease-imgage-welcome {
+        width: 20vw;
+        height: 20vw;
+    }
+
+    .decrease-msg-welcome {
+        font-size: 10vw;
+    }
+
+    .decrease-size-biouton-login-register {
+        font-size: 5vw;
+    }
+
+}
+
+@media screen and (max-width:500px) {
+
+    .btn {
+        width: 20ww !important;
+        padding: .25rem .5rem;
+        font-size: .875rem;
+        line-height: 1.5;
+        border-radius: .2rem
+    }
+
+}
+
 /* --------------------------------------------------------------
                                 Barre de scroll 
 -----------------------------------------------------------------*/
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 10px;
 }
-::-webkit-scrollbar-track{
-    background:white;
+
+::-webkit-scrollbar-track {
+    background: white;
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
     margin-top: 200px;
     background: #0d6efd;
     border-left: 1px white solid;
@@ -91,6 +127,7 @@ Style géneral
 .hide-quill .masking-quill .ql-toolbar.ql-snow {
     display: none;
 }
+
 .hide-quill .masking-quill .ql-container.ql-snow {
     border-radius: 8px;
     border: rgb(126, 126, 126) 1px solid !important;
@@ -105,6 +142,7 @@ Style géneral
     border-left: rgb(243, 49, 49) 1px solid !important;
     border-right: rgb(243, 49, 49) 1px solid !important;
 }
+
 .quill-error.masking-quill .ql-container.ql-snow {
     border-radius: 0 0 8px 8px;
     border-top: rgb(243, 49, 49) 1px solid !important;
@@ -112,6 +150,7 @@ Style géneral
     border-left: rgb(243, 49, 49) 1px solid !important;
     border-right: rgb(243, 49, 49) 1px solid !important;
 }
+
 .small-quill .quill-error.masking-quill .ql-container.ql-snow {
     border-radius: 8px;
     border: rgb(243, 49, 49) 1px solid !important;
@@ -127,6 +166,7 @@ Style géneral
     border-left: rgb(126, 126, 126) 1px solid !important;
     border-right: rgb(126, 126, 126) 1px solid !important;
 }
+
 .quill-error.masking-quill.focused .ql-toolbar.ql-snow {
     border-radius: 8px 8px 0 0;
     border-top: rgb(243, 49, 49) 1px solid !important;
@@ -142,6 +182,7 @@ Style géneral
     border-left: rgb(126, 126, 126) 1px solid !important;
     border-right: rgb(126, 126, 126) 1px solid !important;
 }
+
 .quill-error.masking-quill.focused .ql-container.ql-snow {
     border-radius: 0 0 8px 8px;
     border-top: rgb(243, 49, 49) 1px solid !important;
@@ -156,6 +197,7 @@ Style géneral
 .small-quill .loader {
     display: none;
 }
+
 .ql-snow .ql-editor pre {
     background-color: rgba(13, 110, 253, 0.6) ! important;
     color: white;
@@ -196,7 +238,8 @@ Style géneral
     box-shadow: 0 0 4px #918f8f;
     max-width: 400px;
 }
-.max-width-title-sheet{
+
+.max-width-title-sheet {
     max-width: calc(100% - 120px);
 }
 

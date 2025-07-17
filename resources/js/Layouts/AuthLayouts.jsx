@@ -211,24 +211,24 @@ function SidebarLinks({ reduceSideBar = true }) {
       </li> */}
 
       <li className="nav-item mb-2">
-  <Link
-    href={route('ratings.index')}
-    className={`nav-link ${isActive('/ratings') ? 'text-white bg-primary rounded' : 'text-dark'} px-3 py-1`}
-  >
-    <i
-      className="bi bi-star-fill me-2 reduce-margin-icon-side-bar"
-      style={{ color: 'white', WebkitTextStroke: '1px black' }}
-    ></i>
-    {reduceSideBar && 'RATE US'}
-  </Link>
-</li>
+        <Link
+          href={route('ratings.index')}
+          className={`nav-link ${isActive('/ratings') ? 'text-white bg-primary rounded' : 'text-dark'} px-3 py-1`}
+        >
+          <i
+            className="bi bi-star-fill me-2 reduce-margin-icon-side-bar"
+            style={{ color: 'white', WebkitTextStroke: '1px black' }}
+          ></i>
+          {reduceSideBar && 'RATE US'}
+        </Link>
+      </li>
 
 
-      <li className="nav-item mb-2">
+      {/* <li className="nav-item mb-2">
         <Link href={route('chatbot')} className={`nav-link ${isActive('/chatbot') ? 'text-white bg-primary rounded' : 'text-dark'}  px-3 py-1`}>
           <i className="bi bi-robot me-2 reduce-margin-icon-side-bar nav-chatbot"></i>{reduceSideBar && 'Assistant IA'}
         </Link>
-      </li>
+      </li> */}
     </ul>
   );
 }

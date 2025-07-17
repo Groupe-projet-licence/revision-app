@@ -64,13 +64,13 @@ const Evaluate = ({ quiz }) => {
       <Head title="Quiz" />
 
       <div className="mb-6">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-sm-flex justify-content-between align-items-center">
           <h1 className="text-2xl font-bold">{quiz.title}</h1>
           <Link
             className="btn btn-primary"
             href={route("questions.create", quiz.id)}
           >
-            <span className="fs-5">+</span> New question
+            <span className="fs-5 mt-1">+</span> New question
           </Link>
         </div>
       </div>
