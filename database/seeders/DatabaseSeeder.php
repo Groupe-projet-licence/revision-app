@@ -29,14 +29,14 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             "name" => "Darlin",
             "email" => "donfackdarlin@gmail.com",
-            'role'=>'admin',
+            'role' => 'admin',
             "password" => Hash::make("670748873")
         ]);
         $user1 = User::factory()->create([
             "name" => "rochelin",
             "email" => "anoumedemrochelin6@gmail.com",
             "password" => Hash::make("698112522"),
-            'role'=>'admin'
+            'role' => 'admin'
         ]);
         \App\Models\User::factory(count: 5)->create();
 
@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
                     <h2><strong>Modèles NoSQL</strong></h2>
                     <p>Pour les données non structurées ou volumineuses : <strong>MongoDB, Redis…</strong></p>
                 ',
-                'next_revision_at'=>Carbon::yesterday()
+                'next_revision_at' => Carbon::yesterday()
             ],
             [
                 'title' => 'Le Cycle de Vie du Logiciel',
@@ -181,7 +181,7 @@ button.setOnClickListener(v -> {
             ],
             [
                 'title' => 'Réseaux Informatiques : Bases',
-                'category_id' =>11,
+                'category_id' => 11,
                 'content' => '
                     <h1><strong>Réseaux Informatiques</strong></h1>
                     <p>Permet d’interconnecter des équipements pour échanger des données.</p>
@@ -272,572 +272,107 @@ button.setOnClickListener(v -> {
 
 
         $userId = 1;
+
         $subjects = [
             'Génie Logiciel' => [
-                ['question' => "Qu'est-ce qu'un diagramme de séquence en UML ?", 'answers' => ['Représente les interactions dans le temps.', 'Décrit les classes et leurs attributs.', 'Définit la base de données.', 'Indique la politique réseau.',],],
-                ['question' => "Que signifie DRY en génie logiciel ?", 'answers' => ['Don’t Repeat Yourself.', 'Deploy Rapidly Yearly.', 'Do Redirect Yourself.', 'Define Reliable YAML.',],],
-                ['question' => "Rôle du Product Owner dans Scrum ?", 'answers' => ['Gère le backlog produit.', 'Test le code quotidiennement.', 'Développe les APIs.', 'Supervise le serveur DNS.',],],
-                ['question' => "Qu'est-ce qu'une User Story ?", 'answers' => ['Description fonctionnelle centrée utilisateur.', 'Script de migration de base.', 'Diagramme réseau.', 'Document d’architecture matérielle.',],],
-                ['question' => "C'est quoi la dette technique ?", 'answers' => ['Compromis à court terme sur la qualité.', 'Protocole de cryptage logiciel.', 'Framework d’authentification.', 'Méthode de compression vidéo.',],],
-                ['question' => "Qu’est-ce que CI/CD ?", 'answers' => ['Intégration et déploiement continus.', 'Compression Interactive.', 'Communication Intranet.', 'Câblage Intelligent.',],],
-                ['question' => "Quel outil pour gérer le code source ?", 'answers' => ['Git', 'MySQL', 'Photoshop', 'Apache',],],
-                ['question' => "Un test unitaire sert à quoi ?", 'answers' => ['Tester une fonction isolée.', 'Superviser la charge CPU.', 'Modifier les interfaces réseau.', 'Optimiser les logs serveur.',],],
-                ['question' => "Qu’est-ce qu’un commit en développement ?", 'answers' => ['Sauvegarde d’un état du code.', 'Ajout d’une route réseau.', 'Mise à jour du BIOS.', 'Création d’une machine virtuelle.',],],
-                ['question' => "Que signifie UML ?", 'answers' => ['Unified Modeling Language.', 'User Management Level.', 'Universal Media Language.', 'Unit Measurement Logger.',],],
+                ['question' => "Qu'est-ce qu'un diagramme de séquence en UML ?", 'answers' => ['Représente les interactions dans le temps.', 'Décrit les classes et leurs attributs.', 'Indique la politique réseau.', 'Définit la base de données.']],
+                ['question' => "Que signifie DRY en génie logiciel ?", 'answers' => ['Don’t Repeat Yourself.', 'Do Redirect Yourself.', 'Deploy Rapidly Yearly.', 'Define Reliable YAML.']],
+                [
+                    'question' => "Rôle du Product Owner dans Scrum ?",
+                    'answers' => [
+                        '<ul><li>Gère le backlog produit.</li><li>Priorise les fonctionnalités.</li></ul>',
+                        '<ul><li>Configure les pare-feux.</li><li>Analyse les logs réseau.</li></ul>',
+                    ]
+                ],
+                [
+                    'question' => "Qu'est-ce qu'une User Story ?",
+                    'answers' => [
+                        '<ul><li>Description fonctionnelle centrée utilisateur.</li><li>Petite fonctionnalité apportant de la valeur.</li></ul>',
+                        '<ul><li>Document d’architecture réseau.</li><li>Extrait du modèle de données.</li></ul>',
+                    ]
+                ],
+                ['question' => "C'est quoi la dette technique ?", 'answers' => ['Compromis à court terme sur la qualité.', 'Protocole de cryptage logiciel.', 'Framework d’authentification.', 'Méthode de compression vidéo.']],
+                ['question' => "Qu’est-ce que CI/CD ?", 'answers' => ['Intégration et déploiement continus.', 'Compression Interactive.', 'Communication Intranet.', 'Câblage Intelligent.']],
+                ['question' => "Quel outil pour gérer le code source ?", 'answers' => ['Git', 'Photoshop', 'Apache', 'MySQL']],
+                ['question' => "Un test unitaire sert à quoi ?", 'answers' => ['Tester une fonction isolée.', 'Superviser la charge CPU.', 'Modifier les interfaces réseau.', 'Optimiser les logs serveur.']],
+                ['question' => "Qu’est-ce qu’un commit en développement ?", 'answers' => ['Sauvegarde d’un état du code.', 'Ajout d’une route réseau.', 'Création d’une machine virtuelle.', 'Mise à jour du BIOS.']],
+                ['question' => "Que signifie UML ?", 'answers' => ['Unified Modeling Language.', 'Unit Measurement Logger.', 'User Management Level.', 'Universal Media Language.']],
             ],
             'Réseau' => [
+                ['question' => "Quelle couche du modèle OSI gère les paquets IP ?", 'answers' => ['Couche Réseau.', 'Couche Application.', 'Couche Liaison.', 'Couche Physique.']],
+                ['question' => "Qu'est-ce qu'une adresse MAC ?", 'answers' => ['Identifiant unique d’une carte réseau.', 'Adresse logique IP.', 'Protocole de transfert.', 'Type de câble.']],
                 [
-                    'question' => "Quel protocole attribue des IP dynamiques ?",
+                    'question' => "Différence entre TCP et UDP ?",
                     'answers' => [
-                        'DHCP',
-                        'DNS',
-                        'FTP',
-                        'SSH',
-                    ],
+                        '<ul><li>TCP est fiable, UDP est rapide.</li><li>TCP garantit la livraison, UDP non.</li></ul>',
+                        '<ul><li>TCP chiffre les données, UDP non.</li><li>UDP est basé sur HTTP.</li></ul>',
+                    ]
                 ],
                 [
-                    'question' => "Quel outil vérifie la connectivité réseau ?",
+                    'question' => "À quoi sert le protocole DNS ?",
                     'answers' => [
-                        'Ping',
-                        'Word',
-                        'MySQL',
-                        'Chrome',
-                    ],
+                        '<ul><li>Résoudre les noms de domaine.</li><li>Convertir les URL en adresses IP.</li></ul>',
+                        '<ul><li>Créer des VLANs.</li><li>Gérer le pare-feu.</li></ul>',
+                    ]
                 ],
-                [
-                    'question' => "Un VPN permet quoi ?",
-                    'answers' => [
-                        'Créer un tunnel sécurisé.',
-                        'Gérer les comptes utilisateurs.',
-                        'Stocker des fichiers multimédias.',
-                        'Compiler du code Java.',
-                    ],
-                ],
-                [
-                    'question' => "C'est quoi HTTP ?",
-                    'answers' => [
-                        'Protocole de transfert web.',
-                        'Langage de programmation.',
-                        'Serveur mail.',
-                        'Routeur intelligent.',
-                    ],
-                ],
-                [
-                    'question' => "Le rôle d'un routeur ?",
-                    'answers' => [
-                        'Transférer les paquets entre réseaux.',
-                        'Créer des bases de données.',
-                        'Analyser les virus.',
-                        'Protéger contre le phishing.',
-                    ],
-                ],
-                [
-                    'question' => "Quelle commande sous Linux teste la connectivité ?",
-                    'answers' => [
-                        'ping',
-                        'mkdir',
-                        'sudo',
-                        'cp',
-                    ],
-                ],
-                [
-                    'question' => "Quel port pour le HTTPS ?",
-                    'answers' => [
-                        '443',
-                        '21',
-                        '80',
-                        '8080',
-                    ],
-                ],
-                [
-                    'question' => "Adresse IP privée typique ?",
-                    'answers' => [
-                        '192.168.x.x',
-                        '8.8.8.8',
-                        '172.217.0.0',
-                        '224.0.0.1',
-                    ],
-                ],
-                [
-                    'question' => "Que signifie LAN ?",
-                    'answers' => [
-                        'Local Area Network.',
-                        'Large Access Node.',
-                        'Logical App Network.',
-                        'Linux Application Name.',
-                    ],
-                ],
-                [
-                    'question' => "Le DNS sert à quoi ?",
-                    'answers' => [
-                        'Résoudre un nom en IP.',
-                        'Stocker des pages web.',
-                        'Analyser le code source.',
-                        'Compresser des images.',
-                    ],
-                ],
+                ['question' => "Quel protocole attribue automatiquement une IP ?", 'answers' => ['DHCP', 'DNS', 'HTTP', 'FTP']],
+                ['question' => "Quel outil pour tester la connectivité réseau ?", 'answers' => ['Ping', 'Git', 'MySQL', 'Photoshop']],
+                ['question' => "Un switch opère à quelle couche OSI ?", 'answers' => ['Couche Liaison (2)', 'Couche Réseau (3)', 'Couche Transport (4)', 'Couche Application (7)']],
+                ['question' => "Quel est le rôle du pare-feu ?", 'answers' => ['Filtrer les connexions réseau.', 'Compiler du code.', 'Analyser les logs.', 'Ouvrir des ports.']],
+                ['question' => "Qu’est-ce qu’un VPN ?", 'answers' => ['Réseau privé virtuel sécurisé.', 'Serveur web.', 'Outil de compression.', 'Protocole mail.']],
+                ['question' => "Que signifie HTTP ?", 'answers' => ['HyperText Transfer Protocol.', 'Hyper Type Table Packet.', 'High Transfer Terminal Protocol.', 'Host Text Tag Processor.']],
             ],
-            'Bases de Données' => [
+            'Base de Données' => [
+                ['question' => "Qu'est-ce qu'une clé primaire ?", 'answers' => ['Identifie de manière unique une ligne.', 'Représente une relation.', 'Trie les colonnes.', 'Compresse les données.']],
+                ['question' => "Quel langage interroge les bases de données ?", 'answers' => ['SQL', 'HTML', 'PHP', 'CSS']],
                 [
-                    'question' => "C'est quoi une clé primaire ?",
+                    'question' => "À quoi sert une jointure (JOIN) ?",
                     'answers' => [
-                        'Identifiant unique d’un enregistrement.',
-                        'Mot de passe du serveur.',
-                        'Protocole de chiffrement.',
-                        'Adresse IP de la base.',
-                    ],
+                        '<ul><li>Combiner plusieurs tables.</li><li>Associer des enregistrements liés.</li></ul>',
+                        '<ul><li>Créer un trigger.</li><li>Définir un index.</li></ul>',
+                    ]
                 ],
                 [
-                    'question' => "SQL signifie quoi ?",
+                    'question' => "Différence entre DELETE et TRUNCATE ?",
                     'answers' => [
-                        'Structured Query Language.',
-                        'Server Query Logic.',
-                        'Sequential Quick Loop.',
-                        'Standard Query List.',
-                    ],
+                        '<ul><li>DELETE peut être filtré, TRUNCATE supprime tout.</li><li>DELETE est transactionnel.</li></ul>',
+                        '<ul><li>TRUNCATE crypte la table.</li><li>DELETE crée un index.</li></ul>',
+                    ]
                 ],
-                [
-                    'question' => "Index en base : rôle ?",
-                    'answers' => [
-                        'Accélérer les recherches.',
-                        'Afficher les images.',
-                        'Créer des logs.',
-                        'Stocker les emails.',
-                    ],
-                ],
-                [
-                    'question' => "Quel SGBD est NoSQL ?",
-                    'answers' => [
-                        'MongoDB',
-                        'MySQL',
-                        'Oracle',
-                        'PostgreSQL',
-                    ],
-                ],
-                [
-                    'question' => "C'est quoi une table ?",
-                    'answers' => [
-                        'Ensemble structuré de données.',
-                        'Langage de script.',
-                        'Protocole réseau.',
-                        'Variable PHP.',
-                    ],
-                ],
-                [
-                    'question' => "Langage pour interroger MySQL ?",
-                    'answers' => [
-                        'SQL',
-                        'HTML',
-                        'SSH',
-                        'Python',
-                    ],
-                ],
-                [
-                    'question' => "Commande pour afficher une table en MySQL ?",
-                    'answers' => [
-                        'SELECT * FROM table',
-                        'GET table',
-                        'SHOW files',
-                        'DISPLAY table',
-                    ],
-                ],
-                [
-                    'question' => "C'est quoi une clé étrangère ?",
-                    'answers' => [
-                        'Lien entre deux tables.',
-                        'Cryptage des données.',
-                        'Identifiant du serveur.',
-                        'Adresse MAC du routeur.',
-                    ],
-                ],
-                [
-                    'question' => "C'est quoi une requête ?",
-                    'answers' => [
-                        'Instruction envoyée à la base.',
-                        'Interface graphique.',
-                        'Message réseau.',
-                        'Image compressée.',
-                    ],
-                ],
-                [
-                    'question' => "Quel type de base stocke des documents JSON ?",
-                    'answers' => [
-                        'NoSQL',
-                        'SQL',
-                        'FTP',
-                        'DNS',
-                    ],
-                ],
-            ],
-            'Algorithmique' => [
-                [
-                    'question' => "Complexité de recherche linéaire ?",
-                    'answers' => [
-                        'O(n)',
-                        'O(1)',
-                        'O(log n)',
-                        'O(n²)',
-                    ],
-                ],
-                [
-                    'question' => "Algorithme basé sur 'diviser pour régner' ?",
-                    'answers' => [
-                        'Quicksort',
-                        'Tri à bulles',
-                        'Recherche linéaire',
-                        'Tri par insertion',
-                    ],
-                ],
-                [
-                    'question' => "À quoi sert un arbre binaire ?",
-                    'answers' => [
-                        'Structurer des données hiérarchiques.',
-                        'Crypter des données.',
-                        'Générer des nombres aléatoires.',
-                        'Gérer les threads système.',
-                    ],
-                ],
-                [
-                    'question' => "Algorithme de tri le plus rapide en moyenne ?",
-                    'answers' => [
-                        'Quicksort',
-                        'Selection sort',
-                        'Bubble sort',
-                        'Insertion sort',
-                    ],
-                ],
-                [
-                    'question' => "Complexité de Tri à Bulles ?",
-                    'answers' => [
-                        'O(n²)',
-                        'O(1)',
-                        'O(n)',
-                        'O(log n)',
-                    ],
-                ],
-                [
-                    'question' => "Complexité de recherche dichotomique ?",
-                    'answers' => [
-                        'O(log n)',
-                        'O(n²)',
-                        'O(n)',
-                        'O(1)',
-                    ],
-                ],
-                [
-                    'question' => "Un algorithme glouton c'est quoi ?",
-                    'answers' => [
-                        'Choisit localement la meilleure option.',
-                        'Compare systématiquement tous les cas.',
-                        'Utilise un arbre binaire.',
-                        'Ordre aléatoire.',
-                    ],
-                ],
-                [
-                    'question' => "Variable de contrôle dans une boucle for ?",
-                    'answers' => [
-                        'Indice de répétition.',
-                        'Taille du tableau.',
-                        'Type de protocole.',
-                        'Format de message réseau.',
-                    ],
-                ],
-                [
-                    'question' => "Que signifie Big O ?",
-                    'answers' => [
-                        'Notation de complexité.',
-                        'Norme de sécurité.',
-                        'Type de base SQL.',
-                        'Adresse réseau.',
-                    ],
-                ],
-                [
-                    'question' => "Complexité d'un parcours séquentiel ?",
-                    'answers' => [
-                        'O(n)',
-                        'O(log n)',
-                        'O(1)',
-                        'O(n²)',
-                    ],
-                ],
-            ],
-            'Sécurité Informatique' => [
-                [
-                    'question' => "C'est quoi le phishing ?",
-                    'answers' => [
-                        'Usurpation pour voler des infos.',
-                        'Cryptage de disque.',
-                        'Logiciel antivirus.',
-                        'Surveillance du trafic web.',
-                    ],
-                ],
-                [
-                    'question' => "HTTPS sert à quoi ?",
-                    'answers' => [
-                        'Sécuriser les échanges web.',
-                        'Accélérer le chargement.',
-                        'Faire des sauvegardes.',
-                        'Gérer la mémoire vive.',
-                    ],
-                ],
-                [
-                    'question' => "Différence symétrique/asymétrique ?",
-                    'answers' => [
-                        'Clé unique contre clé publique/privée.',
-                        'Adresse IP fixe contre dynamique.',
-                        'SQL contre NoSQL.',
-                        'Serveur proxy contre VPN.',
-                    ],
-                ],
-                [
-                    'question' => "Qu'est-ce qu'un ransomware ?",
-                    'answers' => [
-                        'Logiciel de rançon bloquant des données.',
-                        'Protocole de chiffrement.',
-                        'Application de gestion DNS.',
-                        'Pare-feu matériel.',
-                    ],
-                ],
-                [
-                    'question' => "Que signifie SSL ?",
-                    'answers' => [
-                        'Secure Socket Layer.',
-                        'Server Session List.',
-                        'Super Security Level.',
-                        'Secure Service Locator.',
-                    ],
-                ],
-                [
-                    'question' => "Attaque DDoS : principe ?",
-                    'answers' => [
-                        'Saturation d’un serveur par requêtes.',
-                        'Modification des DNS.',
-                        'Usurpation IP.',
-                        'Backup réseau.',
-                    ],
-                ],
-                [
-                    'question' => "Firewall : fonction ?",
-                    'answers' => [
-                        'Filtre le trafic réseau.',
-                        'Convertit des vidéos.',
-                        'Stocke des logs.',
-                        'Trie des emails.',
-                    ],
-                ],
-                [
-                    'question' => "Antivirus détecte quoi ?",
-                    'answers' => [
-                        'Malwares et virus.',
-                        'Adresses IP.',
-                        'Flux RSS.',
-                        'Extensions CSS.',
-                    ],
-                ],
-                [
-                    'question' => "HTTPS utilise quel port ?",
-                    'answers' => [
-                        '443',
-                        '80',
-                        '21',
-                        '25',
-                    ],
-                ],
-                [
-                    'question' => "Que protège le chiffrement ?",
-                    'answers' => [
-                        'La confidentialité des données.',
-                        'Le nombre de connexions.',
-                        'L\'espace disque.',
-                        'L\'affichage graphique.',
-                    ],
-                ],
+                ['question' => "Que fait la commande SELECT ?", 'answers' => ['Récupère des données.', 'Insère des données.', 'Supprime une table.', 'Modifie la structure.']],
+                ['question' => "Un index en base de données sert à ?", 'answers' => ['Accélérer les recherches.', 'Chiffrer les champs.', 'Nettoyer les données.', 'Créer des utilisateurs.']],
+                ['question' => "Une base relationnelle est basée sur ?", 'answers' => ['Des tables liées.', 'Des fichiers XML.', 'Des structures arborescentes.', 'Des documents JSON.']],
+                ['question' => "Que signifie SGBD ?", 'answers' => ['Système de Gestion de Base de Données.', 'Script Général de Bloc de Données.', 'Sécurisation Globale des Bases Distribuées.', 'Serveur Graphique Basique Dédié.']],
+                ['question' => "Quel type de clé permet de relier deux tables ?", 'answers' => ['Clé étrangère.', 'Clé primaire.', 'Clé de tri.', 'Clé symétrique.']],
+                ['question' => "Quel SGBD est orienté documents ?", 'answers' => ['MongoDB', 'MySQL', 'PostgreSQL', 'Oracle']],
             ],
             'Systèmes d’Exploitation' => [
+                ['question' => "Quel est le rôle du noyau (kernel) ?", 'answers' => ['Gérer l’interaction matériel-logiciel.', 'Afficher l’interface.', 'Dessiner les fenêtres.', 'Créer les fichiers.']],
+                ['question' => "Que fait un planificateur de tâches ?", 'answers' => ['Attribue le temps CPU aux processus.', 'Supprime les fichiers.', 'Chiffre les données.', 'Affiche les logs.']],
                 [
-                    'question' => "Rôle du kernel ?",
+                    'question' => "Différence entre processus et thread ?",
                     'answers' => [
-                        'Gérer les ressources matérielles.',
-                        'Éditer des images.',
-                        'Compresser des fichiers.',
-                        'Gérer le webmail.',
-                    ],
+                        '<ul><li>Un thread est plus léger qu’un processus.</li><li>Un processus peut contenir plusieurs threads.</li></ul>',
+                        '<ul><li>Un thread remplace un noyau.</li><li>Un processus ne contient pas de mémoire.</li></ul>',
+                    ]
                 ],
                 [
-                    'question' => "Commande Linux pour afficher les processus ?",
+                    'question' => "Que signifie multitâche ?",
                     'answers' => [
-                        'ps',
-                        'mv',
-                        'chmod',
-                        'mkdir',
-                    ],
+                        '<ul><li>Exécuter plusieurs tâches simultanément.</li><li>Partager les ressources CPU.</li></ul>',
+                        '<ul><li>Ouvrir plusieurs fenêtres.</li><li>Installer plusieurs OS.</li></ul>',
+                    ]
                 ],
-                [
-                    'question' => "Qu'est-ce qu'un appel système ?",
-                    'answers' => [
-                        'Requête d’un programme au noyau.',
-                        'Lancement d’un navigateur.',
-                        'Protocole réseau.',
-                        'Méthode de tri.',
-                    ],
-                ],
-                [
-                    'question' => "Que signifie OS ?",
-                    'answers' => [
-                        'Operating System.',
-                        'Online Service.',
-                        'Object Storage.',
-                        'Open Source.',
-                    ],
-                ],
-                [
-                    'question' => "Système basé Unix ?",
-                    'answers' => [
-                        'Linux',
-                        'Windows',
-                        'Excel',
-                        'Android Studio',
-                    ],
-                ],
-                [
-                    'question' => "Partition système principale sous Linux ?",
-                    'answers' => [
-                        '/',
-                        '/home',
-                        '/etc',
-                        '/mnt',
-                    ],
-                ],
-                [
-                    'question' => "Commande Linux pour créer un dossier ?",
-                    'answers' => [
-                        'mkdir',
-                        'ping',
-                        'grep',
-                        'ls',
-                    ],
-                ],
-                [
-                    'question' => "Fichier exécuté au démarrage Linux ?",
-                    'answers' => [
-                        '/etc/init.d/',
-                        '/home/config/',
-                        '/usr/bin/boot/',
-                        '/var/www/html/',
-                    ],
-                ],
-                [
-                    'question' => "Mémoire vive autre nom ?",
-                    'answers' => [
-                        'RAM',
-                        'ROM',
-                        'SSD',
-                        'CPU',
-                    ],
-                ],
-                [
-                    'question' => "Utilitaire Linux pour surveiller la mémoire ?",
-                    'answers' => [
-                        'top',
-                        'cat',
-                        'who',
-                        'find',
-                    ],
-                ],
-            ],
-            'Programmation Web' => [
-                [
-                    'question' => "Balise pour JavaScript externe ?",
-                    'answers' => [
-                        '<script src="..."></script>',
-                        '<link>',
-                        '<style>',
-                        '<js>',
-                    ],
-                ],
-                [
-                    'question' => "DOM signifie ?",
-                    'answers' => [
-                        'Document Object Model.',
-                        'Direct Object Mapping.',
-                        'Data Option Manager.',
-                        'Domain Operating Mode.',
-                    ],
-                ],
-                [
-                    'question' => "Framework CSS populaire ?",
-                    'answers' => [
-                        'Tailwind',
-                        'SQL',
-                        'MySQL',
-                        'Python',
-                    ],
-                ],
-                [
-                    'question' => "Langage côté serveur ?",
-                    'answers' => [
-                        'PHP',
-                        'HTML',
-                        'CSS',
-                        'JSON',
-                    ],
-                ],
-                [
-                    'question' => "C'est quoi JSON ?",
-                    'answers' => [
-                        'Format d’échange de données.',
-                        'Serveur web.',
-                        'SGBD.',
-                        'Routeur.',
-                    ],
-                ],
-                [
-                    'question' => "Quel langage pour CSS dynamique ?",
-                    'answers' => [
-                        'SASS',
-                        'SQL',
-                        'HTML',
-                        'FTP',
-                    ],
-                ],
-                [
-                    'question' => "Attribut HTML pour un champ obligatoire ?",
-                    'answers' => [
-                        'required',
-                        'disabled',
-                        'value',
-                        'autoplay',
-                    ],
-                ],
-                [
-                    'question' => "Structure type d’un site web ?",
-                    'answers' => [
-                        'Header, Body, Footer',
-                        'Class, Method, Object',
-                        'IF, ELSE, WHILE',
-                        'Table, Row, Cell',
-                    ],
-                ],
-                [
-                    'question' => "Que retourne fetch() en JS ?",
-                    'answers' => [
-                        'Une promesse',
-                        'Une image',
-                        'Un PDF',
-                        'Une URL',
-                    ],
-                ],
-                [
-                    'question' => "Extension pour un fichier HTML ?",
-                    'answers' => [
-                        '.html',
-                        '.php',
-                        '.css',
-                        '.sql',
-                    ],
-                ],
-            ],
+                ['question' => "Quel est le rôle du système de fichiers ?", 'answers' => ['Organiser les fichiers sur le disque.', 'Compresser les données.', 'Sécuriser les connexions.', 'Compiler du code.']],
+                ['question' => "Que signifie BSOD sous Windows ?", 'answers' => ['Écran bleu de la mort.', 'Bug système opéré.', 'Blocage serveur on-demand.', 'Boîte système ouverte.']],
+                ['question' => "Une interruption matérielle sert à ?", 'answers' => ['Signaler un événement au CPU.', 'Effacer un fichier.', 'Afficher une alerte.', 'Sauvegarder des logs.']],
+                ['question' => "Que fait la commande `ls` sous Linux ?", 'answers' => ['Liste les fichiers.', 'Lance le système.', 'Lie un fichier.', 'Stoppe un processus.']],
+                ['question' => "Un deadlock est ?", 'answers' => ['Blocage mutuel entre processus.', 'Erreur mémoire.', 'Virus système.', 'Fuite de mémoire.']],
+                ['question' => "Qu’est-ce qu’une partition ?", 'answers' => ['Section du disque dur.', 'Type de processus.', 'Protocole réseau.', 'Unité RAM.']],
+            ]
         ];
+
+
         foreach ($subjects as $subject => $questions) {
             $quiz = Quiz::create([
                 'user_id' => 1,
@@ -858,19 +393,10 @@ button.setOnClickListener(v -> {
                     Answer::create([
                         'question_id' => $question->id,
                         'answer_text' => "<p>$answerText</p>",
-                        'is_correct' => $type === 'single' ? ($index === 0) : (rand(0, 1) === 0),
+                        'is_correct' => $index === 0,
                     ]);
                 }
             }
         }
-
-
-        /*------------------------------------------------------------------------------------
-         *                               History
-         *------------------------------------------------------------------------------------*/
-
-        $this->call([
-            
-        ]);
     }
 }

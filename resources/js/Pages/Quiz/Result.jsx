@@ -76,13 +76,13 @@ export default function Result({ submission }) {
 
         <div className="mt-10 text-center">
           <Link href={route('quiz.evaluate', submission.quiz_id)}
-            className="bg-yellow-500 text-white px-6 py-2 rounded mr-4 hover:bg-yellow-600">
+            className="bg-yellow-500 text-white px-6 py-2 rounded mr-4 hover:bg-yellow-600 btn">
             Restart quiz
           </Link>
 
           <Link
             href={route('history.index', submission.quiz_id)}
-            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 btn">
             View history
           </Link>
         </div>
