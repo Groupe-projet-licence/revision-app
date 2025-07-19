@@ -67,7 +67,7 @@ export default function Result({ submission }) {
               </ul>
 
               <div className={`mt-4 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                {isCorrect ? '✔ Bonne réponse' : '✘ Mauvaise réponse'}
+                {isCorrect ? '✔ Correct answer' : '✘ Wrong answer'}
               </div>
             </div>
           );

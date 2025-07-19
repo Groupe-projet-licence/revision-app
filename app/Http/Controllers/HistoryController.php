@@ -50,7 +50,7 @@ $userId = Auth::id();
     $grouped = [];
 
     foreach ($all as $item) {
-        $key = Carbon::parse($item['date'])->isToday() ? "Aujourd'hui" :
+        $key = Carbon::parse($item['date'])->isToday() ? "Today" :
                (Carbon::parse($item['date'])->isYesterday() ? "Hier" :
                Carbon::parse($item['date'])->translatedFormat('d F Y'));
 
