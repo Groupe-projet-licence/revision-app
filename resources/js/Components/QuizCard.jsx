@@ -41,7 +41,7 @@ export default function QuizCard({ quiz, onShare }) {
         <div className="d-flex flex-column justify-content-between gap-2" style={{ aspectRatio: 3 / 1.3 }}>
           <div className="d-flex align-items-center p-2">
             <div className="mx-2" style={{ fontSize: "2.2em" }}>
-              <i className="bi bi-clipboard-check text-primary"></i>
+              <i className="bi bi-clipboard-check text-secondary"></i>
             </div>
 
             <div className="m-2 max-width-title-sheet">
@@ -108,7 +108,7 @@ export default function QuizCard({ quiz, onShare }) {
               </div>
             ) : (
               <div style={{ fontSize: "0.75em", color: "#666" }}>
-                   Others
+                   
               </div>
             )}
           </div>

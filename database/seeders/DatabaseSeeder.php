@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
@@ -15,36 +14,26 @@ use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-
-
-        /*------------------------------------------------------------------------------------
-         *                               Users
-         *------------------------------------------------------------------------------------*/
-
+        // Users
         $user = User::factory()->create([
             "name" => "Darlin",
             "email" => "donfackdarlin@gmail.com",
             'role' => 'admin',
             "password" => Hash::make("670748873")
         ]);
+
         $user1 = User::factory()->create([
             "name" => "rochelin",
             "email" => "anoumedemrochelin6@gmail.com",
             "password" => Hash::make("698112522"),
             'role' => 'admin'
         ]);
+
         \App\Models\User::factory(count: 5)->create();
 
-
-        /*------------------------------------------------------------------------------------
-         *                               Categories pour les categories
-         *------------------------------------------------------------------------------------*/
-
+        // Categories
         $categoriesSubjects = [
             'Software Engineering',
             'Networking',
@@ -84,91 +73,88 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        /*------------------------------------------------------------------------------------
-         *                               Sheets
-         *------------------------------------------------------------------------------------*/
-
+        // Sheets
         $sheets = [
             [
-                'title' => 'Les Bases de Données Relationnelles',
+                'title' => 'Relational Databases',
                 'category_id' => 19,
                 'content' => '
-                    <h1><strong>Les Bases de Données Relationnelles</strong></h1>
-                    <p>Une <strong>base de données relationnelle</strong> permet de stocker des données sous forme de tables reliées entre elles.</p>
-                    <h2><strong>Éléments Fondamentaux</strong></h2>
+                    <h1><strong>Relational Databases</strong></h1>
+                    <p>A <strong>relational database</strong> stores data in related tables.</p>
+                    <h2><strong>Core Elements</strong></h2>
                     <ul>
-                        <li><strong>Clé primaire :</strong> identifiant unique.</li>
-                        <li><strong>Clé étrangère :</strong> référence externe.</li>
-                        <li><strong>Index :</strong> accélération des requêtes.</li>
+                        <li><strong>Primary Key:</strong> unique identifier.</li>
+                        <li><strong>Foreign Key:</strong> external reference.</li>
+                        <li><strong>Index:</strong> query speed-up.</li>
                     </ul>
-                    <h2><strong>Langage SQL</strong></h2>
+                    <h2><strong>SQL Language</strong></h2>
                     <pre>CREATE TABLE users ( id INT PRIMARY KEY, name VARCHAR(50) );</pre>
                     <h2><strong>Transactions</strong></h2>
                     <ul>
-                        <li><strong>Atomicité</strong></li>
-                        <li><strong>Cohérence</strong></li>
+                        <li><strong>Atomicity</strong></li>
+                        <li><strong>Consistency</strong></li>
                         <li><strong>Isolation</strong></li>
-                        <li><strong>Durabilité</strong></li>
+                        <li><strong>Durability</strong></li>
                     </ul>
-                    <blockquote>ACID est un concept fondamental des bases transactionnelles.</blockquote>
+                    <blockquote>ACID is a fundamental concept of transactional databases.</blockquote>
                     <hr>
-                    <h2><strong>Modèles NoSQL</strong></h2>
-                    <p>Pour les données non structurées ou volumineuses : <strong>MongoDB, Redis…</strong></p>
+                    <h2><strong>NoSQL Models</strong></h2>
+                    <p>For unstructured or large data: <strong>MongoDB, Redis…</strong></p>
                 ',
                 'next_revision_at' => Carbon::yesterday()
             ],
             [
-                'title' => 'Le Cycle de Vie du Logiciel',
+                'title' => 'Software Lifecycle',
                 'category_id' => 2,
                 'content' => '
-                    <h1><strong>Le Cycle de Vie d’un Logiciel</strong></h1>
-                    <p>Inclut plusieurs phases garantissant la qualité du logiciel.</p>
+                    <h1><strong>Software Lifecycle</strong></h1>
+                    <p>Includes several phases ensuring software quality.</p>
                     <h2><strong>Phases</strong></h2>
                     <ul>
-                        <li>Analyse des besoins</li>
-                        <li>Conception (UML)</li>
-                        <li>Implémentation</li>
-                        <li>Tests</li>
-                        <li>Déploiement</li>
+                        <li>Requirement Analysis</li>
+                        <li>Design (UML)</li>
+                        <li>Implementation</li>
+                        <li>Testing</li>
+                        <li>Deployment</li>
                         <li>Maintenance</li>
                     </ul>
-                    <h2><strong>Modèles de Développement</strong></h2>
+                    <h2><strong>Development Models</strong></h2>
                     <ul>
-                        <li>Cascade</li>
-                        <li>Cycle en V</li>
+                        <li>Waterfall</li>
+                        <li>V-Model</li>
                         <li>Agile (Scrum)</li>
-                        <li>Itératif</li>
+                        <li>Iterative</li>
                     </ul>
                     <h2><strong>UML</strong></h2>
                     <ul>
-                        <li>Diagrammes de classes</li>
-                        <li>Cas d’utilisation</li>
-                        <li>Séquences</li>
+                        <li>Class Diagrams</li>
+                        <li>Use Cases</li>
+                        <li>Sequence Diagrams</li>
                     </ul>
-                    <blockquote>Les diagrammes facilitent la compréhension du système.</blockquote>
+                    <blockquote>Diagrams facilitate system understanding.</blockquote>
                     <hr>
-                    <p>Appliquer les principes <strong>DRY</strong> et <strong>KISS</strong>.</p>
+                    <p>Apply <strong>DRY</strong> and <strong>KISS</strong> principles.</p>
                 ',
             ],
             [
-                'title' => 'Programmation Mobile : Concepts Clés',
+                'title' => 'Mobile Programming: Key Concepts',
                 'category_id' => 27,
                 'content' => '
-                    <h1><strong>Programmation Mobile</strong></h1>
-                    <p>Développement d’applications mobiles prenant en compte : autonomie, connectivité, tailles d’écran…</p>
-                    <h2><strong>Plateformes</strong></h2>
+                    <h1><strong>Mobile Programming</strong></h1>
+                    <p>Development of mobile apps considering: battery, connectivity, screen sizes...</p>
+                    <h2><strong>Platforms</strong></h2>
                     <ul>
-                        <li>Android : Java / Kotlin</li>
-                        <li>iOS : Swift</li>
-                        <li>Cross-Platform : Flutter, React Native</li>
+                        <li>Android: Java / Kotlin</li>
+                        <li>iOS: Swift</li>
+                        <li>Cross-Platform: Flutter, React Native</li>
                     </ul>
-                    <h2><strong>Architecture MVC</strong></h2>
+                    <h2><strong>MVC Architecture</strong></h2>
                     <ul>
-                        <li>Modèle : données</li>
-                        <li>Vue : interface</li>
-                        <li>Contrôleur : logique métier</li>
+                        <li>Model: data</li>
+                        <li>View: interface</li>
+                        <li>Controller: business logic</li>
                     </ul>
-                    <h2><strong>Exemple Code Android</strong></h2>
+                    <h2><strong>Android Code Example</strong></h2>
                     <pre>
 Button button = findViewById(R.id.myButton);
 button.setOnClickListener(v -> {
@@ -176,33 +162,33 @@ button.setOnClickListener(v -> {
 });
                     </pre>
                     <hr>
-                    <p>Utiliser des <strong>API REST</strong> pour les services distants.</p>
+                    <p>Use <strong>REST APIs</strong> for remote services.</p>
                 ',
             ],
             [
-                'title' => 'Réseaux Informatiques : Bases',
+                'title' => 'Computer Networks: Basics',
                 'category_id' => 11,
                 'content' => '
-                    <h1><strong>Réseaux Informatiques</strong></h1>
-                    <p>Permet d’interconnecter des équipements pour échanger des données.</p>
+                    <h1><strong>Computer Networks</strong></h1>
+                    <p>Allows devices to connect and exchange data.</p>
                     <h2><strong>Types</strong></h2>
                     <ul>
                         <li>LAN</li>
                         <li>MAN</li>
                         <li>WAN (Internet)</li>
                     </ul>
-                    <h2><strong>Matériel</strong></h2>
+                    <h2><strong>Hardware</strong></h2>
                     <ul>
                         <li>Switch</li>
-                        <li>Routeur</li>
-                        <li>Point d’accès</li>
+                        <li>Router</li>
+                        <li>Access Point</li>
                     </ul>
-                    <h2><strong>Adresses IP</strong></h2>
+                    <h2><strong>IP Addresses</strong></h2>
                     <ul>
-                        <li>IPv4 : 192.168.0.1</li>
-                        <li>IPv6 : 2001:db8::1</li>
+                        <li>IPv4: 192.168.0.1</li>
+                        <li>IPv6: 2001:db8::1</li>
                     </ul>
-                    <h2><strong>Protocoles</strong></h2>
+                    <h2><strong>Protocols</strong></h2>
                     <ul>
                         <li>TCP/IP</li>
                         <li>HTTP</li>
@@ -210,7 +196,7 @@ button.setOnClickListener(v -> {
                     </ul>
                     <pre>ping www.google.com</pre>
                     <hr>
-                    <blockquote>La sécurité réseau protège les ressources des utilisateurs.</blockquote>
+                    <blockquote>Network security protects user resources.</blockquote>
                 ',
             ],
         ];
@@ -224,45 +210,47 @@ button.setOnClickListener(v -> {
             ]);
         }
 
-
-        /*------------------------------------------------------------------------------------
-         *                               Quizs
-         *------------------------------------------------------------------------------------*/
-
+        // Quizzes
         $user1->quizzes()->createMany([
-            ['title' => 'Laravel', 'description' => 'Ma superbe description du framework Laravel',],
-            ['title' => 'Angular', 'description' => 'Ma superbe description du framework Angular',],
-            ['title' => 'ReactJs', 'description' => 'Ma superbe description de la librairie ReactJs',]
+            ['title' => 'Laravel', 'description' => 'My awesome description of the Laravel framework'],
+            ['title' => 'Angular', 'description' => 'My awesome description of the Angular framework'],
+            ['title' => 'ReactJs', 'description' => 'My awesome description of the ReactJs library']
         ]);
+
         Quiz::find(1)->questions()->createMany([
-            ['question_text' => "Qu'est ce que Laravel", 'type' => 'single'],
-            ['question_text' => "Que peut-on faire avec Laravel", 'type' => 'multiple'],
-            ['question_text' => "Quels sont les élements semblable a Laravel", 'type' => 'multiple'],
-            ['question_text' => "Pourquoi laravel utilise le moteur de template Blade", 'type' => 'single'],
-            ['question_text' => "Quel fichier d'un projet laravel est utilise pour gerer les variables de configuration specifiques a l'environnement ", 'type' => 'single'],
+            ['question_text' => 'What is Laravel?', 'type' => 'single'],
+            ['question_text' => 'What can be done with Laravel?', 'type' => 'multiple'],
+            ['question_text' => 'Which technologies are similar to Laravel?', 'type' => 'multiple'],
+            ['question_text' => 'Why does Laravel use the Blade template engine?', 'type' => 'single'],
+            ['question_text' => 'Which file in a Laravel project manages environment-specific config variables?', 'type' => 'single'],
         ]);
+
         Question::find(1)->answers()->createMany([
-            ['answer_text' => 'Un framework', 'is_correct' => true],
-            ['answer_text' => 'Une librairie', 'is_correct' => false],
-            ['answer_text' => 'Un autre nom pour parler de React', 'is_correct' => false],
+            ['answer_text' => 'A framework', 'is_correct' => true],
+            ['answer_text' => 'A library', 'is_correct' => false],
+            ['answer_text' => 'Another name for React', 'is_correct' => false],
         ]);
+
         Question::find(2)->answers()->createMany([
-            ['answer_text' => "Developer des applications web", 'is_correct' => true],
-            ['answer_text' => 'Créer des API pour gerer la logique backend dans un projet', 'is_correct' => true],
-            ['answer_text' => 'Versionner du code', 'is_correct' => false],
-            ['answer_text' => "Mettre en place un systeme d'authentification", 'is_correct' => true],
+            ['answer_text' => 'Build web applications', 'is_correct' => true],
+            ['answer_text' => 'Create APIs to handle backend logic in a project', 'is_correct' => true],
+            ['answer_text' => 'Version code', 'is_correct' => false],
+            ['answer_text' => 'Implement an authentication system', 'is_correct' => true],
         ]);
+
         Question::find(3)->answers()->createMany([
             ['answer_text' => 'Angular', 'is_correct' => true],
             ['answer_text' => 'Spring Boot', 'is_correct' => true],
             ['answer_text' => 'React', 'is_correct' => false],
         ]);
+
         Question::find(4)->answers()->createMany([
-            ['answer_text' => 'Pour simplifier la programmation', 'is_correct' => false],
-            ['answer_text' => 'Comme modele', 'is_correct' => false],
-            ['answer_text' => 'Pour faciliter la creation des controlleurs', 'is_correct' => false],
-            ['answer_text' => 'Pour la vue dans le MVC', 'is_correct' => true],
+            ['answer_text' => 'To simplify programming', 'is_correct' => false],
+            ['answer_text' => 'As a model', 'is_correct' => false],
+            ['answer_text' => 'To ease controller creation', 'is_correct' => false],
+            ['answer_text' => 'For the view in MVC', 'is_correct' => true],
         ]);
+
         Question::find(5)->answers()->createMany([
             ['answer_text' => '.env.example', 'is_correct' => false],
             ['answer_text' => '.env.local', 'is_correct' => false],
@@ -270,114 +258,367 @@ button.setOnClickListener(v -> {
             ['answer_text' => '.config', 'is_correct' => false],
         ]);
 
-
-        $userId = 1;
-
+        
         $subjects = [
-            'Génie Logiciel' => [
-                ['question' => "Qu'est-ce qu'un diagramme de séquence en UML ?", 'answers' => ['Représente les interactions dans le temps.', 'Décrit les classes et leurs attributs.', 'Indique la politique réseau.', 'Définit la base de données.']],
-                ['question' => "Que signifie DRY en génie logiciel ?", 'answers' => ['Don’t Repeat Yourself.', 'Do Redirect Yourself.', 'Deploy Rapidly Yearly.', 'Define Reliable YAML.']],
+            'Software Engineering' => [
                 [
-                    'question' => "Rôle du Product Owner dans Scrum ?",
+                    'question' => 'What is a sequence diagram in UML?',
                     'answers' => [
-                        '<ul><li>Gère le backlog produit.</li><li>Priorise les fonctionnalités.</li></ul>',
-                        '<ul><li>Configure les pare-feux.</li><li>Analyse les logs réseau.</li></ul>',
-                    ]
+                        'Represents interactions over time.',
+                        'Describes classes and their attributes.',
+                        'Indicates network policy.',
+                        'Defines the database.',
+                    ],
                 ],
                 [
-                    'question' => "Qu'est-ce qu'une User Story ?",
+                    'question' => 'What does DRY mean in software engineering?',
                     'answers' => [
-                        '<ul><li>Description fonctionnelle centrée utilisateur.</li><li>Petite fonctionnalité apportant de la valeur.</li></ul>',
-                        '<ul><li>Document d’architecture réseau.</li><li>Extrait du modèle de données.</li></ul>',
-                    ]
+                        'Don’t Repeat Yourself.',
+                        'Do Redirect Yourself.',
+                        'Deploy Rapidly Yearly.',
+                        'Define Reliable YAML.',
+                    ],
                 ],
-                ['question' => "C'est quoi la dette technique ?", 'answers' => ['Compromis à court terme sur la qualité.', 'Protocole de cryptage logiciel.', 'Framework d’authentification.', 'Méthode de compression vidéo.']],
-                ['question' => "Qu’est-ce que CI/CD ?", 'answers' => ['Intégration et déploiement continus.', 'Compression Interactive.', 'Communication Intranet.', 'Câblage Intelligent.']],
-                ['question' => "Quel outil pour gérer le code source ?", 'answers' => ['Git', 'Photoshop', 'Apache', 'MySQL']],
-                ['question' => "Un test unitaire sert à quoi ?", 'answers' => ['Tester une fonction isolée.', 'Superviser la charge CPU.', 'Modifier les interfaces réseau.', 'Optimiser les logs serveur.']],
-                ['question' => "Qu’est-ce qu’un commit en développement ?", 'answers' => ['Sauvegarde d’un état du code.', 'Ajout d’une route réseau.', 'Création d’une machine virtuelle.', 'Mise à jour du BIOS.']],
-                ['question' => "Que signifie UML ?", 'answers' => ['Unified Modeling Language.', 'Unit Measurement Logger.', 'User Management Level.', 'Universal Media Language.']],
+                [
+                    'question' => 'Role of the Product Owner in Scrum?',
+                    'answers' => [
+                        '<ul><li>Manages the product backlog.</li><li>Prioritizes features.</li></ul>',
+                        '<ul><li>Configures firewalls.</li><li>Analyzes network logs.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'What is a User Story?',
+                    'answers' => [
+                        '<ul><li>User-centered functional description.</li><li>Small feature delivering value.</li></ul>',
+                        '<ul><li>Network architecture document.</li><li>Excerpt from data model.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'What is technical debt?',
+                    'answers' => [
+                        'Short-term compromise on quality.',
+                        'Software encryption protocol.',
+                        'Authentication framework.',
+                        'Video compression method.',
+                    ],
+                ],
+                [
+                    'question' => 'What is CI/CD?',
+                    'answers' => [
+                        'Continuous Integration and Deployment.',
+                        'Interactive Compression.',
+                        'Intranet Communication.',
+                        'Intelligent Cabling.',
+                    ],
+                ],
+                [
+                    'question' => 'Which tool is used to manage source code?',
+                    'answers' => [
+                        'Git',
+                        'Photoshop',
+                        'Apache',
+                        'MySQL',
+                    ],
+                ],
+                [
+                    'question' => 'What is the purpose of a unit test?',
+                    'answers' => [
+                        'Test an isolated function.',
+                        'Monitor CPU load.',
+                        'Modify network interfaces.',
+                        'Optimize server logs.',
+                    ],
+                ],
+                [
+                    'question' => 'What is a commit in development?',
+                    'answers' => [
+                        'Save a state of the code.',
+                        'Add a network route.',
+                        'Create a virtual machine.',
+                        'Update the BIOS.',
+                    ],
+                ],
+                [
+                    'question' => 'What does UML stand for?',
+                    'answers' => [
+                        'Unified Modeling Language.',
+                        'Unit Measurement Logger.',
+                        'User Management Level.',
+                        'Universal Media Language.',
+                    ],
+                ],
             ],
-            'Réseau' => [
-                ['question' => "Quelle couche du modèle OSI gère les paquets IP ?", 'answers' => ['Couche Réseau.', 'Couche Application.', 'Couche Liaison.', 'Couche Physique.']],
-                ['question' => "Qu'est-ce qu'une adresse MAC ?", 'answers' => ['Identifiant unique d’une carte réseau.', 'Adresse logique IP.', 'Protocole de transfert.', 'Type de câble.']],
+            'Networking' => [
                 [
-                    'question' => "Différence entre TCP et UDP ?",
+                    'question' => 'Which OSI layer manages IP packets?',
                     'answers' => [
-                        '<ul><li>TCP est fiable, UDP est rapide.</li><li>TCP garantit la livraison, UDP non.</li></ul>',
-                        '<ul><li>TCP chiffre les données, UDP non.</li><li>UDP est basé sur HTTP.</li></ul>',
-                    ]
+                        'Network Layer.',
+                        'Application Layer.',
+                        'Data Link Layer.',
+                        'Physical Layer.',
+                    ],
                 ],
                 [
-                    'question' => "À quoi sert le protocole DNS ?",
+                    'question' => 'What is a MAC address?',
                     'answers' => [
-                        '<ul><li>Résoudre les noms de domaine.</li><li>Convertir les URL en adresses IP.</li></ul>',
-                        '<ul><li>Créer des VLANs.</li><li>Gérer le pare-feu.</li></ul>',
-                    ]
+                        'Unique identifier of a network card.',
+                        'Logical IP address.',
+                        'Transfer protocol.',
+                        'Type of cable.',
+                    ],
                 ],
-                ['question' => "Quel protocole attribue automatiquement une IP ?", 'answers' => ['DHCP', 'DNS', 'HTTP', 'FTP']],
-                ['question' => "Quel outil pour tester la connectivité réseau ?", 'answers' => ['Ping', 'Git', 'MySQL', 'Photoshop']],
-                ['question' => "Un switch opère à quelle couche OSI ?", 'answers' => ['Couche Liaison (2)', 'Couche Réseau (3)', 'Couche Transport (4)', 'Couche Application (7)']],
-                ['question' => "Quel est le rôle du pare-feu ?", 'answers' => ['Filtrer les connexions réseau.', 'Compiler du code.', 'Analyser les logs.', 'Ouvrir des ports.']],
-                ['question' => "Qu’est-ce qu’un VPN ?", 'answers' => ['Réseau privé virtuel sécurisé.', 'Serveur web.', 'Outil de compression.', 'Protocole mail.']],
-                ['question' => "Que signifie HTTP ?", 'answers' => ['HyperText Transfer Protocol.', 'Hyper Type Table Packet.', 'High Transfer Terminal Protocol.', 'Host Text Tag Processor.']],
+                [
+                    'question' => 'Difference between TCP and UDP?',
+                    'answers' => [
+                        '<ul><li>TCP is reliable, UDP is fast.</li><li>TCP ensures delivery, UDP does not.</li></ul>',
+                        '<ul><li>TCP encrypts data, UDP does not.</li><li>UDP is based on HTTP.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'What is the purpose of the DNS protocol?',
+                    'answers' => [
+                        '<ul><li>Resolve domain names.</li><li>Convert URLs to IP addresses.</li></ul>',
+                        '<ul><li>Create VLANs.</li><li>Manage firewall.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'Which protocol automatically assigns an IP?',
+                    'answers' => [
+                        'DHCP',
+                        'DNS',
+                        'HTTP',
+                        'FTP',
+                    ],
+                ],
+                [
+                    'question' => 'Which tool tests network connectivity?',
+                    'answers' => [
+                        'Ping',
+                        'Git',
+                        'MySQL',
+                        'Photoshop',
+                    ],
+                ],
+                [
+                    'question' => 'At which OSI layer does a switch operate?',
+                    'answers' => [
+                        'Data Link Layer (2)',
+                        'Network Layer (3)',
+                        'Transport Layer (4)',
+                        'Application Layer (7)',
+                    ],
+                ],
+                [
+                    'question' => 'What is the role of a firewall?',
+                    'answers' => [
+                        'Filter network connections.',
+                        'Compile code.',
+                        'Analyze logs.',
+                        'Open ports.',
+                    ],
+                ],
+                [
+                    'question' => 'What is a VPN?',
+                    'answers' => [
+                        'Secure virtual private network.',
+                        'Web server.',
+                        'Compression tool.',
+                        'Mail protocol.',
+                    ],
+                ],
+                [
+                    'question' => 'What does HTTP stand for?',
+                    'answers' => [
+                        'HyperText Transfer Protocol.',
+                        'Hyper Type Table Packet.',
+                        'High Transfer Terminal Protocol.',
+                        'Host Text Tag Processor.',
+                    ],
+                ],
             ],
-            'Base de Données' => [
-                ['question' => "Qu'est-ce qu'une clé primaire ?", 'answers' => ['Identifie de manière unique une ligne.', 'Représente une relation.', 'Trie les colonnes.', 'Compresse les données.']],
-                ['question' => "Quel langage interroge les bases de données ?", 'answers' => ['SQL', 'HTML', 'PHP', 'CSS']],
+            'Databases' => [
                 [
-                    'question' => "À quoi sert une jointure (JOIN) ?",
+                    'question' => 'What is a primary key?',
                     'answers' => [
-                        '<ul><li>Combiner plusieurs tables.</li><li>Associer des enregistrements liés.</li></ul>',
-                        '<ul><li>Créer un trigger.</li><li>Définir un index.</li></ul>',
-                    ]
+                        'Uniquely identifies a row.',
+                        'Represents a relationship.',
+                        'Sorts columns.',
+                        'Compresses data.',
+                    ],
                 ],
                 [
-                    'question' => "Différence entre DELETE et TRUNCATE ?",
+                    'question' => 'Which language queries databases?',
                     'answers' => [
-                        '<ul><li>DELETE peut être filtré, TRUNCATE supprime tout.</li><li>DELETE est transactionnel.</li></ul>',
-                        '<ul><li>TRUNCATE crypte la table.</li><li>DELETE crée un index.</li></ul>',
-                    ]
+                        'SQL',
+                        'HTML',
+                        'PHP',
+                        'CSS',
+                    ],
                 ],
-                ['question' => "Que fait la commande SELECT ?", 'answers' => ['Récupère des données.', 'Insère des données.', 'Supprime une table.', 'Modifie la structure.']],
-                ['question' => "Un index en base de données sert à ?", 'answers' => ['Accélérer les recherches.', 'Chiffrer les champs.', 'Nettoyer les données.', 'Créer des utilisateurs.']],
-                ['question' => "Une base relationnelle est basée sur ?", 'answers' => ['Des tables liées.', 'Des fichiers XML.', 'Des structures arborescentes.', 'Des documents JSON.']],
-                ['question' => "Que signifie SGBD ?", 'answers' => ['Système de Gestion de Base de Données.', 'Script Général de Bloc de Données.', 'Sécurisation Globale des Bases Distribuées.', 'Serveur Graphique Basique Dédié.']],
-                ['question' => "Quel type de clé permet de relier deux tables ?", 'answers' => ['Clé étrangère.', 'Clé primaire.', 'Clé de tri.', 'Clé symétrique.']],
-                ['question' => "Quel SGBD est orienté documents ?", 'answers' => ['MongoDB', 'MySQL', 'PostgreSQL', 'Oracle']],
+                [
+                    'question' => 'What is a JOIN used for?',
+                    'answers' => [
+                        '<ul><li>Combine multiple tables.</li><li>Associate related records.</li></ul>',
+                        '<ul><li>Create a trigger.</li><li>Define an index.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'Difference between DELETE and TRUNCATE?',
+                    'answers' => [
+                        '<ul><li>DELETE can be filtered, TRUNCATE deletes all.</li><li>DELETE is transactional.</li></ul>',
+                        '<ul><li>TRUNCATE encrypts the table.</li><li>DELETE creates an index.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'What does the SELECT command do?',
+                    'answers' => [
+                        'Retrieves data.',
+                        'Inserts data.',
+                        'Deletes a table.',
+                        'Modifies structure.',
+                    ],
+                ],
+                [
+                    'question' => 'What is the purpose of an index in a database?',
+                    'answers' => [
+                        'Speed up searches.',
+                        'Encrypt fields.',
+                        'Clean data.',
+                        'Create users.',
+                    ],
+                ],
+                [
+                    'question' => 'A relational database is based on?',
+                    'answers' => [
+                        'Related tables.',
+                        'XML files.',
+                        'Tree structures.',
+                        'JSON documents.',
+                    ],
+                ],
+                [
+                    'question' => 'What does DBMS stand for?',
+                    'answers' => [
+                        'Database Management System.',
+                        'General Block Script.',
+                        'Global Securing of Distributed Databases.',
+                        'Basic Dedicated Graphic Server.',
+                    ],
+                ],
+                [
+                    'question' => 'Which key links two tables?',
+                    'answers' => [
+                        'Foreign key.',
+                        'Primary key.',
+                        'Sort key.',
+                        'Symmetric key.',
+                    ],
+                ],
+                [
+                    'question' => 'Which DBMS is document-oriented?',
+                    'answers' => [
+                        'MongoDB',
+                        'MySQL',
+                        'PostgreSQL',
+                        'Oracle',
+                    ],
+                ],
             ],
-            'Systèmes d’Exploitation' => [
-                ['question' => "Quel est le rôle du noyau (kernel) ?", 'answers' => ['Gérer l’interaction matériel-logiciel.', 'Afficher l’interface.', 'Dessiner les fenêtres.', 'Créer les fichiers.']],
-                ['question' => "Que fait un planificateur de tâches ?", 'answers' => ['Attribue le temps CPU aux processus.', 'Supprime les fichiers.', 'Chiffre les données.', 'Affiche les logs.']],
+            'Operating Systems' => [
                 [
-                    'question' => "Différence entre processus et thread ?",
+                    'question' => 'What is the role of the kernel?',
                     'answers' => [
-                        '<ul><li>Un thread est plus léger qu’un processus.</li><li>Un processus peut contenir plusieurs threads.</li></ul>',
-                        '<ul><li>Un thread remplace un noyau.</li><li>Un processus ne contient pas de mémoire.</li></ul>',
-                    ]
+                        'Manage hardware-software interaction.',
+                        'Display the interface.',
+                        'Draw windows.',
+                        'Create files.',
+                    ],
                 ],
                 [
-                    'question' => "Que signifie multitâche ?",
+                    'question' => 'What does a task scheduler do?',
                     'answers' => [
-                        '<ul><li>Exécuter plusieurs tâches simultanément.</li><li>Partager les ressources CPU.</li></ul>',
-                        '<ul><li>Ouvrir plusieurs fenêtres.</li><li>Installer plusieurs OS.</li></ul>',
-                    ]
+                        'Allocates CPU time to processes.',
+                        'Deletes files.',
+                        'Encrypts data.',
+                        'Displays logs.',
+                    ],
                 ],
-                ['question' => "Quel est le rôle du système de fichiers ?", 'answers' => ['Organiser les fichiers sur le disque.', 'Compresser les données.', 'Sécuriser les connexions.', 'Compiler du code.']],
-                ['question' => "Que signifie BSOD sous Windows ?", 'answers' => ['Écran bleu de la mort.', 'Bug système opéré.', 'Blocage serveur on-demand.', 'Boîte système ouverte.']],
-                ['question' => "Une interruption matérielle sert à ?", 'answers' => ['Signaler un événement au CPU.', 'Effacer un fichier.', 'Afficher une alerte.', 'Sauvegarder des logs.']],
-                ['question' => "Que fait la commande `ls` sous Linux ?", 'answers' => ['Liste les fichiers.', 'Lance le système.', 'Lie un fichier.', 'Stoppe un processus.']],
-                ['question' => "Un deadlock est ?", 'answers' => ['Blocage mutuel entre processus.', 'Erreur mémoire.', 'Virus système.', 'Fuite de mémoire.']],
-                ['question' => "Qu’est-ce qu’une partition ?", 'answers' => ['Section du disque dur.', 'Type de processus.', 'Protocole réseau.', 'Unité RAM.']],
-            ]
+                [
+                    'question' => 'Difference between process and thread?',
+                    'answers' => [
+                        '<ul><li>A thread is lighter than a process.</li><li>A process can contain multiple threads.</li></ul>',
+                        '<ul><li>A thread replaces a kernel.</li><li>A process has no memory.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'What does multitasking mean?',
+                    'answers' => [
+                        '<ul><li>Execute multiple tasks simultaneously.</li><li>Share CPU resources.</li></ul>',
+                        '<ul><li>Open multiple windows.</li><li>Install several OSes.</li></ul>',
+                    ],
+                ],
+                [
+                    'question' => 'What is the role of a file system?',
+                    'answers' => [
+                        'Organize files on the disk.',
+                        'Compress data.',
+                        'Secure connections.',
+                        'Compile code.',
+                    ],
+                ],
+                [
+                    'question' => 'What does BSOD stand for in Windows?',
+                    'answers' => [
+                        'Blue Screen of Death.',
+                        'System Bug Operated.',
+                        'On-demand Server Block.',
+                        'Open System Box.',
+                    ],
+                ],
+                [
+                    'question' => 'What is a hardware interrupt for?',
+                    'answers' => [
+                        'Signal an event to the CPU.',
+                        'Delete a file.',
+                        'Show an alert.',
+                        'Save logs.',
+                    ],
+                ],
+                [
+                    'question' => 'What does the `ls` command do in Linux?',
+                    'answers' => [
+                        'Lists files.',
+                        'Launches the system.',
+                        'Links a file.',
+                        'Stops a process.',
+                    ],
+                ],
+                [
+                    'question' => 'What is a deadlock?',
+                    'answers' => [
+                        'Mutual blocking between processes.',
+                        'Memory error.',
+                        'System virus.',
+                        'Memory leak.',
+                    ],
+                ],
+                [
+                    'question' => 'What is a partition?',
+                    'answers' => [
+                        'Section of a hard drive.',
+                        'Type of process.',
+                        'Network protocol.',
+                        'RAM unit.',
+                    ],
+                ],
+            ],
         ];
-
 
         foreach ($subjects as $subject => $questions) {
             $quiz = Quiz::create([
                 'user_id' => 1,
                 'title' => "Quiz $subject",
-                'description' => "Testez vos connaissances en $subject.",
+                'description' => "Test your knowledge in $subject.",
             ]);
 
             foreach ($questions as $q) {

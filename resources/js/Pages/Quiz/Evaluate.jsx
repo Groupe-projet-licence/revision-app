@@ -50,18 +50,25 @@ const Evaluate = ({ quiz }) => {
             <form onSubmit={handleSubmit}>
                 {quiz.questions.map((question, index) => (
                     <div key={question.id} className="mb-6">
-                            <ShowContentQuill> {`<div style="display:flex; align-items:start;">${index + 1} ${question.question_text}</div>`}     </ShowContentQuill>
+                        <ShowContentQuill> {`<div style="display:flex; align-items:start;">${index + 1} ${question.question_text}</div>`}     </ShowContentQuill>
 
-                        {question.answers.map((ans) => (
+                        {question.answers.map((ans) =>{ 
+                            
+                            const putMarginOfUlToZero= (text)=>{
+                                return text.replace('<ul>', '<ul style="padding:0; margin-left:-10px;">').replace('<li>', '<li style="display:inline-bloc;">')
+                            };                            
+                            
+                            return (
                             <div key={ans.id} className="flex items-center gap-2 mb-2 ms-4">
                                 <input type={question.type === 'single' ? 'radio' : 'checkbox'}
                                     name={`question_${question.id}`}
                                     value={ans.id} checked={answers[question.id]?.includes(ans.id) || false}
                                     onChange={() => handleOptionChange(question.id, ans.id, question.type)}
-                                    className="mt-1" />
-                                    <ShowContentQuill>{ans.answer_text}</ShowContentQuill>
+                                    className="m-0"
+                                />
+                                <ShowContentQuill>{putMarginOfUlToZero(ans.answer_text)}</ShowContentQuill>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 ))}
                 <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" >Submit the quiz</button>
