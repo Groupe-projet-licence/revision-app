@@ -99,6 +99,7 @@ require __DIR__ . '/auth.php';
 -----------------------------------------------------------------------------------------------*/
 
 Route::get('sheets/revision', [SheetController::class, 'showSheetsToReviewed'])->name('sheets.revision');
+Route::post('sheets/{sheet}/nextRevision', [SheetController::class, 'nextRevision'])->name('sheets.nextRevision');
 Route::resource('sheets', controller: SheetController::class)->middleware('auth');
 
 

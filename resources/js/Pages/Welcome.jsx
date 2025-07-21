@@ -176,12 +176,6 @@ export default function Welcome() {
                   <div className="text-5xl mb-4">{f.icon}</div>
                   <h4 className="text-xl font-semibold text-blue-700 mb-2">{f.title}</h4>
                   <p className="text-gray-700 text-sm mb-6 leading-relaxed">{f.text}</p>
-                  <button
-                    onClick={handleProtectedClick}
-                    className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-700 font-medium transition"
-                  >
-                    Access
-                  </button>
                 </div>
               ))}
             </div>
@@ -195,38 +189,38 @@ export default function Welcome() {
 
             <div className="space-y-8 text-gray-800 text-base leading-relaxed">
               <div>
-                <h3 className="text-xl font-semibold text-blue-700 mb-2">Create Utra-Customized Revision Sheets</h3>
-                <p>You are not limited to plain text: you can format your revision Sheets however you like,inserting bullet lists,bold or text,images,...,all to create sheets taillored to your lessons and personal needs.
-                </p>
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">Create Ultra-Customized Revision Sheets</h3>
+                <p>
+                  You are not limited to plain text: you can format your revision sheets however you like, inserting bullet lists, bold or italic text, images, etc., all to create sheets tailored to your lessons and personal needs.                </p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Complete Sheet Management</h3>
-                <p>You can edit your revision sheets at any time to update or correct them. You can also delete them to keep a clean workspace.Additionally,sheets are organized by subject for quick access to information.
-                </p>
+                <p>
+                  You can edit your revision sheets at any time to update or correct them. You can also delete them to keep a clean workspace. Additionally, sheets are organized by subject for quick access to information.                </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-blue-700 mb-2">Smart Revision(Spaced Repetition)</h3>
-                <p>Easy Learning automatically selects the sheets you should revice first. This proven metho boots long-term memory retention
-                </p>
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">Smart Revision (Spaced Repetition)</h3>
+                <p>
+                  EasyLearning automatically selects the sheets you should revise first. This proven method boosts long-term memory retention.                </p>
               </div>
 
               <div>
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Fast and Simple Revision Mode</h3>
-                <p>Easy Learning offers a full-screen display of your sheets,allowing you to focus solely on the content, with fast navigation between sheets,without reloading or delays. You can revise smoothly breaking your momentum.
-                </p>
+                <p>
+                  EasyLearning offers a full-screen display of your sheets, allowing you to focus solely on the content, with fast navigation between sheets, without reloading or delays. You can revise smoothly without breaking your momentum.                </p>
               </div>
 
               <div>
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Create Quizzes</h3>
-                <p>Create your own quizzes tailored to your needs and courses, with single or multiple-choice question(radio buttons or checkboxes).No more generic quizzes that don't match your objectives.
-                </p>
+                <p>
+                  Create your own quizzes tailored to your needs and courses, with single or multiple-choice questions (radio buttons or checkboxes). No more generic quizzes that don't match your objectives.                </p>
               </div>
 
               <div>
                 <h3 className="text-xl font-semibold text-blue-700 mb-2">Automatic Evaluation</h3>
-                <p>Take your quizzes and instantly receive your score and correction. No manual grading:save time and  immediately identify your strengths and weaknesses.
-                </p>
+                <p>
+                  Take your quizzes and instantly receive your score and correction. No manual grading: save time and immediately identify your strengths and weaknesses.                </p>
               </div>
             </div>
           </div>
@@ -240,7 +234,7 @@ export default function Welcome() {
             </p>
             <Link
               href={route('register')}
-              className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 text-lg font-medium transition"
+              className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 text-lg font-medium transition btn"
             >
               Join us now
             </Link>

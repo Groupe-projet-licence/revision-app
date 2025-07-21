@@ -101,11 +101,11 @@ export default function AuthLayouts({ children }) {
                         as="button"
                         className="dropdown-item"
                       >
-                        Se Déconnecter
+                        Logout
                       </Link>
                       {auth.user.role === 'admin' && (
                         <Link href={route('admin.users.index')} className="dropdown-item" >
-                          👥 Gérer les utilisateurs </Link>)}
+                          👥 User managment </Link>)}
                     </div>
                   )}
                 </div>

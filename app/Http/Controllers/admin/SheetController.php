@@ -20,10 +20,10 @@ class SheetController extends Controller
     {
         $query = Sheet::with('category')->where('user_id', Auth::id());
 
-        if($request->filled('category_id')) {
+        if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-        $sheets= $query->latest()->get();
+        $sheets = $query->latest()->get();
         foreach ($sheets as &$sheet) {
             $sheet->last_opened_at = substr($sheet->last_opened_at, 0, 10);
         }
@@ -67,28 +67,28 @@ class SheetController extends Controller
         if ($sheet->user_id != Auth::user()->id) {
             abort(403);
         }
-        $isReviewedToDay = false;
-        if ($sheet->last_opened_at) {
-            $isReviewedToDay = Carbon::parse($sheet->last_opened_at)->isToday();
-        }
-        if (!$isReviewedToDay) {
-            $sheet->last_opened_at = now();
-            switch ($sheet->revision_count) {
-                case 0:
-                    $sheet->next_revision_at = now()->addDays(1);
-                    break;
-                case 1:
-                    $sheet->next_revision_at = now()->addDays(3);
-                    break;
-                case 2:
-                    $sheet->next_revision_at = now()->addDays(7);
-                    break;
-                default:
-                    $sheet->next_revision_at = now()->addDays(14);
-            }
-            $sheet->revision_count++;
-            $sheet->save();
-        }
+        // $isReviewedToDay = false;
+        // if ($sheet->last_opened_at) {
+        //     $isReviewedToDay = Carbon::parse($sheet->last_opened_at)->isToday();
+        // }
+        // if (!$isReviewedToDay) {
+        //     $sheet->last_opened_at = now();
+        //     switch ($sheet->revision_count) {
+        //         case 0:
+        //             $sheet->next_revision_at = now()->addDays(1);
+        //             break;
+        //         case 1:
+        //             $sheet->next_revision_at = now()->addDays(3);
+        //             break;
+        //         case 2:
+        //             $sheet->next_revision_at = now()->addDays(7);
+        //             break;
+        //         default:
+        //             $sheet->next_revision_at = now()->addDays(14);
+        //     }
+        //     $sheet->revision_count++;
+        //     $sheet->save();
+        // }
         return Inertia::render('Sheets/Show', [
             'sheet' => $sheet
         ]);
@@ -140,4 +140,36 @@ class SheetController extends Controller
             'sheets' => $sheets,
         ]);
     }
+    public function nextRevision(sheet $sheet, Request $request)
+    {
+        $validated = $request->validate([
+            'rate' => 'required|integer',
+        ]);
+        $isReviewedToDay = false;
+        if ($sheet->last_opened_at) {
+            $isReviewedToDay = Carbon::parse($sheet->last_opened_at)->isToday();
+        }
+        //if (!$isReviewedToDay) {
+        $sheet->last_opened_at = now();
+        $sheet->revision_count = $validated['rate'];
+
+
+
+        switch ($sheet->revision_count) {
+            case 0:
+                $sheet->next_revision_at = now()->addDays(1);
+                break;
+            case 1:
+                $sheet->next_revision_at = now()->addDays(3);
+                break;
+            case 2:
+                $sheet->next_revision_at = now()->addDays(7);
+                break;
+            default:
+                $sheet->next_revision_at = now()->addDays(14);
+        }
+        $sheet->save();
+        //}
+    }
+
 }
