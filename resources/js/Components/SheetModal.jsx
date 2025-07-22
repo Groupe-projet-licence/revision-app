@@ -13,20 +13,13 @@ const SheetModal = ({ isOpen, sheet, cancel, navigate, disableNavigationBlock })
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("OK 1");
-
-   // disableNavigationBlock(); // ← on autorise navigation
-
     post(route("sheets.nextRevision", sheet), {
       onSuccess: () => {
         reset();
-        console.log("OK 2");
-        navigate(); // ← navigation permise maintenant
+        navigate();
       },
       onError: (err) => {
         console.error("Erreur de validation ou serveur", err);
-        // Si erreur, on pourrait réactiver le blocage ici si tu veux :
-        // setNavigationBlocked(true);
       },
     });
   };

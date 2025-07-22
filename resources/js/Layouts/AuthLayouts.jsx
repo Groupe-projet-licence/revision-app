@@ -128,7 +128,7 @@ export default function AuthLayouts({ children }) {
               )}
 
               {/* Main Content */}
-              <main className="p-3 py-5 flex-grow-1 overflow-auto p-reduce">
+              <main className="p-3 py-5 mb-5 flex-grow-1 overflow-auto p-reduce">
                 {messageSuccess && (
                   <div className="alert alert-info flash-messge-success">
                     {messageSuccess}

@@ -10,53 +10,56 @@ import { Head, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
 export default function Show({ sheet }) {
-  const [showModal, setShowModal] = useState(false);
-  const [nextVisit, setNextVisit] = useState(null);
-  const [navigationBlocked, setNavigationBlocked] = useState(true); // ← ajout
+    const [showModal, setShowModal] = useState(false);
+    const [nextVisit, setNextVisit] = useState(null);
+    const [navigationBlocked, setNavigationBlocked] = useState(true);
 
-  useEffect(() => {
-    const cancelNavigation = router.on("before", (event) => {
-      if (!navigationBlocked) return; // ← ne bloque pas si autorisé
-      event.preventDefault(); // ← bloque
-      setNextVisit(event.detail.visit);   // ← stocke
-      setShowModal(true);    // ← modale
-      setNavigationBlocked(false);
-    });
+    useEffect(() => {
+        const isToday = (new Date().toISOString().slice(0, 10) === sheet.last_opened_at)
+        if (!isToday) {
 
-    return () => cancelNavigation(); // nettoyage
-  }, [navigationBlocked]); // ← attention ici
+            const cancelNavigation = router.on("before", (event) => {
+                if (!navigationBlocked) return;
+                event.preventDefault();
+                setNextVisit(event.detail.visit);
+                setShowModal(true);
+                setNavigationBlocked(false);
+            });
 
-  const handleStay = () => {
-    setShowModal(false);
-    setNextVisit(null);
-  };
+            return () => cancelNavigation();
+        }
+    }, [navigationBlocked]);
 
-  const handleLeave = () => {
-    setShowModal(false);
-    console.log(nextVisit);
-    
-    if (nextVisit) router.visit(nextVisit.url, nextVisit);; // ← reprend navigation
-  };
+    const handleStay = () => {
+        setShowModal(false);
+        setNextVisit(null);
+        setNavigationBlocked(true);
+    };
 
-  return (
-    <AuthLayouts>
-      <Head>
-        <title>Sheets</title>
-      </Head>
+    const handleLeave = () => {
+        setShowModal(false);
+        if (nextVisit) router.visit(nextVisit.url, nextVisit);
+    };
 
-      <div>
-        <SheetModal
-          isOpen={showModal}
-          cancel={handleStay}
-          navigate={handleLeave}
-          sheet={sheet}
-          disableNavigationBlock={() => setNavigationBlocked(false)} // ← passage de callback
-        />
-      </div>
+    return (
+        <AuthLayouts>
+            <Head>
+                <title>Sheets</title>
+            </Head>
 
-      <div>
-        <ShowContentQuill>{sheet.content}</ShowContentQuill>
-      </div>
-    </AuthLayouts>
-  );
+            <div>
+                <SheetModal
+                    isOpen={showModal}
+                    cancel={handleStay}
+                    navigate={handleLeave}
+                    sheet={sheet}
+                    disableNavigationBlock={() => setNavigationBlocked(false)}
+                />
+            </div>
+
+            <div>
+                <ShowContentQuill>{sheet.content}</ShowContentQuill>
+            </div>
+        </AuthLayouts>
+    );
 }
