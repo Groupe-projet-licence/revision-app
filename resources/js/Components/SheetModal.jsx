@@ -2,19 +2,31 @@ import React from "react";
 import { useForm } from "@inertiajs/react";
 import "./CreateSujet.css";
 
-const SheetModal = ({ isOpen, onClose, sheet }) => {
+/**
+ * @param {{ isOpen: boolean, sheet: object, cancel: Function, navigate: Function, disableNavigationBlock: Function }}
+ */
+const SheetModal = ({ isOpen, sheet, cancel, navigate, disableNavigationBlock }) => {
   const { data, setData, post, processing, errors, reset } = useForm({
     rate: 50,
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();    
-    
+    e.preventDefault();
 
-    post(route("sheets.nextRevision",sheet), {
+    console.log("OK 1");
+
+   // disableNavigationBlock(); // ← on autorise navigation
+
+    post(route("sheets.nextRevision", sheet), {
       onSuccess: () => {
         reset();
-        onClose();
+        console.log("OK 2");
+        navigate(); // ← navigation permise maintenant
+      },
+      onError: (err) => {
+        console.error("Erreur de validation ou serveur", err);
+        // Si erreur, on pourrait réactiver le blocage ici si tu veux :
+        // setNavigationBlocked(true);
       },
     });
   };
@@ -24,8 +36,10 @@ const SheetModal = ({ isOpen, onClose, sheet }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h1 className="fw-bold d-flex justify-content-between mb-4" >Indiquez votre niveau de maitrise <i className="bi bi-pencil text-secondary"></i></h1>
-        
+        <h1 className="fw-bold d-flex justify-content-between mb-4">
+          Indicate your level of proficiency <i className="bi bi-pencil text-secondary"></i>
+        </h1>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3 d-flex justify-content-between flex-column align-items-center">
             <input
@@ -45,7 +59,7 @@ const SheetModal = ({ isOpen, onClose, sheet }) => {
               className="btn btn-secondary me-2"
               onClick={() => {
                 reset();
-                onClose();
+                cancel();
               }}
             >
               Cancel

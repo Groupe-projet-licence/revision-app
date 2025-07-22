@@ -42,14 +42,14 @@ className={"text-xs px-2 py-1 rounded-full font-bold ${ item.type === 'quiz' ? '
         style={{ fontSize: "0.9em" }}
 
       >
-        View results
+        View
       </Link>
       <button
         onClick={handleDelete}
         className="btn btn-sm btn-outline-primary my-2 me-2 fw-bold"
       style={{ fontSize: "0.9em" }}
       >
-        Delete from history
+        Delete
       </button>
     </div>
   </div>
